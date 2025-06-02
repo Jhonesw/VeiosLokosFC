@@ -83,6 +83,7 @@ img#lokos{
 
 
     #card{
+        
         margin: 20px;
         border-radius: 20px;
         display: flex;
@@ -146,11 +147,11 @@ img#lokos{
     
     }
     .historCard{
-    width: 120px;
+    width: 110px;
     }
 
     .historCard{
-        height: 150px;
+        height: 120px;
 
     }
 
