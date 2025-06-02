@@ -24,9 +24,11 @@ header{
     
 }
 #veios{
+    width: 108px;
     left:20px;
 }
 #lokos{
+    width: 108px;
     left:-17px;
 }
 .img{
