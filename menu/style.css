@@ -1,0 +1,79 @@
+*{
+margin: 0;
+padding: 0;
+border: 0;
+}
+
+#interface{
+    position: relative;
+    margin: auto;
+    width: 100%;
+    height: auto;
+}
+
+header{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width: 100%;
+    height: 70px;
+    background: linear-gradient(silver,black);
+    
+    
+}
+
+img#veios{
+    width: 100px;
+    left:20px;
+}
+img#lokos{
+    width: 100px;
+    left:-17px;
+}
+.img{
+    position: relative;
+    margin-left: 12px;
+    margin-bottom: 10px;
+    width: 32%;
+    height: 80%;
+}
+#logo{
+    position: relative;
+    margin-left: 14px;
+    height: 110px;
+    z-index: 1;
+}
+    #texto{
+        display: flex;
+        justify-content: space-between;
+        position: absolute;
+        width: 100%;
+        height: auto;
+        color: rgb(65, 65, 194);
+       
+        
+    }
+
+    main{
+
+        background-color: black;
+        display: flex;
+       justify-content: center;
+        margin: auto;
+        width: 100%;
+        height: auto;
+    }
+    .img1{
+        width: 300px;
+        height: 80px;
+        margin-top:50px;
+        border-radius: 20px;
+        border: 4px solid rgb(0, 81, 255);
+    }
+    div#img1{
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+    }

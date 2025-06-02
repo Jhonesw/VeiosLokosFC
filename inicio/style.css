@@ -1,0 +1,178 @@
+*{
+margin: 0;
+padding: 0;
+border: 0;
+}
+
+#interface{
+    position: relative;
+    margin: auto;
+    width: 100%;
+    height: auto;
+}
+
+header{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    width: 100%;
+    height: 70px;
+    background: linear-gradient(silver,black);
+    
+    
+}
+
+
+.img{
+    position: relative;
+    margin-left: 12px;
+    margin-bottom: 10px;
+    width: 32%;
+    height: 80%;
+}
+#logo{
+    position: relative;
+    margin-left: 14px;
+    height: 110px;
+    z-index: 1;
+    
+}
+
+    #texto{
+        display: flex;
+        justify-content: space-between;
+        position: absolute;
+        width: 100%;
+        height: auto;
+        color: rgb(65, 65, 194);
+       
+        
+    }
+img#veios{
+    width: 100px;
+    left:20px;
+}
+img#lokos{
+    width: 100px;
+    left:-17px;
+}
+/*------------------------------  main  ---------------------------------------------------*/
+
+
+
+/*------------------------------------------------section Elenco----------------------------*/
+
+#elenco img{
+    margin: auto;
+  width: 100%;
+
+}
+
+/*------------------------------------------------Section Histórico ----------------------------*/
+
+section#historico{
+    justify-content: center;
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    height: auto;
+    background-image: url(./main/main.jpg);
+    
+    background-size: 100%;
+}
+
+#rank{
+
+    position: relative;
+    display: flex;
+    width: 450px;
+    height: 400px;
+    background-color: black;
+    
+}
+
+.rank{
+    width: 228px;
+    padding: 1px;
+
+}
+
+#flyer{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    width: 380px;
+    height:400px;
+    
+    }
+
+    #imgflyer{
+        width: 420px;
+        height: auto;
+    }
+
+    #artilheiro{
+        font-size: 22px;
+        position: absolute;
+        top: 70px;
+        left: 60px;  
+        color: GOLD;
+        -webkit-text-stroke-width: 0.3px;
+        -webkit-text-stroke-color: rgb(20, 34, 231);
+    }
+
+    #assistencia{
+        font-size: 22px;
+        position: absolute;
+        top: 70px;
+        right: 30px;  
+        color: rgb(12, 12, 12);
+        -webkit-text-stroke-width: 0.5px;
+        -webkit-text-stroke-color: rgb(203, 224, 8);
+    }
+    #defesaA{
+        justify-content: center;
+        position: relative;
+        
+
+    }
+    #defesa{
+        
+        font-size: 22px;
+        position: absolute;
+        top: 70px;
+        right: 60px;  
+        color: rgb(12, 35, 240);
+        -webkit-text-stroke-width: 0.5px;
+        -webkit-text-stroke-color: rgba(8, 40, 224, 0.897);
+    }
+    .h3{
+        margin-top: 10px;
+        margin-bottom: 20px;
+    }
+/*--------------------------------------------------*/
+#footer{background-image: url(./main/footerimg.png);
+    justify-content: center;
+    width: 100%;
+    height: auto;
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+#craque{
+    text-align: center;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+
+}
+#textocraque{
+    color: aliceblue;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+    
