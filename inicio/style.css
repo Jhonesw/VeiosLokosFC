@@ -179,3 +179,23 @@ section#historico{
     width: 300px;
     
 }
+#linksfoto{
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    height: auto;
+
+}
+.textofoto{
+color: azure;
+
+}
+
+#texto12{
+    border: 1px solid gold;
+    color: azure;
+    margin-top: 40px;
+    width: 100%;
+    height: auto;
+}

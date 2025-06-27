@@ -67,10 +67,10 @@ img#lokos{
     }
 section#SeçãoRank{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     flex-wrap: wrap;
-    position: relative;
-    width: 80%;
+    position: absolute;
+    width: 100%;
     height: auto;
     background-color: blue;
     margin-bottom: 10px;
@@ -97,7 +97,7 @@ section#SeçãoRank{
 }
 #artilharia{
     position:relative;
-    width: 660px;
+    width: 560px;
     height: auto;
     background-color: bisque;
     margin-left: 5px;
@@ -165,9 +165,9 @@ top: 5px;
     }
 
     #fofoca{
-        display: flex;
-        
-        flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
     width: 100%;
     height: auto;
     }
@@ -179,10 +179,30 @@ top: 5px;
     img#professor{
         position: relative;
         width:300px ;
+        margin-top: 10px;
     }
-    #textoPaulinho{
+    #textofofoca{
         width: 300px;
-    }
-    #textoPaulinho{
         font-size: 21px;
+        margin-left: 20px;
+        color: azure;
+    }
+    
+    H2#titulo{
+        display: flex;
+        justify-content: center;
+        color: rgb(225, 131, 8);
+        margin-bottom: 30px;
+        border: 1px solid gold;
+    }
+    H5#titulo{
+        display: flex;
+        justify-content: center;
+        color: rgb(237, 233, 6);
+        margin-bottom: 20px;
+        font-size: 20px;
+    }
+    
+    p#pro{
+        color: antiquewhite;
     }
