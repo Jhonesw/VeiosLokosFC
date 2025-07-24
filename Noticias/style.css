@@ -105,8 +105,10 @@ section#SeçãoRank{
     margin-bottom: 20px;
 }
 .titulo{
+    display: flex;
+    justify-content: center;
     background-color: gold;
-    width: 200px;
+    width: 100%;
     margin: auto;
     margin-bottom: 15px;
 
