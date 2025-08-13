@@ -87,7 +87,8 @@ section#historico{
 
     position: relative;
     display: flex;
-    width: 450px;
+    justify-content: right;
+    width: 350px;
     height: 400px;
     background-color: black;
     
@@ -117,7 +118,7 @@ section#historico{
         font-size: 22px;
         position: absolute;
         top: 70px;
-        left: 60px;  
+        left: 0px;  
         color: GOLD;
         -webkit-text-stroke-width: 0.3px;
         -webkit-text-stroke-color: rgb(20, 34, 231);
@@ -151,6 +152,11 @@ section#historico{
     .h3{
         margin-top: 10px;
         margin-bottom: 20px;
+        font-size: 20px;
+    }
+    img.rank{
+        width: 50%;
+
     }
 /*--------------------------------------------------*/
 #footer{background-image: url(./main/footerimg.png);
@@ -199,3 +205,114 @@ color: azure;
     width: 100%;
     height: auto;
 }
+
+dialog::backdrop {
+background-color: rgba(0, 0, 0, 0.316);
+}
+dialog{
+    margin: auto;
+    position: relaivo;
+    background-position: 1px;
+    border: nome;
+    border-radius: 1rem;
+    box-shadow: 0 0 1em rgba(0, 0, 0, 0.186);
+    width: 80%;
+    
+}
+#img{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+#imgmiro{
+    width: 100%;
+}
+
+#botao{
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    
+}
+button{
+    margin-left: 20px;
+    
+}
+
+
+.carousel-container {
+    position: relative;
+    width: 90%; /* Usa porcentagem para ser responsivo */
+    max-width: 400px; /* Limita a largura em telas maiores */
+    aspect-ratio: 400 / 70; /* Mantém a proporção largura/altura */
+    overflow: hidden;
+    border: 2px solid #ccc;
+    margin: 20px auto;
+    height: 100px;
+  }
+
+  .carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+  }
+
+  .carousel-track img {
+    width: 100%; /* A imagem ocupa 100% da largura do contêiner */
+    height: auto; /* A altura se ajusta automaticamente para manter a proporção */
+    flex-shrink: 0;
+  }
+
+  .carousel-prev,
+  .carousel-next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 8px; /* Padding menor */
+    font-size: 16px; /* Fonte menor */
+    z-index: 10;
+  }
+
+  .carousel-prev {
+    left: 5px;
+  }
+
+  .carousel-next {
+    right: 5px;
+  }
+  img.carr{
+    width:100%;
+    height: 100px;
+  }
+
+ #botaopatrocinio{
+    margin: auto;
+    width: 90%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 1px solid black;
+    margin-bottom: 10px;
+ }
+#pa{
+    margin: auto;
+    padding: 5px;
+    border: 1px solid black;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    margin-left: 10px;
+}
+
+  
+  /* Media query para telas menores (ex: celulares) */
+  @media (max-width: 450px) {
+    .carousel-prev,
+    .carousel-next {
+      padding: 5px;
+      font-size: 14px;
+    }
+  }
