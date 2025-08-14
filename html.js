@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setTimeout(() => {
         modal.close();
-    }, 4000);
+    }, 10000);
 
     closeButton.addEventListener('click', (event) => {
         event.preventDefault(); 
@@ -25,7 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     setTimeout(() => {
         modal.close();
-    }, 4000);
+    }, 8000);
 
     const closeButton = document.querySelector('#botao button');
     closeButton.addEventListener('click', (event) => {
