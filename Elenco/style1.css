@@ -24,11 +24,11 @@ header{
     
 }
 #veios{
-    width: 108px;
+    width: 80px;
     left:20px;
 }
 #lokos{
-    width: 108px;
+    width: 80px;
     left:-17px;
 }
 .img{
@@ -86,3 +86,37 @@ header{
     #rank h3{
         margin-top: -4px;
     }
+    .geral{
+        position: absolute;
+    }
+    /* ... seu código CSS existente ... */
+
+/* Estilos para o JavaScript: Adiciona transição e cursor */
+.container, .containerTecnico {
+    /* O cursor indica que o elemento é clicável */
+    cursor: pointer; 
+}
+
+#rank h3::before {
+    /* Define o conteúdo do data-label, mas o esconde por padrão */
+    content: attr(data-label);
+    color: transparent; /* Torna o texto do rótulo invisível */
+    transition: color 0.3s ease; /* Adiciona uma transição para a cor */
+    position: absolute;
+    left: -100px; /* Posiciona os rótulos fora do #rank */
+    width: 95px; /* Define uma largura para os rótulos */
+    text-align: right;
+}
+
+/* Quando o container tem a classe 'show-details', mostra os rótulos */
+.container.show-details #rank h3::before {
+    color: white; /* Mostra o rótulo com a cor branca */
+}
+
+.geral{
+    margin-top: 10px;
+    font-size: 35px;
+    margin-left: 10px;
+    color: aliceblue;
+     -webkit-text-stroke: 1px rgb(235, 169, 3); /* Largura e cor do contorno */
+}

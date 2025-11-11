@@ -1,7 +1,8 @@
+/* --- Estilos Originais --- */
 *{
-margin: 0;
-padding: 0;
-border: 0;
+    margin: 0;
+    padding: 0;
+    border: 0;
 }
 
 #interface{
@@ -19,8 +20,6 @@ header{
     width: 100%;
     height: 70px;
     background: linear-gradient(silver,black);
-    
-    
 }
 
 img#veios{
@@ -52,21 +51,18 @@ img#lokos{
         width: 100%;
         height: auto;
         color: rgb(65, 65, 194);
-       
-        
     }
 
     main{
-
         background-color: black;
         display: flex;
         flex-direction: column;
-       justify-content: center;
+        justify-content: center;
         margin: auto;
         width: 100%;
         height: auto;
     }
-  
+ 
     /*--------------------------------------------------------------------------------------cardVenda*/
     #cardVenda{
         margin-top: 10px;
@@ -83,7 +79,6 @@ img#lokos{
 
 
     #card{
-        
         margin: 20px;
         border-radius: 20px;
         display: flex;
@@ -119,7 +114,7 @@ img#lokos{
     }
  
     #preço h2{
-         color: rgb(251, 251, 252);
+        color: rgb(251, 251, 252);
         -webkit-text-stroke: 0.2px;
         -webkit-text-stroke-color: rgb(15, 15, 15);
     }
@@ -143,16 +138,11 @@ img#lokos{
     }
     #historCard{
         padding: 10px;
-        
-    
     }
     .historCard{
-    width: 110px;
-    }
-
-    .historCard{
+        width: 110px;
         height: 120px;
-
+        cursor: pointer; /* Adicionado para indicar que é clicável */
     }
 
     /*----------------------------------------------------------------*/
@@ -165,8 +155,9 @@ img#lokos{
         flex-wrap: wrap;
         justify-content: center;
     }
+    
     #Jboladeouro{
-    color: gold;
+        color: gold;
     }
 
     #Bouro{
@@ -174,10 +165,105 @@ img#lokos{
         flex-wrap: wrap;
         justify-content: center;
         margin: 10px;
-       
     }
 
     .bolaOuro{
         height: 100px;
         padding: 5px;
+        cursor: pointer; /* Adicionado para indicar que é clicável */
     }
+
+/* --- NOVO: Estilos do Modal (Imagem Ampliada) --- */
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 999; 
+    padding-top: 50px; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.9); 
+}
+
+.modal-conteudo {
+    margin: auto;
+    display: block;
+    width: 80%; 
+    max-width: 700px; 
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+/* Animação para aparecer */
+@keyframes zoom {
+    from {transform: scale(0.1)} 
+    to {transform: scale(1)}
+}
+
+/* O botão de fechar (x) */
+.fechar {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+}
+
+.fechar:hover,
+.fechar:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* --- NOVO: Responsividade Geral --- */
+@media (max-width: 600px) {
+    /* Header */
+    header {
+        height: 55px; 
+    }
+    #logo {
+        height: 70px; 
+        margin-left: 0;
+    }
+    .img {
+        width: 30%; 
+        height: 70%;
+    }
+    #texto h4 {
+        font-size: 10px; 
+    }
+
+    /* Cards de Venda */
+    #cardVenda {
+        flex-direction: column; 
+        align-items: center;
+    }
+    #card {
+        margin: 10px 0; 
+    }
+
+    /* Imagens de Histórico */
+    .historCard {
+        width: 90px; 
+        height: 100px;
+    }
+    #historCard {
+        padding: 5px;
+    }
+    
+    /* Imagens Bola de Ouro */
+    .bolaOuro {
+        height: 80px; 
+        padding: 3px;
+    }
+
+    /* Modal Responsivo */
+    .modal-conteudo {
+        width: 95%; 
+    }
+}
