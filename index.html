@@ -185,40 +185,49 @@
                                       <br>
                                       <br> 
                                       </div>
-                                        <div id="craque">
+                                  
 
-                                        <div id="texto12">
-                                        <h2>CLICK E CONFIRA</h2>
-                                        <h4>click nas imagens abaixo e confira </h4>
-                                        </div> 
-                                        <div id="linksfoto">
-                                    
-                                    
-                                        <div>
-                                   <a href="./Noticias.html"><img id="imgcrack" src="./Noticias/NOTICIAS OU FOFOCAS.jpg" alt=""></a>
-                                    <p class="textofoto">CLICK AQUI E CONFIRA <BR>
-                                      NOTICAS OU FOFOCAS
-                                    </p>
-                                    <BR>
-                                    <BR>
-                                      </div>
-                                      <div>
-                                    <a href="./elenco.html"><img id="imgcrack" src="./Noticias/ELENCO.jpeg" alt=""></a>
-                                         <p class="textofoto" >CLICK EM ELENCO E CONFIRA <BR>
-                                      OS PONTOS DOS JOGADORES
-                                    </p>
-                                    <BR>
-                                    <BR>
-                                      </div>
-                                      <div>
-                                    <a href="./historico.html"> <img id="imgcrack" src="./Noticias/HISTORICO1.jpg" alt=""></a>
-                                        <p class="textofoto">CLICK EM HISTÓRICO E CONFIRA <BR>
-                                     O HISTÓRICO DO TIME NO ANO
-                                    </p>
-                                    <BR>
-                                    <BR>
-                                      </div>
-                                       </div>
+                                       <div id="game-container">
+        <h1 style="background-color: rgba(5, 70, 135, 0.559); font-size: 20px; color: aliceblue;">⚽ Pênalti: Escolha seu Time!</h1>
+        
+        <div id="score-board">
+            <span class="label" style="background-color: aliceblue;">Seu Placar:</span> <span id="player-score"  style="background-color: aliceblue;">0</span> |
+            <span class="label" style="background-color: aliceblue;" >Goleiro:</span> <span id="keeper-score"  style="background-color: aliceblue;">0</span>
+        </div>
+
+        <div id="selection-area">
+            <div id="player-selection">
+                <h3>Escolha o Chutador:</h3>
+                <button class="select-player" data-player-id="white" data-emoji="&#129489;">RENINHA &#129489;</button>
+                <button class="select-player" data-player-id="brown" data-emoji="&#128590;&#8205;&#9794;&#65039;">JHO-JHO &#128590;&#8205;&#9794;&#65039;</button>
+                <button class="select-player" data-player-id="black" data-emoji="👨🏿">ERIK 👨🏿</button>
+            </div>
+
+            <div id="keeper-selection">
+                <h3>Escolha o Goleiro:</h3>
+                <button class="select-keeper" data-keeper-id="keeper1" data-emoji="🧍‍♂️">DOUGUINHAS 🧍‍♂️</button>
+                <button class="select-keeper" data-keeper-id="keeper2" data-emoji="🧍">MOISES 🧍</button>
+            </div>
+        </div>
+        <div id="field">
+            <div id="keeper">🧍‍♂️</div> <div id="goal"></div>
+            <div id="ball">⚽</div>
+            <div id="player">👨</div> <div id="message">Selecione seu CRAQUE FAVORITO e seu goleiro para começar.</div>
+        </div>
+
+        <div id="controls" class="hidden">
+            <h2>Chutar!</h2>
+            <select id="kick-direction">
+                <option value="Left">Esquerda</option>
+                <option value="Center">Centro</option>
+                <option value="Right">Direita</option>
+            </select>
+            <button id="kick-button">Chutar!</button>
+        </div>
+    </div>
+
+
+
                                      </footer>
             
         </div>
