@@ -239,7 +239,9 @@ button{
     margin-left: 20px;
     
 }
-
+#flyer img{
+width: 100%;   
+}
 
 .carousel-container {
     position: relative;
@@ -306,29 +308,33 @@ button{
     margin-bottom: 4px;
     margin-left: 10px;
 }
-
-  
-  /* Media query para telas menores (ex: celulares) */
-  @media (max-width: 450px) {
-    .carousel-prev,
-    .carousel-next {
-      padding: 5px;
-      font-size: 14px;
-    }
-  }
-/* ... (Seções body, #game-container, h1, #score-board, #selection-area, .select-player, .select-keeper mantidas) ... */
 body{
     background-image: url(./fundo.jpeg);
 }
 
+
+
+
+
+
+
+
 /* Campo de Jogo */
+
+
+
+
+#game-container{
+    text-align: center;
+}
 #field {
     /* ... (Estilos mantidos) ... */
-    width: 18%;
+    width: 100%;
     height: 250px; 
    background-image: url(../jogo/campo1.jpg);
    background-repeat: no-repeat;
-   background-size: contain;
+   background-position: center;
+   background-size: 100%;
     border: 5px solid #fff;
     border-radius: 5px;
     position: relative;
@@ -393,16 +399,88 @@ body{
     transform: translateX(50%); 
 }
 
+
+  
+  /* Media query para telas menores (ex: celulares) */
+  @media (max-width: 450px) {
+    .carousel-prev,
+    .carousel-next {
+      padding: 5px;
+      font-size: 14px;
+    }
+  }
+/* ... (Seções body, #game-container, h1, #score-board, #selection-area, .select-player, .select-keeper mantidas) ... */
+body{
+    background-image: url(./fundo.jpeg);
+}
+
+/* Campo de Jogo */
+
+
+/* Gol, Bola, Jogador (Estilos mantidos) */
+#goal {
+    font-size: 70px; 
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80%; 
+    text-align: center;
+}
+
+#ball {
+    font-size: 35px;
+    position: absolute;
+    bottom: 35px; 
+    left: 50%;
+    /* O deslocamento X do chute é: -150% (Esquerda) e 50% (Direita) */
+    transform: translateX(-50%);
+    transition: transform 0.5s ease-in-out;
+    z-index: 15; 
+}
+
+#player {
+    font-size: 40px;
+    position: absolute;
+    bottom: 5px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+}
+
+/* Goleiro (Estilos mantidos) */
+#keeper {
+    font-size: 40px; 
+    position: absolute;
+    top: 65px; 
+    left: 50%;
+    transform: translateX(-50%);
+    transition: transform 0.4s ease-out; 
+    z-index: 10;
+}
+
+/* CLASSES DE MOVIMENTO RESTRINGIDO DO GOLEIRO */
+#keeper.save-left {
+    /* Limitado ao mesmo deslocamento X da bola no chute esquerdo */
+    transform: translateX(-150%); 
+}
+#keeper.save-center {
+    transform: translateX(-50%); /* Posição inicial (centro) */
+}
+#keeper.save-right {
+    /* Limitado ao mesmo deslocamento X da bola no chute direito */
+    transform: translateX(50%); 
+}
+
 /* ... (Restante do CSS mantido) ... */
 
-@media screen and (max-width: 500px) {
  #field {
     /* ... (Estilos mantidos) ... */
     width: 100%;
     height: 250px; 
    background-image: url(../campo1.jpg);
    background-repeat: no-repeat;
-   background-size: contain;
+    background-position: center;
     border: 5px solid #fff;
     border-radius: 5px;
     position: relative;
@@ -411,4 +489,4 @@ body{
     align-items: center;
     margin-bottom: 20px;
 }
-  }
+  

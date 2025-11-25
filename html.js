@@ -334,3 +334,4 @@ document.addEventListener('DOMContentLoaded', () => {
     playerElement.textContent = selectPlayerButtons[0].dataset.emoji;
     keeperElement.textContent = selectKeeperButtons[0].dataset.emoji;
 });
+
