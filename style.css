@@ -1,0 +1,103 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: #1a1a1a; overflow-x: hidden; font-family: sans-serif; }
+
+/* HEADER */
+header {
+    width: 100%;
+    background-color: rgb(58, 58, 225);
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 5%;
+    align-items: center;
+}
+#logo-img { width: 120px; }
+nav a { color: white; text-decoration: none; margin-left: 20px; font-weight: bold; font-size: 14px; }
+
+/* BOTÕES GERAIS */
+.btn-prev, .btn-next, .btn-prev-vitrine, .btn-next-vitrine {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    padding: 15px 10px;
+    cursor: pointer;
+    z-index: 20;
+    font-size: 24px;
+    transition: 0.3s;
+}
+.btn-prev:hover, .btn-next:hover, .btn-prev-vitrine:hover, .btn-next-vitrine:hover { 
+    background: gold; 
+    color: black; 
+}
+
+/* CARROSSEL 1 (FULL) */
+.carrossel-container-full {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+.slider-full { display: flex; transition: transform 0.8s ease-in-out; }
+.slide-item-full { min-width: 100%; height: auto; max-height: 500px; object-fit: cover; }
+.btn-prev { left: 0; }
+.btn-next { right: 0; }
+
+/* CARROSSEL 2 (VITRINE 7 JOGADORES) */
+.carrossel-vitrine-container {
+    padding: 40px 0;
+    width: 100%;
+    background: #111;
+}
+.vitrine-wrapper {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 0 45px; /* Espaço para as setas */
+}
+.slider-vitrine {
+    display: flex;
+    gap: 8px; /* Espaço fixo entre os cards */
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+}
+.card-vitrine {
+    /* Cálculo: 100% da largura dividido por 7 espaços, descontando o gap */
+    flex: 0 0 calc((100% / 7) - 8px);
+    width: calc((100% / 7) - 8px);
+    aspect-ratio: 3 / 4; /* Mantém a proporção 300x400 */
+    object-fit: cover;
+    border-radius: 6px;
+    border: 1px solid #333;
+}
+.btn-prev-vitrine { left: 5px; }
+.btn-next-vitrine { right: 5px; }
+
+/* Responsividade para telas muito pequenas (opcional) */
+@media (max-width: 600px) {
+    .vitrine-wrapper { padding: 0 35px; }
+    .card-vitrine {
+        /* Se quiser que mostre apenas 3 jogadores no celular, mude o 7 para 3 */
+        flex: 0 0 calc((100% / 3) - 8px);
+        width: calc((100% / 3) - 8px);
+    }
+    header {
+    width: 100%;
+    background-color: rgb(58, 58, 225);
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 5%;
+    align-items: center;
+}
+#logo-img { width: 120px; }
+nav a { 
+    
+    color: white; 
+    text-decoration: none; 
+    margin-left:-0px;
+    margin-top: 50px;
+    margin-bottom: 110px;
+    border: 1px solid black; 
+    font-weight: bold; 
+    font-size: 14px; }
+

@@ -1,0 +1,107 @@
+/* Configuração Geral do Corpo */
+body {
+    background-color: #1a1a1a;
+    color: white;
+    font-family: Arial, sans-serif;
+    margin: 0;
+}
+
+/* Container principal */
+main {
+    display: flex;
+    flex-direction: column; 
+    padding: 20px;
+}
+
+.titulo-posicao {
+    width: 100%;
+    border-bottom: 2px solid gold;
+    margin-top: 40px;
+    padding-left: 10px;
+}
+
+/* Alinhamento dos cards */
+.container-elenco {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 20px;
+    justify-content: center; /* Centraliza em telas pequenas para não quebrar o layout */
+}
+
+/* FIXO: Container do Card */
+.card-jogador {
+    width: 300px;  /* Largura fixa para manter a proporção dos números */
+    height: 400px; /* Altura fixa igual à imagem original */
+    position: relative; 
+    margin-bottom: 20px;
+    overflow: hidden; /* Garante que nada saia das bordas */
+    flex-shrink: 0;   /* Impede que o flexbox "esmague" o card */
+}
+
+#votos{
+    position: relative;
+    font-size: 20px;
+    top: -20px;
+    left: 96px;
+}
+#votos1{
+    position: relative;
+    top: -20px;
+    left: 25px;
+    font-size: 20px;
+}
+
+/* Imagem de fundo preenchendo o container fixo */
+.img-card {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* Garante que a imagem preencha o espaço sem distorcer */
+}
+
+/* Pontuação Total - Ajuste de posição */
+.score-total {
+    position: absolute;
+    top: -25px;      /* Ajustado para não colar no topo */
+    left: 45px;     /* Centralizado no espaço do círculo de score */
+    font-size: 55px;
+    font-weight: bold;
+    z-index: 2;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+    pointer-events: none;
+}
+
+/* Grade de atributos - Posição Fixa */
+.stats-grid {
+    width: 175px;     /* Largura interna para alinhar com as colunas da imagem */
+    position: absolute; 
+    display: flex;
+    top: 249px;       /* Posição vertical fixa sobre os campos da imagem */
+    left: 30px;       /* Alinhamento horizontal fixo */
+    justify-content: space-between;
+    font-size: 24px;
+    pointer-events: none;
+}
+
+/* Estilo para cada número individual */
+.p {
+    margin: 0;
+    line-height: 48px; /* Controla o espaçamento vertical exato entre os números */
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+    margin-top: -20px;
+}
+
+/* Colunas de pontos internas */
+.coluna-pontos {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50px; /* Largura fixa para cada coluna de números */
+}
+
+/* RESPONSIVIDADE: Se a tela for menor que o card, usamos Scale para diminuir tudo junto */
+@media (max-width: 330px) {
+    .card-jogador {
+        transform: scale(0.8); /* Diminui o card inteiro, mantendo os números no lugar */
+        margin: -40px;        /* Compensa o espaço vazio do scale */
+    }
+}

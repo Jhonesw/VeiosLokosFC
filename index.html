@@ -3,199 +3,396 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>INICIO</title>
-    <link rel="stylesheet" href="./inicio/style.css">
-    <meta property="og:title" content="VEIOS LOKOS FL" />
-    <meta property="og:description" content="Faça parte desta familia e receba seu lugar de onra." />
-    <meta property="og:image" content="./historico/histórico//ERIKFLYERCRAQUE.jpg" />
-    <meta property="og:url" content="https://veiolokos.com.br/" />
-</head>
+    <title>VEIOS LOKOS FL - Oficial</title>
+    <style>
+        /* --- ESTILOS BASE --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background: #000 url('./fundo.jpeg') no-repeat center center fixed; 
+            background-size: cover; 
+            color: white; 
+            font-family: 'Arial Black', sans-serif;
+            overflow-x: hidden;
+        }
 
-<body>
-    <div id="interface">
-        <header>
-            <div id="IMG">
-                <img id="veios" class="img" src="./inicio/header/veios.png" alt="">
-                <a href="./menu.html" id="abrirModal"><img id="logo" src="./inicio/header/logo.png" alt=""></a>
-                <img id="lokos" class="img" src="./inicio/header/lokos.png" alt="">
-            </div>
+        /* --- HEADER MODIFICADO --- */
+        header { 
+            width: 100%; height: 130px; 
+            background: linear-gradient(silver, black); 
+            display: flex; 
+            align-items: center; 
+            justify-content: space-between; /* Distribui os itens nas pontas e centro */
+            padding: 0 20px;
+        }
 
-            <div id="texto">
-                <h4> PARA MENU </h4>
-                <h4>CLICK NO LOGO</h4>
-            </div>
-        </header>
+        .header-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: gold;
+            width: 100px; /* Largura fixa para manter o equilíbrio */
+        }
 
-        <main>
-            <dialog>
-                <h2>NOS APOIAMOS</h2>
-                <p>O Miro do Butantã é um forte apoiador de projetos que 
-                    envolvem arte, esporte, cultura, lazer e educação. A força 
-                    do nosso trabalho vem do apoio de pessoas como o Miro, que nos 
-                    fortalece e torna nossas iniciativas possíveis.</p>
-                <div id="img">
-                    <img id="imgmiro" src="./miro grande.png" alt="">
-                </div>
-                <div id="botao">
-                    <a href="https://www.youtube.com/watch?v=2QwKiVakd4E&list=RD2QwKiVakd4E&start_radio=1"><button>FECHAR</button></a> 	
-                    <a href="https://jhonesw.github.io/Miro/"><button>SAIBA MAIS</button></a>
-                </div> 		
-            </dialog>
+        .header-item img {
+            height: 40px; /* Tamanho das imagens laterais */
+            width: auto;
+            margin-bottom: 5px;
+        }
 
-            <dialog id="2">
-                <div id="img">
-                    <img id="imgmiro" src="./RIFA.jpeg" alt="">
-                </div>
-                <div id="botao">
-                    <a href="./menu.html"><button>FECHAR</button></a> 	
-                    <a href="./Rifa.HTML"><button>SAIBA MAIS</button></a>
-                </div> 		
-            </dialog>
+        .header-item span {
+            font-size: 10px;
+            text-transform: uppercase;
+            text-align: center;
+            text-shadow: 1px 1px 2px black;
+        }
 
-            <section id="elenco">
-                <img src="./inicio/main/elenco veios.jpeg" alt="" srcset="">
-            </section>
+        #logo-header { 
+            height: 110px; 
+            z-index: 10; 
+            margin-top: 10px; 
+        }
 
-            <div>
-                <div class="carousel-container">
-                    <div class="carousel-track">
-                        <img class="carr" src="./inicio/petdosprincepes.png" alt="Imagem 2">
-                        <img class="carr" src="./inicio/elegance.jpeg" alt="Imagem 4">
-                        <img class="carr" src="./inicio/eiras pet.png" alt="Imagem 6">
-                        <img class="carr" src="./inicio/gordinho.png" alt="Imagem 7">
-                        <img class="carr" src="./inicio/rd3 sound gueto.png" alt="Imagem 7">
-                        <img class="carr" src="./inicio/miro.png" alt="Imagem 7">
-                    </div>
-                    <button class="carousel-prev">❮</button>
-                    <button class="carousel-next">❯</button>
-                </div>
-            </div>
+        /* --- 1. BANNER PRINCIPAL --- */
+        .main-banner { position: relative; width: 100%; overflow: hidden; }
+        .slider-full { display: flex; transition: transform 0.5s ease-in-out; }
+        .slide-item-full { min-width: 100%; width: 100%; height: auto; display: block; }
 
-            <div id="botaopatrocinio">
-                <a href="https://www.instagram.com/petdosprincipes/"><button id="pa">PET DOS PRINCIPES</button></a>
-                <a href="#"><button id="pa">A&E ELEGANCY</button></a> 
-                <a href="https://www.instagram.com/monteiros.pet/"><button id="pa">MONTEIROS PET'S</button></a>
-                <a href="https://www.instagram.com/eiras.petshop/"><button id="pa">EIRAS PETSHOP</button></a> 
-                <a href="#"><button id="pa">FELIPE GORDINHO</button></a> 	
-                <a href="https://grupord3.com.br"><button id="pa">SOUND GUETO & RD3</button></a> 
-                <a href="https://jhonesw.github.io/Miro/"><button id="pa">MIRO DO BUTANTÃ</button></a> 
-            </div>
+        /* --- 2. ELENCO --- */
+        .elenco-section { 
+            width: 100vw; background: rgba(0,0,0,0.85); padding: 20px 0; 
+            border-top: 2px solid gold; border-bottom: 2px solid gold; 
+            margin: 20px 0; position: relative;
+            overflow: hidden; 
+        }
+        .slider-vitrine { 
+            display: flex; 
+            transition: transform 0.6s ease-in-out; 
+            width: 100%;
+        }
+        .card-vitrine { 
+            width: 25%; 
+            flex-shrink: 0;
+            border: 2px solid gold; 
+            border-radius: 10px;
+            padding: 3px;
+        }
 
-            <div id="rifaa" style="width: 100%;display: flex;justify-content: center;">
-                <a href="https://jhonesw.github.io/Miro/"><button style="border: 1px solid black;font-size: 40px; 
-                margin-bottom: 10px;background-image: url(./RIFA/fundo\ dinheiro.jpg);"><h3 style="color: rgb(5, 137, 5);">MIRO DO BUTANTÃ</h3></button></a> 	
-            </div>
+        /* --- 3. CARROSSEL DE LINKS --- */
+        .link-banner-section {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin: 30px 0;
+            padding: 0 10px;
+        }
+        .carousel-link-container {
+            width: 100%;
+            max-width: 500px;
+            height: 200px;
+            border: 3px solid gold;
+            border-radius: 10px;
+            overflow: hidden;
+            position: relative;
+            display: block;
+            text-decoration: none;
+        }
+        .slider-link {
+            display: flex;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slide-link-item {
+            min-width: 100%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
 
-            <section id="historico">
-                <div id="rank">
-                    <img class="rank" src="./inicio/main/SEC11.jpg" alt="">
-                    <div id="artilheiro">
-                        <H3 class="h3" >RENINHA&nbsp;21</H3>
-                        <H3 class="h3" >LUIZ PRETO&nbsp;&nbsp;&nbsp;5</H3>
-                        <H3 class="h3" >RENAN&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 5</H3>
-                        <H3 class="h3" >L.FELIPE&nbsp;&nbsp;4</H3>
-                        <H3 class="h3" >LIMA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3</H3>
-                    </div> 
+        /* --- 4. SEÇÃO RANKINGS + FLYER --- */
+        .content-wrapper {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            max-width: 1400px;
+            margin: 20px auto;
+            gap: 15px;
+            padding: 0 10px;
+        }
 
-                    <img class="rank" src="./inicio/main/SEC33.jpg" alt="">
-                    
-                    <div id="assistencia">
-                        <H3 class="h3" >JHOJHO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 8</H3>
-                        <H3 class="h3" >ROMARIO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 7</H3>
-                        <H3 class="h3" >GORDINHO&nbsp; 5</H3> 	 	 	 	
-                        <H3 class="h3" >LUIZ PRETO 4</H3>
-                        <H3 class="h3" >RENINHA&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 3</H3>
-                    </div>
-                </div>
+        .rank-container-3col {
+            display: flex;
+            flex: 2;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            gap: 5px;
+            min-width: 300px;
+        }
 
-                <div id="defesaA">
-                    <img class="rankd" id="defesaimg" src="./inicio/baixados1.jpg" alt="">
-                    <div id="defesa">
-                        <H3 class="h3" >ERIK&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;18</H3>
-                        <H3 class="h3" >MOISES &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;17</H3>
-                        <H3 class="h3" >NANDO&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;16</H3>
-                        <H3 class="h3" >PINGUIM&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;14</H3> 
-                        <H3 class="h3" >DOUGUINHAS&nbsp;12</H3>
-                    </div>
-                </div>
+        .rank-box { 
+            position: relative; 
+            width: 33.33%; 
+            height: 450px; 
+            background: #000; 
+            overflow: hidden;
+            border: 1px solid #333;
+        }
 
-                <div id="flyer">
-                    <img id="imgflyer" src="./historico/histórico/27.jpeg" alt="">
-                </div>
-            </section>
-        </main>
+        .rank-bg { 
+            width: 100%; height: 100%; 
+            object-fit: fill;
+            position: absolute; top: 0; left: 0;
+        }
+
+        .rank-title {
+            position: absolute; top: 15px; width: 100%; text-align: center;
+            color: gold; font-size: 1.1rem; text-shadow: 2px 2px 4px #000;
+            z-index: 15; text-transform: uppercase;
+        }
         
-        <footer id="footer">
-            <div id="craque">
-                <div id="textocraque">
-                    <h3>CRAQUE DO ULTIMO JOGO</h3>
-                    <p>Aqui fica nosso agradecimento, não só apenas este jogador</p>
-                    <p>Mas a todo o elenco do time VEIOS LOKOS</p> 	
-                    <P>E como agradecimento a este jogador que se dedicou ao maximo<br>
-                    para trazer a vitória, fica marcado como craque, e que venha mais, CLICK NA IMAGEM E VEJA TODOS OS CRAQUES </P> 
-                    <h3>ESTE É O DOUGUINHAS O PRÓXIMO É VOCÊ, JOGADOR.</h3>
-                </div>
-                <a href="./historico.html#bolaOuro"> <img id="imgcrack" src="./historico/histórico//ERIKFLYERCRAQUE.jpg" alt="" style="border: 3PX solid gold;"></a>
-                <br><br><br> 
+        .rank-overlay { 
+            position: absolute; top: 45%; left: 50%;
+            transform: translateX(-50%); width: 85%; z-index: 10; 
+            display: flex; flex-direction: column; 
+        }
+
+        .rank-row { 
+            display: flex; justify-content: space-between; align-items: center;
+            font-weight: 900; margin-bottom: 12px; color: #fff200; 
+            text-shadow: 2px 2px 4px #000; font-size: 0.95rem; text-transform: uppercase;
+        }
+
+        .flyer-proximo-jogo {
+            flex: 1;
+            min-width: 300px;
+            height: 450px;
+            border: 2px solid gold;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .flyer-img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+        /* --- 5. GALERIA DE IMAGENS --- */
+        .galeria-section {
+            max-width: 1400px;
+            margin: 50px auto;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 2px solid gold;
+            border-radius: 15px;
+        }
+        .galeria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .galeria-item {
+            height: 250px;
+            border: 2px solid #444;
+            overflow: hidden;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .galeria-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .galeria-item:hover {
+            border-color: gold;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
+        }
+        .galeria-item:hover img {
+            transform: scale(1.1);
+        }
+
+        /* --- AJUSTES RESPONSIVOS --- */
+        @media (max-width: 900px) {
+            header { height: 100px; padding: 0 10px; }
+            #logo-header { height: 70px; }
+            .header-item img { height: 30px; }
+            .header-item span { font-size: 8px; }
+            
+            .content-wrapper { flex-direction: column; }
+            .rank-container-3col { width: 100%; flex: none; }
+            .rank-box { height: 250px; }
+            .rank-title { font-size: 0.6rem; top: 8px; }
+            .rank-row { font-size: 0.5rem; margin-bottom: 4px; }
+            .rank-overlay { top: 40%; }
+            .flyer-proximo-jogo { width: 100%; height: auto; min-height: 300px; }
+            .carousel-link-container { height: 150px; }
+            .galeria-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+          <a href="./ELENCO/INDEX.HTML" class="header-item">
+            <img src="./ELENCO/LOKO POINT'S/lendario.webp" alt="Points" style="width: 150px; height: auto;">
+            <span>LOKOS POINT'S</span>
+        </a>
+
+        <a href="./menu.html">
+            <img src="./header/" alt="" srcset="">
+            <img src="./header/logo1.webp" id="logo-header">
+        </a>
+
+      <a href="./ELENCO/INDEX.HTML" class="header-item">
+            <img src="./ELENCO/LOKO POINT'S/lendario.webp" alt="Points" style="width: 150px; height: auto;">
+            <span>LOKOS POINT'S</span>
+        </a>
+    </header>
+<h2 style="font-size: 14px; text-align: center; color: gold; text-transform: uppercase;">
+           CLICK no card lokos point's <br>
+           <p style="font-size: 8px;"> Confira os pontos do seu craque favorito</p>
+        </h2>
+    <section class="main-banner">
+        <div class="slider-full" id="sliderFull">
+            <img src="./INICIO/main/elenco 1.webp" class="slide-item-full">
+            <img src="./INICIO/main/ELENCO 2.webp" class="slide-item-full">
+            <img src="./INICIO/main/ELENCO 3.webp" class="slide-item-full">
+        </div>
+    </section>
+
+    <section class="elenco-section">
+        <h2 style="text-align: center; color: gold; margin-bottom: 10px;">ELENCO OFICIAL</h2>
+        <div style="position: relative;">
+            <div class="slider-vitrine" id="sliderVitrine">
+                <script>
+                    for(let i=1; i<=27; i++) {
+                        document.write(`<img src="./ELENCO/ELENCO/${i}.webp" class="card-vitrine">`);
+                    }
+                </script>
             </div>
+        </div>
+    </section>
 
-            <div id="game-container">
-                
-                <div id="game-container1">
-                    <h1>🎮 Jogo da Memória</h1>
-                    <div id="score-board">Pares Encontrados: <span id="score">0</span> / 20</div>
-                    <div id="memory-grid"></div>
-                    <div id="message">Clique em Iniciar Jogo!</div>
-                    <button id="start-button">Iniciar Jogo</button>
-                </div>
-                
-                <div id="gold-wallet">
-                    Gold: <span id="gold-count">0</span>
-                </div>
-                
-                <h1 style="background-color: rgba(5, 70, 135, 0.559); font-size: 20px; color: rgb(249, 247, 247);">⚽ Pênalti: Escolha seu Time!</h1>
-                
-                <div id="score-board">
-                    <span class="label" style="background-color: rgb(15, 15, 16);">Seu Placar:</span> <span id="player-score" style="background-color: rgb(14, 14, 14);">0</span> |
-                    <span class="label" style="background-color: rgb(9, 9, 9);" >Goleiro:</span> <span id="keeper-score" style="background-color: rgb(15, 15, 16);">0</span>
-                </div>
-
-                <div id="selection-area">
-                    <div id="player-selection">
-                        <h3>Escolha o Chutador:</h3>
-                        <button class="select-player" data-player-id="white" data-emoji="&#129489;">RENINHA &#129489;</button>
-                        <button class="select-player" data-player-id="brown" data-emoji="&#128590;&#8205;&#9794;&#65039;">JHO-JHO &#128590;&#8205;&#9794;&#65039;</button>
-                        <button class="select-player" data-player-id="black" data-emoji="👨🏿‍🦱">ERIK 👨🏿‍🦱</button>
-                    </div>
-
-                    <div id="keeper-selection">
-                        <h3>Escolha o Goleiro:</h3>
-                        <button class="select-keeper" data-keeper-id="keeper1" data-emoji="🧍🏿‍♂️">DOUGUINHAS 🧍🏿‍♂️</button>
-                        <button class="select-keeper" data-keeper-id="keeper2" data-emoji="🧍">MOISES 🧍</button>
-                    </div>
-                </div>
-
-                <div id="field">
-                    <div id="keeper">🧍‍♂️</div> <div id="goal"></div>
-                    <div id="ball">⚽</div>
-                    <div id="player">👨</div> <div id="message"></div>
-                </div>
-
-                <div id="controls" class="hidden">
-                    <h2>Chutar!</h2>
-                    <select id="kick-direction">
-                        <option value="Left">Esquerda</option>
-                        <option value="Center">Centro</option>
-                        <option value="Right">Direita</option>
-                    </select>
-                    <button id="kick-button">Chutar!</button>
-                </div>
-            </div>
-            <br><br>
-        </footer>
+    <div id="texto" style="display: flex; justify-content: center; margin: 20px 0;">
+        <h2 style="font-size: 14px; text-align: center; color: gold; text-transform: uppercase;">
+          CLICK E JOGUE E SE FOR RAPIDO GANHE UMA CAMISA DOS VEIOS LOKOS FC
+        </h2>
     </div>
-    
-    <script src="./html.js"></script> 
-    <script src="script1.js"></script> 
+
+    <section class="link-banner-section">
+        <a href="./JOGOOOOOO/LINK_DA_PAGINA.html" class="carousel-link-container">
+            <div class="slider-link" id="sliderLink">
+                <img src="./inicio/main/1INIICO.webp" class="slide-link-item">
+                <img src="./inicio/main/MIRO2.webp" class="slide-link-item">
+                <img src="./inicio/main/AAA.webp" class="slide-link-item">
+                <img src="./inicio/main/MIRO5.webp" class="slide-link-item">
+            </div>
+        </a>
+    </section>
+
+    <main class="content-wrapper">
+        <section class="rank-container-3col">
+            <div class="rank-box">
+                <div class="rank-title">ARTILHARIA</div>
+                <img src="./inicio/main/SE1.webp" class="rank-bg">
+                <div class="rank-overlay">
+                    <div class="rank-row"><span>DANIEL</span><span>01</span></div>
+                    <div class="rank-row"><span>PINGUIM</span><span>01</span></div>
+                    <div class="rank-row"><span>ARCANJO</span><span>01</span></div>
+                    <div class="rank-row"><span>RENINHA</span><span>00</span></div>
+                    <div class="rank-row"><span>L. FELIPE</span><span>00</span></div>
+                </div>
+            </div>
+            <div class="rank-box">
+                <div class="rank-title">ASSISTENCIA</div>
+                <img src="./inicio/main/SE2.webp" class="rank-bg">
+                <div class="rank-overlay">
+                    <div class="rank-row"><span>LUIZ PRETO</span><span>01</span></div>
+                    <div class="rank-row"><span>ROGERINHO</span><span>01</span></div>
+                    <div class="rank-row"><span>NANDO</span><span>01</span></div>
+                    <div class="rank-row"><span>JHO JHO</span><span>00</span></div>
+                    <div class="rank-row"><span>LUIZ PRETO</span><span>00</span></div>
+                </div>
+            </div>
+            <div class="rank-box">
+                <div class="rank-title">DEFESA</div>
+                <img src="./inicio/main/SE3.webp" class="rank-bg">
+                <div class="rank-overlay">
+                    <div class="rank-row"><span>NANDO</span><span>2</span></div>
+                    <div class="rank-row"><span>MOISES</span><span>2</span></div>
+                    <div class="rank-row"><span>STEFERSON</span><span>1</span></div>
+                    <div class="rank-row"><span>ROMARIO</span><span>1</span></div>
+                    <div class="rank-row"><span>DOUGUINHAS</span><span>1</span></div>
+                </div>
+            </div>
+        </section>
+
+        <aside class="flyer-proximo-jogo">
+            <img src="./inicio/FLYER.webp" class="flyer-img" alt="Próximo Jogo">
+        </aside>
+    </main>
+
+    <section class="galeria-section">
+        <h2 style="text-align: center; color: gold; text-transform: uppercase;">Galeria de Fotos</h2>
+        <div class="galeria-grid">
+            <div class="galeria-item"><img src="./INICIO/main/JOGO2.webp"></div>
+            <div class="galeria-item"><img src="./INICIO/main/JOGO1.webp"></div>
+            
+        </div>
+    </section>
+
+    <section class="link-banner-section">
+        <a href="https://mirodobutanta.com/" class="carousel-link-container">
+            <div class="slider-link" id="sliderLink2">
+                <img src="./inicio/main/MIRO PRO 1.webp" class="slide-link-item">
+                <img src="./inicio/main/MIRO PRO 2.webp" class="slide-link-item">
+                <img src="./inicio/main/MIRO PRO 3.webp" class="slide-link-item">
+                <img src="./miro1.png" class="slide-link-item">
+            </div>
+        </a>
+    </section>
+
+    <script>
+        // BANNER PRINCIPAL
+        let currentB = 0;
+        setInterval(() => {
+            const s = document.getElementById('sliderFull');
+            if(s) {
+                currentB = (currentB + 1) % 3;
+                s.style.transform = `translateX(-${currentB * 100}%)`;
+            }
+        }, 4000);
+
+        // VITRINE ELENCO
+        let currentE = 0;
+        const totalJogadores = 27;
+        const sliderV = document.getElementById('sliderVitrine');
+        setInterval(() => {
+            currentE += 4;
+            if (currentE >= totalJogadores) currentE = 0;
+            sliderV.style.transform = `translateX(-${currentE * 25}%)`;
+        }, 3500);
+
+        // CARROSSEL DE LINKS 1
+        let currentL = 0;
+        setInterval(() => {
+            const sL = document.getElementById('sliderLink');
+            if(sL) {
+                currentL = (currentL + 1) % 4;
+                sL.style.transform = `translateX(-${currentL * 100}%)`;
+            }
+        }, 3000);
+
+        // CARROSSEL DE LINKS 2
+        let currentL2 = 0;
+        setInterval(() => {
+            const sL2 = document.getElementById('sliderLink2');
+            if(sL2) {
+                currentL2 = (currentL2 + 1) % 4;
+                sL2.style.transform = `translateX(-${currentL2 * 100}%)`;
+            }
+        }, 3200);
+    </script>
 </body>
 </html>

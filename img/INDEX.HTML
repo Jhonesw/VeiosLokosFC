@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Memória & Futebol Pro</title>
+    <style>
+        :root { --green: #2e7d32; --field-line: rgba(255,255,255,0.9); --gold: #f1c40f; }
+        body { 
+            margin: 0; padding: 0; background: #111; color: white; 
+            font-family: sans-serif; display: flex; flex-direction: column; 
+            align-items: center; min-height: 100vh; overflow-x: hidden; 
+            touch-action: none; -webkit-user-select: none; user-select: none;
+        }
+
+        #wallet { background: var(--gold); color: #000; padding: 10px 30px; border-radius: 0 0 20px 20px; font-weight: bold; position: fixed; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+
+        /* TELAS DE SELEÇÃO IGUAIS */
+        .selection-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 2000; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .grid-players { display: grid; grid-template-columns: repeat(auto-fill, minmax(90px, 1fr)); gap: 10px; background: #222; padding: 15px; border-radius: 15px; border: 2px solid #444; width: 90%; max-width: 500px; max-height: 70vh; overflow-y: auto; }
+        .card-player { background: #333; padding: 10px; border-radius: 10px; cursor: pointer; border: 2px solid transparent; transition: 0.2s; text-align: center; }
+        .card-player:active { border-color: var(--gold); background: #444; }
+        .card-player img { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; background: #555; }
+
+        /* JOGO 1: MEMÓRIA */
+        #memory-section { width: 95%; max-width: 500px; margin-top: 80px; background: #222; padding: 15px; border-radius: 15px; text-align: center; border: 2px solid #444; }
+        .memory-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-top: 10px; }
+        .memory-card { width: 100%; padding-bottom: 100%; position: relative; cursor: pointer; transform-style: preserve-3d; transition: 0.4s; }
+        .memory-card.flip { transform: rotateY(180deg); }
+        .card-face { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; border-radius: 4px; border: 1px solid var(--gold); }
+        .card-back { background: var(--gold); }
+        .card-front { background-size: cover; transform: rotateY(180deg); background-color: #fff; background-position: center; }
+
+        /* JOGO 2: PÊNALTIS */
+        #game-canvas { display: none; position: relative; width: 350px; height: 500px; background: var(--green); border: 5px solid white; border-radius: 10px; margin: 20px 0; overflow: hidden; }
+        #ball { width: 22px; height: 22px; background: #fff; border-radius: 50%; position: absolute; bottom: 50px; left: 164px; z-index: 10; border: 1px solid #000; }
+        #player-penalty { width: 60px; height: 60px; position: absolute; bottom: 10px; left: 145px; border-radius: 50%; border: 3px solid var(--gold); background-size: cover; z-index: 5; background-position: center; }
+        #goalkeeper { width: 120px; height: 20px; background: #ff4444; position: absolute; top: 40px; left: 130px; border-radius: 5px; border: 2px solid white; }
+        .goal-area-pen { position: absolute; top: 0; left: 100px; width: 150px; height: 40px; border: 3px solid white; border-top: 0; }
+
+        /* JOGO 3: TORNEIO */
+        #game-container-final { display: none; position: relative; width: 95vw; height: 85vh; background: var(--green); border: 5px solid white; border-radius: 8px; margin-top: 10px; overflow: hidden; }
+        #score-board-final { position: absolute; top: 10px; width: 100%; display: flex; justify-content: center; gap: 40px; font-size: 1.5rem; font-weight: bold; z-index: 50; text-shadow: 2px 2px 4px black; }
+        .entity-f { position: absolute; pointer-events: none; }
+        .player-img-f { width: 9vh; height: 9vh; border-radius: 50%; z-index: 10; border: 2px solid white; object-fit: cover; }
+        #ball-final { width: 4.5vh; height: 4.5vh; background: white; border-radius: 50%; border: 2px solid black; z-index: 5; }
+        .trave-f { position: absolute; width: 10px; height: 30%; top: 35%; background: rgba(255,255,255,0.3); border: 2px solid white; }
+
+        /* CONTROLES */
+        .controls-layer { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: 1000; }
+        .d-pad { position: absolute; bottom: 5%; left: 5%; display: grid; grid-template-columns: repeat(3, 60px); gap: 5px; pointer-events: auto; }
+        .btn-dir { width: 60px; height: 60px; background: rgba(255, 255, 255, 0.2); border: 2px solid white; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 28px; color: white; touch-action: none; }
+        .btn-kick-f { position: absolute; bottom: 8%; right: 8%; width: 100px; height: 100px; background: rgba(241, 196, 15, 0.4); border: 3px solid gold; border-radius: 50%; color: white; font-weight: bold; pointer-events: auto; }
+
+        /* RESULTADO */
+        #result-modal { display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(0,0,0,0.98); padding: 30px; border-radius: 25px; text-align: center; border: 4px solid gold; z-index: 3000; width: 85%; max-width: 400px; }
+        .final-team-photos { display: flex; justify-content: space-around; margin: 20px 0; background: #222; padding: 15px; border-radius: 15px; }
+        .photo-slot { text-align: center; font-size: 0.65rem; color: #aaa; }
+        .photo-slot img { width: 55px; height: 55px; border-radius: 50%; border: 2px solid gold; display: block; margin: 0 auto 5px; }
+        #timestamp-registro { font-size: 0.7rem; color: #888; margin-top: 10px; font-style: italic; }
+    </style>
+</head>
+<body>
+
+    <div id="wallet">🪙 <span id="gold-val">0</span> GOLD</div>
+
+    <div id="initial-choice-screen" class="selection-overlay">
+        <h2 style="color: gold;">BEM-VINDO, <span id="welcome-name"></span>!</h2>
+        <p>Escolha seu <b>JOGADOR COM VISÃO</b>:</p>
+        <div class="grid-players" id="initial-grid"></div>
+    </div>
+
+    <div id="selection-screen" class="selection-overlay" style="display:none">
+        <h3 style="color: var(--gold);">CONTRATE SEU BATEDOR</h3>
+        <div class="grid-players" id="player-list"></div>
+    </div>
+
+    <div id="torneio-selection" class="selection-overlay" style="display:none">
+        <h2 style="color: gold;">ESCOLHA SEU CRAQUE DO TORNEIO</h2>
+        <div class="grid-players" id="torneio-grid"></div>
+    </div>
+
+    <div id="memory-section">
+        <h3 style="color: var(--gold); margin: 0;">MINERAÇÃO DE GOLD</h3>
+        <p style="font-size: 0.8rem;">CHANCES: <span id="chances-val">10</span></p>
+        <div class="memory-grid" id="mem-grid"></div>
+        <button onclick="startMemoria()" style="margin-top:10px; padding:10px; background:gold; border:none; font-weight:bold; border-radius:5px;">INICIAR</button>
+    </div>
+
+    <div id="game-canvas">
+        <div style="position: absolute; top: 10px; width: 100%; text-align: center; font-weight: bold; z-index: 20;">
+            GOLS: <span id="gols">0</span>/3 | ERROS: <span id="erros-pen">0</span>/3
+        </div>
+        <div class="goal-area-pen"></div>
+        <div id="goalkeeper"></div>
+        <div id="ball"></div>
+        <div id="player-penalty"></div>
+    </div>
+
+    <div id="game-container-final">
+        <div id="score-board-final">
+            <span id="txt-p1">P1</span>
+            <span>R<span id="round-num">1</span> | <span id="s1">0</span> - <span id="s2">0</span></span>
+            <span id="txt-p2">IA</span>
+        </div>
+        <div id="field-final" style="width: 100%; height: 100%; position: relative;">
+            <div class="trave-f" style="left:0; border-left:none;"></div>
+            <div class="trave-f" style="right:0; border-right:none;"></div>
+            <img id="p1-final" class="entity-f player-img-f" src="">
+            <img id="p2-final" class="entity-f player-img-f" src="">
+            <div id="ball-final" class="entity-f"></div>
+        </div>
+        <div class="controls-layer">
+            <div class="d-pad">
+                <div></div><div class="btn-dir" data-key="w">↑</div><div></div>
+                <div class="btn-dir" data-key="a">←</div><div></div><div class="btn-dir" data-key="d">→</div>
+                <div></div><div class="btn-dir" data-key="s">↓</div><div></div>
+            </div>
+            <button class="btn-kick-f" onclick="resetPosFinal()">BOLA AO<br>CENTRO</button>
+        </div>
+    </div>
+
+    <div id="result-modal">
+        <h1 id="result-title"></h1>
+        <div id="result-msg"></div>
+        <div id="final-team-display" class="final-team-photos"></div>
+        <div id="modal-footer"></div>
+    </div>
+
+    <script>
+        const userName = prompt("Nome do usuário:") || "Jogador";
+        document.getElementById('welcome-name').innerText = userName.toUpperCase();
+
+        let gold = 0, keys = { w: false, a: false, s: false, d: false };
+        let escolhas = { visao: null, batedor: null, craque: null };
+
+        const jogadoresPool = [
+            { nome: "DAN", foto: "jogadores/DAN.png"}, { nome: "DOUGUAS", foto: "jogadores/DOUGUINHAS.png" },
+            { nome: "ELIANO", foto: "jogadores/ELIANO.png" }, { nome: "JHOJHO", foto: "jogadores/JHONJHON.png" },
+            { nome: "LUIZ", foto: "jogadores/LUIZ.png" }, { nome: "MARIO", foto: "jogadores/MARIO.png" },
+            { nome: "MOISES", foto: "jogadores/MOISES.png" }, { nome: "RENINHA", foto: "jogadores/RENINHA.png" },
+            { nome: "ARCANJO", foto: "jogadores/ARCANJO.png" }
+        ];
+
+        function getDisponiveis() {
+            const ocupados = [escolhas.visao?.nome, escolhas.batedor?.nome, escolhas.craque?.nome];
+            return jogadoresPool.filter(j => !ocupados.includes(j.nome));
+        }
+
+        function setupControls() {
+            document.querySelectorAll('.btn-dir').forEach(btn => {
+                const k = btn.dataset.key;
+                const press = (e) => { e.preventDefault(); keys[k] = true; };
+                const release = (e) => { e.preventDefault(); keys[k] = false; };
+                btn.addEventListener('touchstart', press); btn.addEventListener('touchend', release);
+                btn.addEventListener('mousedown', press); btn.addEventListener('mouseup', release);
+            });
+        }
+
+        function initVisaoSelection() {
+            const grid = document.getElementById('initial-grid');
+            grid.innerHTML = '';
+            getDisponiveis().forEach(j => {
+                const div = document.createElement('div');
+                div.className = 'card-player';
+                div.innerHTML = `<img src="${j.foto}"><br><small>${j.nome}</small>`;
+                div.onclick = () => { escolhas.visao = j; document.getElementById('initial-choice-screen').style.display = 'none'; };
+                grid.appendChild(div);
+            });
+        }
+
+        let flipped = [], matches = 0, lock = false, chances = 10;
+        const imagensMemoria = ["memoria/card1.png", "memoria/card2.png", "memoria/card3.png", "memoria/card4.png", "memoria/card5.png", "memoria/card6.png", "memoria/card7.png", "memoria/card8.png", "memoria/card9.png", "memoria/card10.png"];
+
+        function startMemoria() {
+            matches = 0; flipped = []; lock = false; chances = 10;
+            document.getElementById('chances-val').textContent = chances;
+            const grid = document.getElementById('mem-grid');
+            grid.innerHTML = '';
+            const deck = [...imagensMemoria, ...imagensMemoria].sort(() => Math.random() - 0.5);
+            deck.forEach(imgSrc => {
+                const card = document.createElement('div');
+                card.className = 'memory-card'; card.dataset.src = imgSrc;
+                card.innerHTML = `<div class="card-face card-front" style="background-image:url('${imgSrc}')"></div><div class="card-face card-back"></div>`;
+                card.onclick = function() {
+                    if(lock || this.classList.contains('flip') || chances <= 0) return;
+                    this.classList.add('flip'); flipped.push(this);
+                    if(flipped.length === 2) {
+                        lock = true;
+                        if(flipped[0].dataset.src === flipped[1].dataset.src) {
+                            matches++; chances += 2; document.getElementById('chances-val').textContent = chances;
+                            flipped = []; lock = false;
+                            if(matches === 10) { gold++; document.getElementById('gold-val').innerText = gold; document.getElementById('selection-screen').style.display = 'flex'; renderBatedorSelection(); }
+                        } else {
+                            chances--; document.getElementById('chances-val').textContent = chances;
+                            setTimeout(() => { if(chances <= 0) { alert("Tente de novo!"); location.reload(); } else { flipped.forEach(c => c.classList.remove('flip')); flipped = []; lock = false; } }, 600);
+                        }
+                    }
+                };
+                grid.appendChild(card);
+            });
+        }
+
+        function renderBatedorSelection() {
+            const list = document.getElementById('player-list');
+            list.innerHTML = '';
+            getDisponiveis().forEach(j => {
+                const div = document.createElement('div');
+                div.className = 'card-player';
+                div.innerHTML = `<img src="${j.foto}"><br><small>${j.nome}</small>`;
+                div.onclick = () => { escolhas.batedor = j; iniciarPenaltis(); };
+                list.appendChild(div);
+            });
+        }
+
+        let penBallPos = { x: 164, y: 428 }, penShooting = false, penGols = 0, penErros = 0, penGkX = 130, penGkDir = 6;
+        function iniciarPenaltis() {
+            document.getElementById('selection-screen').style.display = 'none';
+            document.getElementById('memory-section').style.display = 'none';
+            document.getElementById('game-canvas').style.display = 'block';
+            document.getElementById('player-penalty').style.backgroundImage = `url(${escolhas.batedor.foto})`;
+            loopPenaltis();
+        }
+        document.getElementById('ball').onclick = () => { if(!penShooting) penShooting = true; };
+        function loopPenaltis() {
+            if(document.getElementById('game-canvas').style.display === 'none') return;
+            penGkX += penGkDir; if(penGkX > 230 || penGkX < 0) penGkDir *= -1;
+            document.getElementById('goalkeeper').style.left = penGkX + 'px';
+            if(penShooting) {
+                penBallPos.y -= 12;
+                if(penBallPos.y < 60 && penBallPos.y > 30 && penBallPos.x > penGkX - 10 && penBallPos.x < penGkX + 110) { penErros++; resetBallPen(); }
+                else if(penBallPos.y < 0) {
+                    if(penBallPos.x > 100 && penBallPos.x < 250) { penGols++; if(penGols >= 3) liberarTorneio(); } else penErros++;
+                    resetBallPen();
+                }
+            }
+            document.getElementById('ball').style.top = penBallPos.y + 'px';
+            document.getElementById('gols').innerText = penGols;
+            document.getElementById('erros-pen').innerText = penErros;
+            if(penErros >= 3) { alert("Perdeu!"); location.reload(); }
+            requestAnimationFrame(loopPenaltis);
+        }
+        function resetBallPen() { penBallPos = { x: 164, y: 428 }; penShooting = false; }
+
+        function liberarTorneio() {
+            document.getElementById('game-canvas').style.display = 'none';
+            document.getElementById('torneio-selection').style.display = 'flex';
+            renderTorneioGrid();
+        }
+
+        function renderTorneioGrid() {
+            const grid = document.getElementById('torneio-grid');
+            grid.innerHTML = '';
+            getDisponiveis().forEach(j => {
+                const card = document.createElement('div');
+                card.className = 'card-player';
+                card.innerHTML = `<img src="${j.foto}"><br><small>${j.nome}</small>`;
+                card.onclick = () => {
+                    escolhas.craque = j;
+                    oponentes = jogadoresPool.filter(p => p.nome !== escolhas.visao.nome && p.nome !== escolhas.batedor.nome && p.nome !== escolhas.craque.nome).sort(() => Math.random() - 0.5);
+                    iniciarRodadaFinal();
+                };
+                grid.appendChild(card);
+            });
+        }
+
+        let oponente = null, oponentes = [], round = 1, gameRunning = false;
+        let p1X, p1Y, p2X, p2Y, bX, bY, bvX = 0, bvY = 0, s1 = 0, s2 = 0;
+
+        function iniciarRodadaFinal() {
+            oponente = oponentes.shift(); s1 = 0; s2 = 0;
+            document.getElementById('torneio-selection').style.display = 'none';
+            document.getElementById('result-modal').style.display = 'none';
+            document.getElementById('game-container-final').style.display = 'block';
+            document.getElementById('p1-final').src = escolhas.craque.foto;
+            document.getElementById('p2-final').src = oponente.foto;
+            document.getElementById('txt-p1').innerText = escolhas.craque.nome;
+            document.getElementById('txt-p2').innerText = oponente.nome;
+            gameRunning = true; resetPosFinal();
+            if(round === 1) { setupControls(); gameLoopFinal(); }
+        }
+
+        function resetPosFinal() {
+            const c = document.getElementById('game-container-final');
+            p1X = 60; p1Y = c.clientHeight/2 - 40; p2X = c.clientWidth - 140; p2Y = c.clientHeight/2 - 40;
+            bX = c.clientWidth/2-15; bY = c.clientHeight/2-15; bvX = 0; bvY = 0;
+        }
+
+        function gameLoopFinal() {
+            if(!gameRunning) { requestAnimationFrame(gameLoopFinal); return; }
+            const c = document.getElementById('game-container-final');
+            const w = c.clientWidth, h = c.clientHeight;
+            const pSize = h * 0.09, bSize = h * 0.045;
+
+            if(keys.w && p1Y > 0) p1Y -= 7; if(keys.s && p1Y < h - pSize) p1Y += 7;
+            if(keys.a && p1X > 0) p1X -= 7; if(keys.d && p1X < w - pSize) p1X += 7;
+
+            if (p2Y + pSize/2 < bY + bSize/2) p2Y += 2.5; else p2Y -= 2.5;
+            if (p2X > bX + 40) p2X -= 2; else p2X += 3;
+            p2X = Math.max(w/2, Math.min(w-pSize, p2X));
+
+            bX += bvX; bY += bvY; bvX *= 0.98; bvY *= 0.98;
+            if(bY <= 0 || bY >= h - bSize) bvY *= -1;
+
+            if(bX <= 0) {
+                if(bY > h*0.35 && bY < h*0.65) { s2++; checkScore(); } 
+                else { bX=0; bvX*=-1; }
+            }
+            if(bX >= w - bSize) {
+                if(bY > h*0.35 && bY < h*0.65) { s1++; checkScore(); } 
+                else { bX=w-bSize; bvX*=-1; }
+            }
+
+            [ {x:p1X, y:p1Y}, {x:p2X, y:p2Y} ].forEach(p => {
+                let dx = (bX+bSize/2)-(p.x+pSize/2), dy = (bY+bSize/2)-(p.y+pSize/2), d = Math.hypot(dx, dy);
+                if(d < (pSize/2+bSize/2)) { bvX = (dx/d)*12; bvY = (dy/d)*12; }
+            });
+
+            document.getElementById('p1-final').style.transform = `translate(${p1X}px, ${p1Y}px)`;
+            document.getElementById('p2-final').style.transform = `translate(${p2X}px, ${p2Y}px)`;
+            document.getElementById('ball-final').style.transform = `translate(${bX}px, ${bY}px)`;
+            document.getElementById('s1').innerText = s1; document.getElementById('s2').innerText = s2;
+            document.getElementById('round-num').innerText = round;
+            requestAnimationFrame(gameLoopFinal);
+        }
+
+        function checkScore() {
+            if(s1 >= 3 || s2 >= 3) {
+                gameRunning = false;
+                const modal = document.getElementById('result-modal');
+                modal.style.display = "block";
+                if(s1 >= 3) {
+                    if(round >= 3) vitoriaAbsoluta();
+                    else {
+                        document.getElementById('result-title').innerText = "VENCEU ROUND!";
+                        document.getElementById('modal-footer').innerHTML = `<button onclick="round++; iniciarRodadaFinal()" style="padding:10px; background:gold; border:none; font-weight:bold; border-radius:5px;">PRÓXIMO</button>`;
+                    }
+                } else {
+                    document.getElementById('result-title').innerText = "DERROTA!";
+                    document.getElementById('modal-footer').innerHTML = `<button onclick="location.reload()" style="padding:10px; background:gold; border:none; font-weight:bold; border-radius:5px;">RECOMEÇAR</button>`;
+                }
+            } else resetPosFinal();
+        }
+
+        function vitoriaAbsoluta() {
+            const agora = new Date();
+            const dia = String(agora.getDate()).padStart(2, '0');
+            const mes = String(agora.getMonth() + 1).padStart(2, '0');
+            const ano = agora.getFullYear();
+            const hora = String(agora.getHours()).padStart(2, '0');
+            const min = String(agora.getMinutes()).padStart(2, '0');
+            const seg = String(agora.getSeconds()).padStart(2, '0');
+            const mil = String(agora.getMilliseconds()).padStart(3, '0');
+            
+            const dataFormatada = `${dia}/${mes}/${ano} - ${hora}:${min}:${seg}.${mil}`;
+
+            document.getElementById('result-title').innerText = "🏆 CAMPEÃO!";
+            document.getElementById('result-msg').innerHTML = `
+                Parabéns ${userName}! Seu time foi imbatível!<br>
+                <div id="timestamp-registro">Registro: ${dataFormatada}</div>
+            `;
+            document.getElementById('final-team-display').innerHTML = `
+                <div class="photo-slot"><img src="${escolhas.visao.foto}"><br>VISÃO</div>
+                <div class="photo-slot"><img src="${escolhas.batedor.foto}"><br>BATEDOR</div>
+                <div class="photo-slot"><img src="${escolhas.craque.foto}"><br>CRAQUE</div>
+            `;
+            document.getElementById('modal-footer').innerHTML = `<button onclick="location.reload()" style="padding:10px; background:gold; border:none; font-weight:bold; border-radius:5px;">INÍCIO</button>`;
+        }
+
+        initVisaoSelection();
+    </script>
+</body>
+</html>
