@@ -15,279 +15,277 @@
             overflow-x: hidden;
         }
 
-        /* --- HEADER MODIFICADO --- */
+        /* --- ANIMAÇÃO PISCANTE --- */
+        @keyframes piscar {
+            0% { opacity: 1; }
+            50% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
+        .click-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(255, 215, 0, 0.9);
+            color: black;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+            animation: piscar 1s infinite;
+            z-index: 20;
+            pointer-events: none;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+
+        /* --- ESTILO DO POPUP (MODAL ZOOM) --- */
+        #modal-zoom {
+            display: none;
+            position: fixed;
+            z-index: 10000;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+        }
+        #modal-zoom img {
+            max-width: 95%;
+            max-height: 95%;
+            border: 3px solid gold;
+            border-radius: 10px;
+            box-shadow: 0 0 30px gold;
+        }
+        .fechar-modal {
+            position: absolute;
+            top: 20px; right: 30px;
+            color: gold;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* --- HEADER --- */
         header { 
             width: 100%; height: 130px; 
             background: linear-gradient(silver, black); 
             display: flex; 
             align-items: center; 
-            justify-content: space-between; /* Distribui os itens nas pontas e centro */
+            justify-content: space-between; 
             padding: 0 20px;
         }
-
         .header-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-decoration: none;
-            color: gold;
-            width: 100px; /* Largura fixa para manter o equilíbrio */
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            text-decoration: none; color: gold; width: 100px;
         }
+        .header-item img { height: 40px; width: auto; margin-bottom: 5px; }
+        .header-item span { font-size: 10px; text-transform: uppercase; text-align: center; text-shadow: 1px 1px 2px black; }
+        #logo-header { height: 110px; z-index: 10; margin-top: 10px; }
 
-        .header-item img {
-            height: 40px; /* Tamanho das imagens laterais */
-            width: auto;
-            margin-bottom: 5px;
-        }
-
-        .header-item span {
-            font-size: 10px;
-            text-transform: uppercase;
-            text-align: center;
-            text-shadow: 1px 1px 2px black;
-        }
-
-        #logo-header { 
-            height: 110px; 
-            z-index: 10; 
-            margin-top: 10px; 
-        }
-
-        /* --- 1. BANNER PRINCIPAL --- */
+        /* --- BANNERS E CARROSSEIS --- */
         .main-banner { position: relative; width: 100%; overflow: hidden; }
         .slider-full { display: flex; transition: transform 0.5s ease-in-out; }
         .slide-item-full { min-width: 100%; width: 100%; height: auto; display: block; }
 
-        /* --- 2. ELENCO --- */
         .elenco-section { 
             width: 100vw; background: rgba(0,0,0,0.85); padding: 20px 0; 
             border-top: 2px solid gold; border-bottom: 2px solid gold; 
-            margin: 20px 0; position: relative;
-            overflow: hidden; 
+            margin: 20px 0; position: relative; overflow: hidden; 
         }
-        .slider-vitrine { 
-            display: flex; 
-            transition: transform 0.6s ease-in-out; 
-            width: 100%;
-        }
-        .card-vitrine { 
-            width: 25%; 
-            flex-shrink: 0;
-            border: 2px solid gold; 
-            border-radius: 10px;
-            padding: 3px;
-        }
+        .slider-vitrine { display: flex; transition: transform 0.6s ease-in-out; width: 100%; }
+        .card-vitrine { width: 25%; flex-shrink: 0; border: 2px solid gold; border-radius: 10px; padding: 3px; cursor: zoom-in; }
 
-        /* --- 3. CARROSSEL DE LINKS --- */
-        .link-banner-section {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            margin: 30px 0;
-            padding: 0 10px;
-        }
+        .link-banner-section { width: 100%; display: flex; justify-content: center; margin: 30px 0; padding: 0 10px; }
         .carousel-link-container {
-            width: 100%;
-            max-width: 500px;
-            height: 200px;
-            border: 3px solid gold;
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            display: block;
-            text-decoration: none;
+            width: 100%; max-width: 500px; height: 200px; border: 3px solid gold; border-radius: 10px;
+            overflow: hidden; position: relative; display: block; text-decoration: none;
         }
-        .slider-link {
-            display: flex;
-            width: 100%;
-            height: 100%;
-            transition: transform 0.5s ease-in-out;
-        }
-        .slide-link-item {
-            min-width: 100%;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .slider-link { display: flex; width: 100%; height: 100%; transition: transform 0.5s ease-in-out; }
+        .slide-link-item { min-width: 100%; width: 100%; height: 100%; object-fit: cover; }
 
-        /* --- 4. SEÇÃO RANKINGS + FLYER --- */
-        .content-wrapper {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            max-width: 1400px;
-            margin: 20px auto;
-            gap: 15px;
-            padding: 0 10px;
-        }
+        #img_loko { width: 100%; display: flex; justify-content: center; margin: 30px 0; padding: 0 10px; }
+        .link-lokos-points { display: block; width: 100%; max-width: 500px; transition: transform 0.3s ease; position: relative; }
+        .link-lokos-points:hover { transform: scale(1.03); }
+        #imglokos { width: 100%; height: auto; border: 2px solid gold; border-radius: 10px; display: block; }
 
-        .rank-container-3col {
-            display: flex;
-            flex: 2;
-            flex-direction: row;
-            flex-wrap: nowrap;
-            gap: 5px;
-            min-width: 300px;
-        }
-
-        .rank-box { 
-            position: relative; 
-            width: 33.33%; 
-            height: 450px; 
-            background: #000; 
-            overflow: hidden;
-            border: 1px solid #333;
-        }
-
-        .rank-bg { 
-            width: 100%; height: 100%; 
-            object-fit: fill;
-            position: absolute; top: 0; left: 0;
-        }
-
-        .rank-title {
-            position: absolute; top: 15px; width: 100%; text-align: center;
-            color: gold; font-size: 1.1rem; text-shadow: 2px 2px 4px #000;
-            z-index: 15; text-transform: uppercase;
-        }
+        /* --- RANKINGS --- */
+        .content-wrapper { display: flex; flex-direction: row; flex-wrap: wrap; max-width: 1400px; margin: 20px auto; gap: 15px; padding: 0 10px; }
+        .rank-container-3col { display: flex; flex: 2; flex-direction: row; gap: 5px; min-width: 300px; }
+        .rank-box { position: relative; width: 33.33%; height: 450px; background: #000; overflow: hidden; border: 1px solid #333; }
+        .rank-bg { width: 100%; height: 100%; object-fit: fill; position: absolute; top: 0; left: 0; }
+        .rank-title { position: absolute; top: 15px; width: 100%; text-align: center; color: gold; font-size: 1.1rem; text-shadow: 2px 2px 4px #000; z-index: 15; text-transform: uppercase; }
+        .rank-overlay { position: absolute; top: 45%; left: 50%; transform: translateX(-50%); width: 85%; z-index: 10; display: flex; flex-direction: column; }
+        .rank-row { display: flex; justify-content: space-between; align-items: center; font-weight: 900; margin-bottom: 12px; color: #fff200; text-shadow: 2px 2px 4px #000; font-size: 0.95rem; text-transform: uppercase; }
         
-        .rank-overlay { 
-            position: absolute; top: 45%; left: 50%;
-            transform: translateX(-50%); width: 85%; z-index: 10; 
-            display: flex; flex-direction: column; 
-        }
-
-        .rank-row { 
-            display: flex; justify-content: space-between; align-items: center;
-            font-weight: 900; margin-bottom: 12px; color: #fff200; 
-            text-shadow: 2px 2px 4px #000; font-size: 0.95rem; text-transform: uppercase;
-        }
-
-        .flyer-proximo-jogo {
-            flex: 1;
-            min-width: 300px;
-            height: 450px;
-            border: 2px solid gold;
-            background: #000;
-            overflow: hidden;
-        }
-
+        .flyer-proximo-jogo { flex: 1; min-width: 300px; height: 450px; border: 2px solid gold; background: #000; overflow: hidden; cursor: zoom-in; }
         .flyer-img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-        /* --- 5. GALERIA DE IMAGENS --- */
-        .galeria-section {
-            max-width: 1400px;
-            margin: 50px auto;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.8);
-            border: 2px solid gold;
-            border-radius: 15px;
+        /* --- GALERIA --- */
+        .galeria-section { max-width: 1400px; margin: 50px auto; padding: 20px; background: rgba(0, 0, 0, 0.8); border: 2px solid gold; border-radius: 15px; }
+        .galeria-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 15px; margin-top: 20px; }
+        .galeria-item { height: 250px; border: 2px solid #444; overflow: hidden; position: relative; transition: all 0.3s ease; cursor: zoom-in; }
+        .galeria-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+        .galeria-item:hover img { transform: scale(1.1); }
+
+        /* --- FOOTER PROFISSIONAL --- */
+        footer {
+            background: linear-gradient(to bottom, #000, #222);
+            border-top: 3px solid gold;
+            padding: 40px 20px 20px 20px;
+            margin-top: 50px;
+            color: silver;
+            font-family: Arial, sans-serif;
         }
-        .galeria-grid {
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+        .footer-col h3 {
+            color: gold;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            font-size: 1.2rem;
+            border-bottom: 1px solid gold;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+        .footer-col p {
+            line-height: 1.6;
+            font-size: 0.9rem;
+        }
+        .footer-links {
+            list-style: none;
+        }
+        .footer-links li {
+            margin-bottom: 10px;
+        }
+        .footer-links a {
+            color: silver;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+        .footer-links a:hover {
+            color: gold;
+        }
+        .social-icons {
+            display: flex;
             gap: 15px;
-            margin-top: 20px;
+            margin-top: 15px;
         }
-        .galeria-item {
-            height: 250px;
-            border: 2px solid #444;
-            overflow: hidden;
-            position: relative;
-            transition: all 0.3s ease;
+        .social-icons a {
+            background: gold;
+            color: black;
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.3s;
         }
-        .galeria-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-        .galeria-item:hover {
-            border-color: gold;
+        .social-icons a:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(212, 175, 55, 0.3);
         }
-        .galeria-item:hover img {
-            transform: scale(1.1);
+        .footer-bottom {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            font-size: 0.8rem;
         }
 
-        /* --- AJUSTES RESPONSIVOS --- */
+        /* --- RESPONSIVIDADE --- */
         @media (max-width: 900px) {
             header { height: 100px; padding: 0 10px; }
             #logo-header { height: 70px; }
-            .header-item img { height: 30px; }
-            .header-item span { font-size: 8px; }
-            
             .content-wrapper { flex-direction: column; }
             .rank-container-3col { width: 100%; flex: none; }
             .rank-box { height: 250px; }
-            .rank-title { font-size: 0.6rem; top: 8px; }
-            .rank-row { font-size: 0.5rem; margin-bottom: 4px; }
-            .rank-overlay { top: 40%; }
+            .rank-title { font-size: 0.6rem; }
+            .rank-row { font-size: 0.5rem; }
             .flyer-proximo-jogo { width: 100%; height: auto; min-height: 300px; }
-            .carousel-link-container { height: 150px; }
             .galeria-grid { grid-template-columns: 1fr 1fr; }
+            .footer-content { grid-template-columns: 1fr; text-align: center; }
+            .footer-col h3 { display: block; border-bottom: none; }
+            .social-icons { justify-content: center; }
         }
     </style>
 </head>
 <body>
 
-    <header>
-          <a href="./ELENCO/INDEX.HTML" class="header-item">
-            <img src="./ELENCO/LOKO POINT'S/lendario.webp" alt="Points" style="width: 150px; height: auto;">
-            <span>LOKOS POINT'S</span>
-        </a>
+    <div id="modal-zoom" onclick="fecharZoom()">
+        <span class="fechar-modal">&times;</span>
+        <img id="img-ampliada" src="" alt="Zoom">
+    </div>
 
-        <a href="./menu.html">
-            <img src="./header/" alt="" srcset="">
+    <header>
+        <a href="./JOGOOOOOO/LINK_DA_PAGINA.html" class="header-item">
+            <img src="./INICIO/main/PELE.webp" alt="Points">
+            <span>JOGO DOS CRAQUES</span>
+        </a>
+        <a href="./INDEX.html">
             <img src="./header/LOGO1.webp" id="logo-header">
         </a>
-
-      <a href="./ELENCO/INDEX.HTML" class="header-item">
-            <img src="./ELENCO/LOKO POINT'S/lendario.webp" alt="Points" style="width: 150px; height: auto;">
+        <a href="./ELENCO/INDEX.HTML" class="header-item">
+            <img src="./ELENCO/LOKO POINT'S/lendario.webp" alt="Points">
             <span>LOKOS POINT'S</span>
         </a>
     </header>
-<h2 style="font-size: 14px; text-align: center; color: gold; text-transform: uppercase;">
-           CLICK no card lokos point's <br>
-           <p style="font-size: 8px;"> Confira os pontos do seu craque favorito</p>
-        </h2>
+
+    <h2 style="font-size: 14px; text-align: center; color: gold; text-transform: uppercase; margin-top: 15px;">
+        CLICK no card lokos point's <br>
+        <p style="font-size: 8px;"> Confira os pontos do seu craque favorito</p>
+    </h2>
+
     <section class="main-banner">
         <div class="slider-full" id="sliderFull">
-            <img src="./INICIO/main/elenco 1.webp" class="slide-item-full">
-            <img src="./INICIO/main/ELENCO 2.webp" class="slide-item-full">
-            <img src="./INICIO/main/ELENCO 3.webp" class="slide-item-full">
+            <img src="./INICIO/main/elenco 1.webp" class="slide-item-full" onclick="abrirZoom(this.src)">
+            <img src="./INICIO/main/ELENCO 2.webp" class="slide-item-full" onclick="abrirZoom(this.src)">
+            <img src="./INICIO/main/ELENCO 3.webp" class="slide-item-full" onclick="abrirZoom(this.src)">
         </div>
     </section>
 
     <section class="elenco-section">
         <h2 style="text-align: center; color: gold; margin-bottom: 10px;">ELENCO OFICIAL</h2>
-        <div style="position: relative;">
-            <div class="slider-vitrine" id="sliderVitrine">
-                <script>
-                    for(let i=1; i<=27; i++) {
-                        document.write(`<img src="./ELENCO/ELENCO/${i}.webp" class="card-vitrine">`);
-                    }
-                </script>
-            </div>
+        <div class="slider-vitrine" id="sliderVitrine">
+            <script>
+                for(let i=1; i<=27; i++) {
+                    document.write(`<img src="./ELENCO/ELENCO/${i}.webp" class="card-vitrine" onclick="abrirZoom(this.src)">`);
+                }
+            </script>
         </div>
     </section>
 
-    <div id="texto" style="display: flex; justify-content: center; margin: 20px 0;">
-        <h2 style="font-size: 14px; text-align: center; color: gold; text-transform: uppercase;">
-          CLICK E JOGUE E SE FOR RAPIDO GANHE UMA CAMISA DOS VEIOS LOKOS FC
+    <div style="display: flex; justify-content: center; margin: 20px 0;">
+        <h2 style="font-size: 14px; text-align: center; color: gold; text-transform: uppercase; padding: 0 15px;">
+            CLICK E JOGUE E SE FOR RAPIDO GANHE UMA CAMISA DOS VEIOS LOKOS FC
         </h2>
     </div>
 
     <section class="link-banner-section">
         <a href="./JOGOOOOOO/LINK_DA_PAGINA.html" class="carousel-link-container">
+            <div class="click-badge">Clique Aqui, mostre que é jogador</div>
             <div class="slider-link" id="sliderLink">
                 <img src="./INICIO/main/1INIICO.webp" class="slide-link-item">
                 <img src="./INICIO/main/MIRO2.webp" class="slide-link-item">
                 <img src="./INICIO/main/AAA.webp" class="slide-link-item">
                 <img src="./INICIO/main/MIRO5.webp" class="slide-link-item">
             </div>
+        </a>
+    </section>
+
+    <section id="img_loko">
+        <a href="./ELENCO/INDEX.HTML" class="link-lokos-points">
+            <div class="click-badge">Boleiros vivem de numeros, veja!</div>
+            <img id="imglokos" src="./INICIO/main/LINK LOKOS POINTS.webp" alt="Link Lokos Points">
         </a>
     </section>
 
@@ -328,7 +326,7 @@
             </div>
         </section>
 
-        <aside class="flyer-proximo-jogo">
+        <aside class="flyer-proximo-jogo" onclick="abrirZoom(this.querySelector('img').src)">
             <img src="./INICIO/FLYER.webp" class="flyer-img" alt="Próximo Jogo">
         </aside>
     </main>
@@ -336,14 +334,14 @@
     <section class="galeria-section">
         <h2 style="text-align: center; color: gold; text-transform: uppercase;">Galeria de Fotos</h2>
         <div class="galeria-grid">
-            <div class="galeria-item"><img src="./INICIO/main/JOGO2.webp"></div>
-            <div class="galeria-item"><img src="./INICIO/main/JOGO1.webp"></div>
-            
+            <div class="galeria-item" onclick="abrirZoom(this.querySelector('img').src)"><img src="./INICIO/main/JOGO2.webp"></div>
+            <div class="galeria-item" onclick="abrirZoom(this.querySelector('img').src)"><img src="./INICIO/main/JOGO1.webp"></div>
         </div>
     </section>
 
     <section class="link-banner-section">
         <a href="https://mirodobutanta.com/" class="carousel-link-container">
+            <div class="click-badge">Visitar Site</div>
             <div class="slider-link" id="sliderLink2">
                 <img src="./INICIO/main/MIRO PRO 1.webp" class="slide-link-item">
                 <img src="./INICIO/main/MIRO PRO 2.webp" class="slide-link-item">
@@ -353,45 +351,82 @@
         </a>
     </section>
 
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>Sobre os Veios Lokos</h3>
+                <p>O Veios Lokos FC é mais que um time, é uma família unida pela paixão ao futebol. Nossa missão é manter a chama do esporte viva com alegria, respeito e muita resenha.</p>
+                <div class="social-icons">
+                    <a href="#">FC</a> <a href="#">JW</a> <a href="#">MB</a> </div>
+            </div>
+            <div class="footer-col">
+                <h3>Acesso Rápido</h3>
+                <ul class="footer-links">
+                    <li><a href="./INDEX.html">Início</a></li>
+                    <li><a href="./ELENCO/INDEX.HTML">Elenco Oficial</a></li>
+                    <li><a href="./ELENCO/INDEX.HTML">Lokos Point's</a></li>
+                    <li><a href="./JOGOOOOOO/LINK_DA_PAGINA.html">Mini-Game</a></li>
+                    <li><a href="https://mirodobutanta.com/">Parceiros</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>Contato Oficial</h3>
+                <p>📍 São Paulo - SP</p>
+                <p>📧 jhoneswashington@gmail.com</p>
+                <p style="margin-top: 15px; color: gold; font-weight: bold;">Felipe De Castro</p>
+                <p>📱 (11) 963275859</p>
+                <p style="margin-top: 15px; color: gold; font-weight: bold;">Jhones washington</p>
+                <p>📱 (11) 981772139</p>
+                <p style="margin-top: 15px; color: gold; font-weight: bold;">SEJA UM PATROCINADOR!</p>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2024 VEIOS LOKOS FC - Todos os direitos reservados. <br>
+            Desenvolvido por Jhones Washington para os verdadeiros apaixonados por futebol.
+        </div>
+    </footer>
+
     <script>
-        // BANNER PRINCIPAL
+        /* --- FUNÇÕES DO MODAL ZOOM --- */
+        function abrirZoom(src) {
+            const modal = document.getElementById('modal-zoom');
+            const img = document.getElementById('img-ampliada');
+            modal.style.display = 'flex';
+            img.src = src;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function fecharZoom() {
+            document.getElementById('modal-zoom').style.display = 'none';
+            document.body.style.overflow = 'auto';
+        }
+
+        /* --- CARROSSEIS --- */
         let currentB = 0;
         setInterval(() => {
             const s = document.getElementById('sliderFull');
-            if(s) {
-                currentB = (currentB + 1) % 3;
-                s.style.transform = `translateX(-${currentB * 100}%)`;
-            }
+            if(s) { currentB = (currentB + 1) % 3; s.style.transform = `translateX(-${currentB * 100}%)`; }
         }, 4000);
 
-        // VITRINE ELENCO
         let currentE = 0;
         const totalJogadores = 27;
         const sliderV = document.getElementById('sliderVitrine');
         setInterval(() => {
             currentE += 4;
             if (currentE >= totalJogadores) currentE = 0;
-            sliderV.style.transform = `translateX(-${currentE * 25}%)`;
+            if(sliderV) sliderV.style.transform = `translateX(-${currentE * 25}%)`;
         }, 3500);
 
-        // CARROSSEL DE LINKS 1
         let currentL = 0;
         setInterval(() => {
             const sL = document.getElementById('sliderLink');
-            if(sL) {
-                currentL = (currentL + 1) % 4;
-                sL.style.transform = `translateX(-${currentL * 100}%)`;
-            }
+            if(sL) { currentL = (currentL + 1) % 4; sL.style.transform = `translateX(-${currentL * 100}%)`; }
         }, 3000);
 
-        // CARROSSEL DE LINKS 2
         let currentL2 = 0;
         setInterval(() => {
             const sL2 = document.getElementById('sliderLink2');
-            if(sL2) {
-                currentL2 = (currentL2 + 1) % 4;
-                sL2.style.transform = `translateX(-${currentL2 * 100}%)`;
-            }
+            if(sL2) { currentL2 = (currentL2 + 1) % 4; sL2.style.transform = `translateX(-${currentL2 * 100}%)`; }
         }, 3200);
     </script>
 </body>

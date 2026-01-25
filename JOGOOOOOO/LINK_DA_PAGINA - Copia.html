@@ -2,10 +2,6 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
-    
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Memória & Futebol Pro + Quiz</title>
     <style>
@@ -146,23 +142,12 @@
     <script>
         const startTime = new Date();
 
-        /* CONFIGURAÇÃO DE REDIRECIONAMENTO */
-        // ALTERE O LINK ABAIXO PARA O SEU SITE
-        const URL_REDIRECIONAMENTO = "https://veioslokos.com.br"; 
-
-        /* FUNÇÃO CENTRAL DE DERROTA */
-        function aoPerder(mensagem) {
-            alert(mensagem);
-            // .replace é mais seguro que .href pois remove a página atual do histórico do navegador
-            window.location.replace(URL_REDIRECIONAMENTO);
-        }
-
         /* CONFIGURAÇÕES DE DIFICULDADE */
         const DIFICULDADE = {
-            velocidadeIA: 4.5,   
-            forçaChute: 13,      
-            velocidadeP1: 7,     
-            limiteInvasaoIA: 0.3 
+            velocidadeIA: 4.5,   // Aumente para 6.0 (difícil) ou baixe para 3.0 (fácil)
+            forçaChute: 13,      // Velocidade da bola ao colidir
+            velocidadeP1: 7,     // Velocidade do seu jogador
+            limiteInvasaoIA: 0.3 // 0.5 = IA fica na metade dela. 0.1 = IA pode ir até o seu gol
         };
 
         const poolPerguntas = [
@@ -212,7 +197,7 @@
             } else {
                 btn.classList.add('wrong');
                 buttons[correta].classList.add('correct');
-                setTimeout(() => aoPerder("Você errou a pergunta! Redirecionando..."), 1000);
+                setTimeout(() => { alert("Você errou! O jogo será reiniciado."); location.reload(); }, 1500);
             }
         }
 
@@ -261,9 +246,7 @@
                         } else {
                             chances--; updateChancesDisplay();
                             setTimeout(() => { 
-                                if(chances <= 0) { 
-                                    aoPerder("Suas chances no jogo da memória acabaram!");
-                                } 
+                                if(chances <= 0) { alert("Suas chances acabaram!"); location.reload(); } 
                                 else { flipped.forEach(c => c.classList.remove('flip')); flipped = []; lock = false; } 
                             }, 600);
                         }
@@ -340,9 +323,7 @@
             document.getElementById('ball').style.top = penBallPos.y + 'px';
             document.getElementById('gols').innerText = penGols;
             document.getElementById('erros-pen').innerText = penErros;
-            if(penErros >= 3) { 
-                aoPerder("Você perdeu nos pênaltis!");
-            }
+            if(penErros >= 3) { alert("Perdeu nos penaltis!"); location.reload(); }
             requestAnimationFrame(loopPenaltis);
         }
         function resetBallPen() { penBallPos = { x: 164, y: 428 }; penShooting = false; }
@@ -407,23 +388,28 @@
             bX = c.clientWidth/2-15; bY = c.clientHeight/2-15; bvX = 0; bvY = 0;
         }
 
+        /* LÓGICA DA IA OFENSIVA E GAMEPLAY */
         function gameLoopFinal() {
             if(!gameRunning) { requestAnimationFrame(gameLoopFinal); return; }
             const c = document.getElementById('game-container-final');
             const w = c.clientWidth, h = c.clientHeight;
             const pSize = h * 0.09, bSize = h * 0.045;
 
-            // MOVIMENTO P1
+            // MOVIMENTO P1 (VOCÊ)
             if(keys.w && p1Y > 0) p1Y -= DIFICULDADE.velocidadeP1; 
             if(keys.s && p1Y < h - pSize) p1Y += DIFICULDADE.velocidadeP1;
             if(keys.a && p1X > 0) p1X -= DIFICULDADE.velocidadeP1; 
             if(keys.d && p1X < w - pSize) p1X += DIFICULDADE.velocidadeP1;
 
-            // MOVIMENTO P2 (IA)
+            // MOVIMENTO P2 (IA OFENSIVA)
+            // IA tenta ficar à direita da bola para empurrar em direção ao seu gol (esquerda)
             let alvoX = bX + 35; 
             let alvoY = bY - 10;
+
             if (p2Y + pSize/2 < alvoY) p2Y += DIFICULDADE.velocidadeIA; else p2Y -= DIFICULDADE.velocidadeIA;
             if (p2X < alvoX) p2X += DIFICULDADE.velocidadeIA; else p2X -= DIFICULDADE.velocidadeIA;
+
+            // Limite de área da IA
             p2X = Math.max(w * DIFICULDADE.limiteInvasaoIA, Math.min(w - pSize, p2X));
 
             // FÍSICA BOLA
@@ -460,7 +446,8 @@
         function checkScore() {
             if(s2 > 0) {
                 gameRunning = false;
-                aoPerder("O ADVERSÁRIO MARCOU! VOCÊ PERDEU TUDO.");
+                alert("O ADVERSÁRIO MARCOU! VOCÊ PERDEU TUDO.");
+                location.reload();
                 return;
             }
             if(s1 >= 3) {
