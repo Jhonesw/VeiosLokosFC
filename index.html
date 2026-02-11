@@ -15,6 +15,23 @@
             overflow-x: hidden;
         }
 
+        /* --- MECÂNICA DE PROPAGANDA --- */
+        #ad-container {
+            position: fixed; 
+            bottom: 20px; 
+            right: -320px; 
+            width: 280px; 
+            height: 80px; 
+            background: #000; 
+            border: 2px solid #00d4ff;
+            border-radius: 10px; 
+            overflow: hidden; 
+            z-index: 9999;
+            transition: right 0.5s ease;
+        }
+        #ad-container.active { right: 20px; }
+        #adImg { width: 100%; height: 100%; object-fit: cover; display: block; }
+
         /* --- ANIMAÇÃO PISCANTE --- */
         @keyframes piscar {
             0% { opacity: 1; }
@@ -97,7 +114,19 @@
         .slider-vitrine { display: flex; transition: transform 0.6s ease-in-out; width: 100%; }
         .card-vitrine { width: 25%; flex-shrink: 0; border: 2px solid gold; border-radius: 10px; padding: 3px; cursor: zoom-in; }
 
+        /* --- SEÇÃO DE LINKS/BANNERS --- */
         .link-banner-section { width: 100%; display: flex; justify-content: center; margin: 30px 0; padding: 0 10px; }
+        
+        /* NOVO CONTAINER PARA OS JOGOS LADO A LADO */
+        .container-jogos-duplos {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+    
         .carousel-link-container {
             width: 100%; max-width: 500px; height: 200px; border: 3px solid gold; border-radius: 10px;
             overflow: hidden; position: relative; display: block; text-decoration: none;
@@ -216,10 +245,16 @@
             .footer-content { grid-template-columns: 1fr; text-align: center; }
             .footer-col h3 { display: block; border-bottom: none; }
             .social-icons { justify-content: center; }
+            
+            .container-jogos-duplos { flex-direction: column; gap: 0; }
         }
     </style>
 </head>
 <body>
+
+    <div id="ad-container">
+        <img src="" id="adImg" alt="Ad">
+    </div>
 
     <div id="modal-zoom" onclick="fecharZoom()">
         <span class="fechar-modal">&times;</span>
@@ -248,8 +283,9 @@
     <section class="main-banner">
         <div class="slider-full" id="sliderFull">
             <img src="./INICIO/main/elenco 1.webp" class="slide-item-full" onclick="abrirZoom(this.src)">
-            <img src="./INICIO/main/ELENCO 2.webp" class="slide-item-full" onclick="abrirZoom(this.src)">
+            <img src="./INICIO/main/elenco2.webp" class="slide-item-full" onclick="abrirZoom(this.src)">
             <img src="./INICIO/main/ELENCO 3.webp" class="slide-item-full" onclick="abrirZoom(this.src)">
+            
         </div>
     </section>
 
@@ -270,25 +306,55 @@
         </h2>
     </div>
 
-    <section class="link-banner-section">
-        <a href="./JOGOOOOOO/LINK_DA_PAGINA.html" class="carousel-link-container">
-            <div class="click-badge">click finalize e ganhe uma camisa veios lokos 2026</div>
-            <div class="slider-link" id="sliderLink">
-                <img src="./INICIO/main/1INIICO.webp" class="slide-link-item">
-                <img src="./INICIO/main/MIRO2.webp" class="slide-link-item">
-                <img src="./INICIO/main/AAA.webp" class="slide-link-item">
-                <img src="./INICIO/main/MIRO5.webp" class="slide-link-item">
+    <div class="container-jogos-duplos">
+        <section class="link-banner-section" style="margin: 10px 0;">
+            <a href="./JOGOOOOOO/LINK_DA_PAGINA.html" class="carousel-link-container">
+                <div class="click-badge">click finalize e ganhe uma camisa veios lokos 2026</div>
+                <div class="slider-link" id="sliderLink">
+                    <img src="./INICIO/main/1INIICO.webp" class="slide-link-item">
+                    <img src="./INICIO/main/MIRO2.webp" class="slide-link-item">
+                    <img src="./INICIO/main/AAA.webp" class="slide-link-item">
+                    <img src="./INICIO/main/MIRO5.webp" class="slide-link-item">
+                </div>
+            </a>
+        </section>
+
+        <section id="img_loko" style="margin: 10px 0;">
+            <a href="./caça niquel veios lokos/index.html" class="link-lokos-points">
+                <div class="click-badge">5mil point's. ganhe uma camisa veios lokos 2026</div>
+                <img id="imglokos" src="./caça niquel veios lokos/img/banner.webp" alt="Link Lokos Points">
+            </a>
+        </section>
+    </div>
+
+    <div id="pet" style="position: relative; width: 100%; display: flex; justify-content: center; margin: 20px 0;">
+        <a href="https://jhonesw.github.io/Pet-Dos-Principes/" target="_blank" style="text-decoration: none; position: relative; display: block; width: 100%; max-width: 1200px; overflow: hidden; border-radius: 10px; border: 2px solid gold;">
+            
+            <div style="position: absolute; top: 10px; left: 10px; background: rgba(0, 0, 0, 0.7); color: gold; padding: 5px 15px; border-radius: 5px; font-size: 14px; font-weight: bold; border: 1px solid gold; z-index: 5; animation: piscar 1.5s infinite;">
+                NOVIDADES NO SITE DOS PET'S 🐾
             </div>
-        </a>
-    </section>
 
-    <section id="img_loko">
-        <a href="./caça niquel veios lokos/index.html" class="link-lokos-points">
-            <div class="click-badge">5mil point's. ganhe uma camisa veios lokos 2026</div>
-            <img id="imglokos" src="./caça niquel veios lokos/img/banner.webp" alt="Link Lokos Points">
+            <img id="imgpet" src="./pet.jpg" alt="Pet" style="width: 100%; display: block; transition: transform 0.5s ease;">
+            
+            <style>
+                #pet a:hover img { transform: scale(1.05); }
+                #pet a::after {
+                    content: 'SAIBA MAIS';
+                    position: absolute;
+                    top: 50%; left: 50%;
+                    transform: translate(-50%, -50%);
+                    background: gold;
+                    color: black;
+                    padding: 10px 20px;
+                    font-weight: bold;
+                    border-radius: 5px;
+                    opacity: 0;
+                    transition: opacity 0.3s;
+                }
+                #pet a:hover::after { opacity: 1; }
+            </style>
         </a>
-    </section>
-
+    </div>
     <main class="content-wrapper">
         <section class="rank-container-3col">
             <div class="rank-box">
@@ -346,7 +412,7 @@
                 <img src="./INICIO/main/MIRO PRO 1.webp" class="slide-link-item">
                 <img src="./INICIO/main/MIRO PRO 2.webp" class="slide-link-item">
                 <img src="./INICIO/main/MIRO PRO 3.webp" class="slide-link-item">
-                <img src="./miro1.png" class="slide-link-item">
+                <img src="./prop5.webp" class="slide-link-item">
             </div>
         </a>
     </section>
@@ -377,7 +443,7 @@
                 <p>📱 (11) 963275859</p>
                 <p style="margin-top: 15px; color: gold; font-weight: bold;">Jhones washington</p>
                 <p>📱 (11) 981772139</p>
-                <p style="margin-top: 15px; color: gold; font-weight: bold;">SEJA UM PATROCINADOR!</p>
+                <p style="margin-top: 15px; color: gold; font-weight: bold;">SEJA UN PATROCINADOR!</p>
             </div>
         </div>
         <div class="footer-bottom">
@@ -387,6 +453,28 @@
     </footer>
 
     <script>
+        /* --- LÓGICA DA PROPAGANDA --- */
+        const ads = [
+            { img: 'prop1.webp' }, 
+            { img: 'prop2.webp' }, 
+            { img: 'prop3.webp' },
+            { img: 'prop4.webp' },
+            { img: 'prop5.webp' },
+            { img: 'prop6.webp' }
+        ];
+
+        function showRandomAd() {
+            const container = document.getElementById('ad-container');
+            const img = document.getElementById('adImg');
+            if(img && ads.length > 0) {
+                img.src = ads[Math.floor(Math.random() * ads.length)].img;
+            }
+            container.classList.add('active');
+            setTimeout(() => container.classList.remove('active'), 5000);
+        }
+        
+        setInterval(showRandomAd, 20000);
+
         /* --- FUNÇÕES DO MODAL ZOOM --- */
         function abrirZoom(src) {
             const modal = document.getElementById('modal-zoom');
