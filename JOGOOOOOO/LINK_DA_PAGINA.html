@@ -420,8 +420,8 @@
             if(keys.d && p1X < w - pSize) p1X += DIFICULDADE.velocidadeP1;
 
             // MOVIMENTO P2 (IA)
-            let alvoX = bX + 35; 
-            let alvoY = bY - 10;
+            let alvoX = bX + 10; 
+            let alvoY = bY - 5;
             if (p2Y + pSize/2 < alvoY) p2Y += DIFICULDADE.velocidadeIA; else p2Y -= DIFICULDADE.velocidadeIA;
             if (p2X < alvoX) p2X += DIFICULDADE.velocidadeIA; else p2X -= DIFICULDADE.velocidadeIA;
             p2X = Math.max(w * DIFICULDADE.limiteInvasaoIA, Math.min(w - pSize, p2X));

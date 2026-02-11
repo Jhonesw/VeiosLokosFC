@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Veios Lokos 2026 - Slot Deluxe</title>
+    <style>
+        :root {
+            --gold: #ffd700;
+            --neon-blue: #00d4ff;
+            --bg: #0a0a0a;
+            --card-width: clamp(85px, 22vw, 130px);
+            --card-height: clamp(110px, 28vw, 180px);
+            --win-color: #00ff00;
+            --lose-color: #ff0000;
+        }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+        body {
+            background-color: var(--bg);
+            background-image: radial-gradient(circle at center, #1a1a1a 0%, #000 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            font-family: 'Segoe UI', Roboto, sans-serif;
+            color: white;
+            overflow: hidden;
+        }
+
+        .game-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            padding: 10px;
+        }
+
+        .balance-box {
+            position: relative;
+            font-size: clamp(1.4rem, 6vw, 2.2rem);
+            margin-bottom: 15px;
+            color: var(--gold);
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+            font-weight: 900;
+            transition: color 0.3s;
+        }
+
+        #gainDisplay {
+            position: absolute;
+            top: -30px;
+            width: 100%;
+            text-align: center;
+            font-size: 1.8rem;
+            color: var(--win-color);
+            opacity: 0;
+            z-index: 100;
+            font-weight: bold;
+        }
+
+        .float-up { animation: floatUp 1.2s ease-out forwards; }
+        .float-down-red { animation: floatDownRed 1.2s ease-out forwards; color: var(--lose-color) !important; }
+
+        @keyframes floatUp {
+            0% { opacity: 0; transform: translateY(20px); }
+            30% { opacity: 1; transform: translateY(0) scale(1.2); }
+            100% { opacity: 0; transform: translateY(-40px); }
+        }
+
+        @keyframes floatDownRed {
+            0% { opacity: 0; transform: translateY(-20px); }
+            30% { opacity: 1; transform: translateY(0) scale(1.2); }
+            100% { opacity: 0; transform: translateY(40px); }
+        }
+
+        .slot-machine {
+            display: flex;
+            gap: 10px;
+            background: linear-gradient(145deg, #222, #000);
+            padding: 15px;
+            border-radius: 15px;
+            border: 5px solid #333;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.9);
+            margin-bottom: 20px;
+            position: relative;
+            transition: all 0.3s;
+        }
+
+        .machine-win { animation: flashMachine 0.5s infinite alternate; }
+        .machine-lose { animation: flashLose 0.2s 3; }
+
+        @keyframes flashMachine { 
+            from { border-color: #333; box-shadow: 0 0 10px rgba(255, 215, 0, 0.2); }
+            to { border-color: var(--gold); box-shadow: 0 0 30px var(--gold); }
+        }
+        @keyframes flashLose {
+            50% { border-color: var(--lose-color); box-shadow: 0 0 30px var(--lose-color); }
+        }
+
+        .reel-container {
+            width: var(--card-width);
+            height: var(--card-height);
+            background: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+            border: 2px solid #000;
+        }
+
+        .reel-strip { 
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            display: flex; 
+            flex-direction: column; 
+        }
+        
+        .card {
+            width: var(--card-width);
+            height: var(--card-height);
+            background-size: 100% 100%; 
+            background-repeat: no-repeat;
+            background-position: center;
+            flex-shrink: 0;
+            border: 0px solid transparent;
+            transition: border 0.3s;
+        }
+
+        .card-winner { 
+            animation: pulseWinner 0.6s infinite alternate !important; 
+            z-index: 10; 
+            position: relative;
+        }
+        .card-loser { border: 5px solid var(--lose-color) !important; filter: grayscale(0.5) sepia(1) hue-rotate(-50deg); }
+
+        @keyframes pulseWinner {
+            from { box-shadow: inset 0 0 5px var(--gold), 0 0 5px var(--gold); transform: scale(1); border: 2px solid var(--gold); }
+            to { box-shadow: inset 0 0 25px var(--gold), 0 0 20px var(--gold); transform: scale(0.96); border: 4px solid #fff; }
+        }
+
+        .bet-selector { 
+            display: flex; 
+            gap: 5px; 
+            justify-content: center; 
+            margin-bottom: 20px; 
+            flex-wrap: wrap; 
+        }
+        
+        .bet-btn {
+            background: #222;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 10px 12px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .bet-btn.active { background: var(--gold); color: #000; }
+
+        #spinBtn {
+            background: linear-gradient(to bottom, #ff4e50, #f9d423);
+            border: none;
+            padding: 15px 60px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 78, 80, 0.4);
+            transition: 0.2s;
+        }
+
+        #spinBtn:disabled { filter: grayscale(1); opacity: 0.5; }
+
+        #message { margin-top: 15px; font-weight: bold; color: var(--neon-blue); height: 1.5em; text-transform: uppercase;}
+
+        #overlay, #winOverlay, #loseOverlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95); display: flex; justify-content: center; align-items: center; z-index: 1000;
+        }
+        .popup { background: #1a1a1a; padding: 25px; border-radius: 20px; border: 3px solid var(--gold); text-align: center; width: 90%; max-width: 450px; }
+        .win-info { text-align: left; background: #000; padding: 15px; border: 2px dashed #00ff00; color: #00ff00; margin: 15px 0; font-family: monospace; font-size: 0.95rem; line-height: 1.6; word-break: break-all;}
+        
+        .veio-image { width: 100%; max-width: 250px; border-radius: 10px; margin-bottom: 15px; }
+        .btn-reload { background: #ff4e50; color: white; border: none; padding: 15px; border-radius: 10px; font-weight: bold; cursor: pointer; width: 100%; font-size: 1.1rem; text-decoration: none; display: block; }
+
+        #ad-container {
+            position: fixed; 
+            bottom: 20px; 
+            right: -320px; 
+            width: 280px; 
+            height: 80px; 
+            background: #000; 
+            border: 2px solid var(--neon-blue);
+            border-radius: 10px; 
+            overflow: hidden; 
+            z-index: 99;
+            transition: right 0.5s ease;
+        }
+        #ad-container.active { right: 20px; }
+        #adImg { width: 100%; height: 100%; object-fit: cover; display: block; }
+    </style>
+</head>
+<body>
+
+    <div id="ad-container">
+        <img src="" id="adImg" alt="Ad">
+    </div>
+
+    <div id="overlay">
+        <div class="popup">
+            <h2 style="color: var(--gold); margin-top: 0;">VEIOS LOKOS 2026</h2>
+            <p>FAÇA 5MIL PONIT'S GANHE!</p>
+            <p>!CAMISA VEIOS LOKOS 2026!</p>
+            <input type="text" id="playerName" style="padding: 12px; width: 100%; margin-bottom: 15px; border-radius: 5px; text-align: center;" placeholder="Digite seu nome completo">
+            <button id="startBtn" class="bet-btn active" style="width:100%; font-size: 1.2rem;">INICIAR JOGO</button>
+        </div>
+    </div>
+
+    <div id="loseOverlay" style="display: none;">
+        <div class="popup" style="border-color: var(--lose-color);">
+            <img src="img/azar.png" class="veio-image" alt="Veio Rindo">
+            <h2 style="color: var(--lose-color);">OPS! DEU RUIM!</h2>
+            <p>NOSSA, ACABOU OS SEUS LOKOS POINTS!</p>
+            <a href="https://mirodobutanta.com/" target="_blank" class="btn-reload" id="btnRecarregar">GANHE MAIS 200 CLICANDO AQUI</a>
+        </div>
+    </div>
+
+    <div id="winOverlay" style="display: none;">
+        <div class="popup">
+            <h1 style="color: #00ff00; margin-top: 0;">🏆 VITÓRIA! 🏆</h1>
+            <p>Parabéns, <b id="finalNameDisp" style="color: var(--gold);"></b>!</p>
+            <div class="win-info">
+                JOGADOR: <span id="resName"></span><br>
+                DATA: <span id="resDate"></span><br>
+                HORA: <span id="resTime"></span><br>
+                CÓDIGO: <span id="winCode" style="font-weight: bold; letter-spacing: 1px;"></span>
+            </div>
+            <p><b>TIRE UM PRINT AGORA</b> e envie para o suporte!</p>
+        </div>
+    </div>
+
+    <div class="game-container">
+        <div class="balance-box" id="balanceBox">
+            <div id="gainDisplay"></div>
+            LOKOS POINTS: <span id="credits">100</span>
+        </div>
+
+        <div class="slot-machine" id="machine">
+            <div class="reel-container"><div id="strip1" class="reel-strip"></div></div>
+            <div class="reel-container"><div id="strip2" class="reel-strip"></div></div>
+            <div class="reel-container"><div id="strip3" class="reel-strip"></div></div>
+        </div>
+
+        <div class="bet-selector">
+            <button class="bet-btn active" onclick="setBet(1)">$1</button>
+            <button class="bet-btn" onclick="setBet(3)">$3</button>
+            <button class="bet-btn" onclick="setBet(5)">$5</button>
+            <button class="bet-btn" onclick="setBet(10)">$10</button>
+            <button class="bet-btn" onclick="setBet(30)">$30</button>
+            <button class="bet-btn" onclick="setBet(50)">$50</button>
+            <button class="bet-btn" onclick="setBet('all')">TUDO</button>
+        </div>
+
+        <button id="spinBtn">GIRAR!</button>
+        <div id="message">BOA SORTE!</div>
+    </div>
+
+    <script>
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        function playTone(freq, type, duration, vol) {
+            const osc = audioCtx.createOscillator();
+            const gain = audioCtx.createGain();
+            osc.type = type;
+            osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+            gain.gain.setValueAtTime(vol, audioCtx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.0001, audioCtx.currentTime + duration);
+            osc.connect(gain); gain.connect(audioCtx.destination);
+            osc.start(); osc.stop(audioCtx.currentTime + duration);
+        }
+        const sound = {
+            click: () => playTone(600, 'sine', 0.1, 0.1),
+            spin: () => playTone(150, 'square', 0.15, 0.03),
+            win: () => {
+                playTone(523, 'sine', 0.3, 0.1);
+                setTimeout(() => playTone(659, 'sine', 0.3, 0.1), 100);
+                setTimeout(() => playTone(783, 'sine', 0.5, 0.1), 200);
+            },
+            lose: () => {
+                playTone(200, 'sawtooth', 0.4, 0.1);
+                setTimeout(() => playTone(150, 'sawtooth', 0.4, 0.1), 200);
+            }
+        };
+
+        const ads = [
+            { img: 'img/prop1.webp' }, 
+            { img: 'img/prop2.webp' }, 
+            { img: 'img/prop3.webp' }];
+        function showRandomAd() {
+            const container = document.getElementById('ad-container');
+            const img = document.getElementById('adImg');
+            if(img) img.src = ads[Math.floor(Math.random() * ads.length)].img;
+            container.classList.add('active');
+            setTimeout(() => container.classList.remove('active'), 5000);
+        }
+        setInterval(showRandomAd, 20000);
+
+        const cardTypes = [
+            { id: 1, img: 'img/CARTA19.webp', isBonus: false },
+            { id: 2, img: 'img/CARTA2.webp', isBonus: false },
+            { id: 3, img: 'img/CARTA3.webp', isBonus: false },
+            { id: 4, img: 'img/CARTA4.webp', isBonus: false },
+            { id: 5, img: 'img/CARTA5.webp', isBonus: false },
+            { id: 6, img: 'img/CARTA6.webp', isBonus: false },
+            { id: 7, img: 'img/CARTA7.webp', isBonus: false },
+            { id: 8, img: 'img/CARTA8.webp', isBonus: false },
+            { id: 9, img: 'img/CARTA9.webp', isBonus: false },
+            { id: 10, img: 'img/CARTA10.webp', isBonus: false },
+            { id: 11, img: 'img/CARTA11.webp', isBonus: false },
+            { id: 12, img: 'img/CARTA12.webp', isBonus: false },
+            { id: 13, img: 'img/azar.webp', isBad: true },
+            { id: 21, img: 'img/CARTA14.webp', isBonus: false },
+            { id: 22, img: 'img/CARTA15.webp', isBonus: false },
+            { id: 23, img: 'img/CARTA16.webp', isBonus: false },
+            { id: 24, img: 'img/CARTA17.webp', isBonus: false },
+            { id: 25, img: 'img/CARTA20.webp', isBonus: false },
+            { id: 43, img: 'img/bonus1.webp', isBonus: true },
+            { id: 44, img: 'img/bonus2.webp', isBonus: true },
+            { id: 45, img: 'img/bonus3.webp', isBonus: true }
+        ];
+
+        let credits = 100;
+        let currentBet = 1;
+        let isSpinning = false;
+        let pName = "";
+        const spinCount = 35;
+
+        document.getElementById('startBtn').onclick = () => {
+            if (audioCtx.state === 'suspended') audioCtx.resume();
+            sound.click();
+            pName = document.getElementById('playerName').value;
+            if(pName.length < 3) return alert("Digite seu nome.");
+            document.getElementById('overlay').style.display = 'none';
+            init();
+        };
+
+        function setBet(v) {
+            if (isSpinning) return;
+            sound.click();
+            currentBet = (v === 'all') ? credits : v;
+            document.querySelectorAll('.bet-btn').forEach(b => b.classList.toggle('active', b.innerText.includes(v) || (v === 'all' && b.innerText === 'TUDO')));
+        }
+
+        function init() {
+            for (let i = 1; i <= 3; i++) {
+                const strip = document.getElementById(`strip${i}`);
+                strip.innerHTML = '';
+                for (let j = 0; j < spinCount; j++) {
+                    const card = cardTypes[Math.floor(Math.random() * cardTypes.length)];
+                    const div = document.createElement('div');
+                    div.className = 'card';
+                    div.style.backgroundImage = `url('${card.img}')`;
+                    strip.appendChild(div);
+                }
+            }
+        }
+
+        function spin() {
+            if (isSpinning || credits < currentBet) {
+                if(credits < currentBet && !isSpinning) { sound.lose(); document.getElementById('loseOverlay').style.display = 'flex'; }
+                return;
+            }
+
+            isSpinning = true;
+            credits -= currentBet;
+            document.getElementById('credits').innerText = Math.floor(credits);
+            document.getElementById('spinBtn').disabled = true;
+            document.getElementById('machine').classList.remove('machine-win', 'machine-lose');
+            document.querySelectorAll('.card').forEach(c => c.classList.remove('card-winner', 'card-loser'));
+
+            let spinInterval = setInterval(() => sound.spin(), 150);
+            const results = [];
+            const h = document.querySelector('.reel-container').offsetHeight;
+
+            for (let i = 1; i <= 3; i++) {
+                const strip = document.getElementById(`strip${i}`);
+                const finalCard = cardTypes[Math.floor(Math.random() * cardTypes.length)];
+                results.push(finalCard);
+                strip.lastElementChild.style.backgroundImage = `url('${finalCard.img}')`;
+                strip.style.transition = 'none';
+                strip.style.top = '0px';
+                strip.offsetHeight; 
+                strip.style.transition = `top ${2 + (i*0.5)}s cubic-bezier(0.1, 0, 0.1, 1)`;
+                strip.style.top = `-${(spinCount-1) * h}px`;
+            }
+
+            setTimeout(() => {
+                clearInterval(spinInterval);
+                const hasBad = results.some(c => c.isBad);
+                const bonusCount = results.filter(c => c.isBonus).length;
+                const uniqueIds = [...new Set(results.map(c => c.id))];
+                let win = 0;
+
+                if (hasBad) {
+                    sound.lose();
+                    credits -= (currentBet * 2);
+                    document.getElementById('machine').classList.add('machine-lose');
+                    results.forEach((c, idx) => {
+                        if(c.isBad) document.getElementById(`strip${idx+1}`).lastElementChild.classList.add('card-loser');
+                    });
+                } else {
+                    if (uniqueIds.length === 1) win = currentBet * 50;
+                    else if (bonusCount === 3) win = currentBet * 30;
+                    else if (bonusCount === 2) win = currentBet * 15;
+                    else if (uniqueIds.length === 2 && bonusCount === 0) win = currentBet * 5;
+                    else if (bonusCount === 1) win = currentBet * 2;
+
+                    if (win > 0) {
+                        sound.win();
+                        document.getElementById('machine').classList.add('machine-win');
+                        credits += win;
+                        document.getElementById('message').innerText = "GANHOU!";
+                        results.forEach((c, idx) => {
+                             document.getElementById(`strip${idx+1}`).lastElementChild.classList.add('card-winner');
+                        });
+                    }
+                }
+                document.getElementById('credits').innerText = Math.max(0, Math.floor(credits));
+                isSpinning = false;
+                document.getElementById('spinBtn').disabled = false;
+                if (credits >= 5000) showWin();
+                if (credits <= 0) setTimeout(() => document.getElementById('loseOverlay').style.display = 'flex', 600);
+            }, 3500);
+        }
+
+        function showWin() {
+            sound.win();
+            const now = new Date();
+            const d = String(now.getDate()).padStart(2, '0');
+            const m = String(now.getMonth() + 1).padStart(2, '0');
+            const a = now.getFullYear();
+            const h = String(now.getHours()).padStart(2, '0');
+            const min = String(now.getMinutes()).padStart(2, '0');
+            const s = String(now.getSeconds()).padStart(2, '0');
+            const ms = String(now.getMilliseconds()).padStart(3, '0');
+            
+            document.getElementById('finalNameDisp').innerText = pName;
+            document.getElementById('resName').innerText = pName;
+            document.getElementById('resDate').innerText = `${d}/${m}/${a}`;
+            document.getElementById('resTime').innerText = `${h}:${min}:${s}:${ms}`;
+            document.getElementById('winCode').innerText = `${d}${m}${a}${h}${min}${s}${ms}`;
+            document.getElementById('winOverlay').style.display = 'flex';
+        }
+
+        document.getElementById('spinBtn').onclick = spin;
+        document.getElementById('btnRecarregar').onclick = () => { sound.click(); credits = 200; document.getElementById('credits').innerText = 200; document.getElementById('loseOverlay').style.display = 'none'; };
+    </script>
+</body>
+</html>
