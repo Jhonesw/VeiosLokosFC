@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>FutBotão Pro | Vila Dalva 2026</title>
     <style>
         :root {
@@ -19,7 +19,9 @@
             display: flex; 
             flex-direction: column; 
             align-items: center ; justify-content: center;
-            height: 100vh; 
+            /* CORREÇÃO DO RESPONSIVO: svh ignora as barras de navegação do browser */
+            height: 100vh;
+            height: 100svh; 
             background-image: url('./CAMPOPRO.webp'); 
             background-size: cover; 
             background-position: center; 
@@ -123,23 +125,27 @@
 
         #game-wrapper { display: none; flex-direction: column; align-items: center; width: 100%; z-index: 10; }
 
+        /* AJUSTADO PARA RESPONSIVO TELA CHEIA */
         #header-ui {
             width: 900px; height: 70px; background: rgba(0,0,0,0.85);
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 40px; border-radius: 20px 20px 0 0; border: 1px solid #333; border-bottom: 2px solid var(--gold);
             backdrop-filter: blur(10px);
+            transform-origin: top center;
         }
 
         .ui-team-box { display: flex; align-items: center; gap: 15px; font-size: 0.9rem; letter-spacing: 1px; width: 250px; }
         #scoreboard { font-size: 1.2rem; color: var(--gold); text-shadow: 0 0 10px rgba(241, 196, 15, 0.5); font-weight: 900; text-align: center; }
         #match-timer { background: #000; padding: 5px 15px; border-radius: 15px; border: 1px solid #444; font-family: monospace; font-size: 1.4rem; }
 
+        /* AJUSTADO PARA RESPONSIVO TELA CHEIA */
         #field {
             position: relative; width: 900px; height: 460px; background-color: var(--field-green);
             background-image: 
                 linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px),
                 repeating-linear-gradient(90deg, var(--field-green) 0px, var(--field-green) 50px, var(--field-light) 50px, var(--field-light) 100px);
             border: 8px solid #eee; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            transform-origin: top center;
         }
         #field::after {
             content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -265,18 +271,20 @@
 </div>
 
 <div id="game-wrapper">
-    <div id="header-ui">
-        <div id="ui-home" class="ui-team-box"></div>
-        <div style="display: flex; flex-direction: column; align-items: center;">
-            <div id="scoreboard"><span id="score-val">0 - 0</span></div>
-            <div id="match-timer">00:45</div>
+    <div id="game-scaler" style="display: flex; flex-direction: column; align-items: center; transform-origin: top center;">
+        <div id="header-ui">
+            <div id="ui-home" class="ui-team-box"></div>
+            <div style="display: flex; flex-direction: column; align-items: center;">
+                <div id="scoreboard"><span id="score-val">0 - 0</span></div>
+                <div id="match-timer">00:45</div>
+            </div>
+            <div id="ui-away" class="ui-team-box" style="justify-content: flex-end;"></div>
         </div>
-        <div id="ui-away" class="ui-team-box" style="justify-content: flex-end;"></div>
-    </div>
-    <div id="field">
-        <div class="goal-post goal-l"></div>
-        <div class="goal-post goal-r"></div>
-        <div id="indicator"></div>
+        <div id="field">
+            <div class="goal-post goal-l"></div>
+            <div class="goal-post goal-r"></div>
+            <div id="indicator"></div>
+        </div>
     </div>
 </div>
 
@@ -319,9 +327,26 @@
         { n: 'MAICON', p: 'special', i: './REALPDP/JOGADOR5.webp' }]}
     ];
 
+    /* FUNÇÃO DE ESCALA PARA RESOLVER O RESPONSIVO */
+    function ajustarTela() {
+        const gameScaler = document.getElementById('game-scaler');
+        if (!gameScaler) return;
+        
+        const larguraDesejada = 940; // largura do header/field + margens
+        const alturaDesejada = 560;
+        
+        const scaleX = window.innerWidth / larguraDesejada;
+        const scaleY = window.innerHeight / alturaDesejada;
+        const scale = Math.min(scaleX, scaleY, 1);
+        
+        gameScaler.style.transform = `scale(${scale})`;
+    }
+
+    window.addEventListener('resize', ajustarTela);
+
     /* --- NOVA FUNÇÃO DE PRELOAD ADICIONADA --- */
     function preloadAllAssets() {
-        const imagesToLoad = ['./VEIOS/LOGO.webp']; // Começa com o logo principal
+        const imagesToLoad = ['./VEIOS/LOGO.webp']; 
         ALL_TEAMS.forEach(t => {
             imagesToLoad.push(t.logo);
             t.players.forEach(p => imagesToLoad.push(p.i));
@@ -419,6 +444,7 @@
     function confirmVs() {
         document.getElementById('vs-screen').style.display = 'none';
         document.getElementById('game-wrapper').style.display = 'flex';
+        ajustarTela(); // Garante a escala ao iniciar o campo
         initMatch();
     }
 
@@ -456,6 +482,7 @@
                         showPopup("./VEIOS/LOGO.webp", "INTERVALO!", "Fim do primeiro tempo. Os times estão trocando de lado!", "VOLTAR AO JOGO", () => {
                             document.getElementById('game-popup').style.display = 'none';
                             document.getElementById('game-wrapper').style.display = 'flex';
+                            ajustarTela();
                             initMatch();
                         });
                     } else { finalizeMatch(); }
@@ -706,6 +733,7 @@
             if(playerLives > 0) {
                 document.getElementById('game-popup').style.display = 'none';
                 document.getElementById('game-wrapper').style.display = 'flex';
+                ajustarTela();
                 scoreH = 0; scoreA = 0; timeLeft = 45; period = 1; goalLocked = false; ballStarter = 1;
                 initMatch();
             } else { location.reload(); }
@@ -730,7 +758,6 @@
         }, 600);
     }
 
-    // MUDADO DE initSelection PARA preloadAllAssets
     window.onload = preloadAllAssets;
 </script>
 </body>
