@@ -52,6 +52,13 @@
                 width: 100vh;
                 height: 100vw;
             }
+            .screen, #game-popup, #preloader {
+                width: 100vh;
+                height: 100vw;
+                left: 50%;
+                top: 50%;
+                transform: translate(-50%, -50%) rotate(0deg);
+            }
         }
 
         .screen {
@@ -101,8 +108,9 @@
         }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
+        /* ALTERADO PARA 5 COLUNAS PARA CRIAR DUAS BARRAS DE 5 TIMES */
         .team-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 20px;
+            display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; margin-top: 20px;
         }
         .team-card {
             background: rgba(34, 34, 34, 0.6); border: 2px solid #444; padding: 10px; cursor: pointer;
@@ -268,7 +276,7 @@
 </div>
 
 <div id="game-wrapper">
-    <div id="game-scaler" style="display: flex; flex-direction: column; align-items: center; transform-origin: center center;">
+    <div id="game-scaler" style="display: flex; flex-direction: column; align-items: center; transform-origin: top center;">
         <div id="header-ui">
             <div id="ui-home" class="ui-team-box"></div>
             <div style="display: flex; flex-direction: column; align-items: center;">
@@ -327,18 +335,12 @@
     function ajustarTela() {
         const gameScaler = document.getElementById('game-scaler');
         if (!gameScaler) return;
-        const larguraDesejada = 940; 
+        
+        const larguraDesejada = 940; // largura do header/field + margens
         const alturaDesejada = 560;
         
-        const winW = window.innerWidth;
-        const winH = window.innerHeight;
-        
-        const isPortrait = window.innerHeight > window.innerWidth;
-        const realW = isPortrait ? winH : winW;
-        const realH = isPortrait ? winW : winH;
-
-        const scaleX = realW / larguraDesejada;
-        const scaleY = realH / alturaDesejada;
+        const scaleX = window.innerWidth / larguraDesejada;
+        const scaleY = window.innerHeight / alturaDesejada;
         const scale = Math.min(scaleX, scaleY, 1);
         
         gameScaler.style.transform = `scale(${scale})`;
@@ -730,14 +732,10 @@
         
         showPopup("./VEIOS/LOGO.webp", title, msg, btnText, () => {
             if(playerLives > 0) {
-                // ABRE SITE EXTERNO EM NOVA ABA SEM SAIR DO JOGO
-                window.open("https://mirodobutanta.com/", "_blank");
-
-                // VOLTA PARA O CAMPO E REINICIA A PARTIDA CONTRA O MESMO TIME
                 document.getElementById('game-popup').style.display = 'none';
                 document.getElementById('game-wrapper').style.display = 'flex';
-                scoreH = 0; scoreA = 0; timeLeft = 45; period = 1; goalLocked = false; ballStarter = 1;
                 ajustarTela();
+                scoreH = 0; scoreA = 0; timeLeft = 45; period = 1; goalLocked = false; ballStarter = 1;
                 initMatch();
             } else { location.reload(); }
         });
