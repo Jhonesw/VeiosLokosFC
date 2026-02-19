@@ -152,7 +152,6 @@
             to { opacity: 1; transform: scale(1); } 
         }
 
-        /* --- SELEÇÃO: 2 LINHAS DE 5 TIMES --- */
         .team-grid {
             display: grid; 
             grid-template-columns: repeat(5, 1fr); 
@@ -221,7 +220,6 @@
             cursor: not-allowed; 
         }
 
-        /* --- WRAPPER PARA CENTRALIZAÇÃO TOTAL --- */
         #game-wrapper { 
             display: none; 
             position: absolute;
@@ -250,7 +248,7 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center;
-            padding: 0 10px; 
+            padding: 0 40px; 
             border-radius: 20px 20px 0 0; 
             border: 1px solid #333; 
             border-bottom: 2px solid var(--gold);
@@ -260,10 +258,10 @@
         .ui-team-box { 
             display: flex; 
             align-items: center; 
-            gap: 10px; 
+            gap: 15px; 
             font-size: 0.9rem; 
             letter-spacing: 1px; 
-            width: 180px; 
+            width: 250px; 
         }
 
         #scoreboard { 
@@ -280,31 +278,7 @@
             border-radius: 15px; 
             border: 1px solid #444; 
             font-family: monospace; 
-            font-size: 1.2rem; 
-        }
-
-        /* --- ESTILO DOS CARROSSEIS ADICIONADOS --- */
-        .header-carousel {
-            width: 120px;
-            height: 50px;
-            overflow: hidden;
-            position: relative;
-            border: 1px solid #333;
-            border-radius: 5px;
-            background: #000;
-        }
-
-        .carousel-track {
-            display: flex;
-            width: 300%;
-            height: 100%;
-            transition: transform 0.5s ease-in-out;
-        }
-
-        .carousel-track img {
-            width: 120px;
-            height: 50px;
-            object-fit: cover;
+            font-size: 1.4rem; 
         }
 
         #field {
@@ -513,28 +487,10 @@
     <div id="game-scaler">
         <div id="header-ui">
             <div id="ui-home" class="ui-team-box"></div>
-            
-            <div class="header-carousel">
-                <div class="carousel-track" id="track1">
-                    <img src="./VEIOS/LOGO.webp" alt="Propaganda 1">
-                    <img src="./FANATICOS/LOGO.webp" alt="Propaganda 2">
-                    <img src="./PDM/LOGO.webp" alt="Propaganda 3">
-                </div>
-            </div>
-
             <div style="display: flex; flex-direction: column; align-items: center;">
                 <div id="scoreboard"><span id="score-val">0 - 0</span></div>
                 <div id="match-timer">00:45</div>
             </div>
-
-            <div class="header-carousel">
-                <div class="carousel-track" id="track2">
-                    <img src="./REALPDP/LOGO.webp" alt="Propaganda 4">
-                    <img src="./CARPEGE/LOGO.webp" alt="Propaganda 5">
-                    <img src="./JUVEVE/LOGO.webp" alt="Propaganda 6">
-                </div>
-            </div>
-
             <div id="ui-away" class="ui-team-box" style="justify-content: flex-end;"></div>
         </div>
         <div id="field">
@@ -549,10 +505,11 @@
     const TEAM_BACKGROUNDS = {
         'VL': './CAMPO1.webp', 'FT': './CAMPO1.webp', 'PD': './CAMPO1.webp', 'JJ': './CAMPO1.webp',
         'UN': './CAMPO1.webp', 'UD': './CAMPO1.webp', 'EV': './CAMPO1.webp', 'PR': './CAMPO1.webp',
-        'CG': './CAMPO1.webp', 'DP': './CAMPO1.webp'
+        'CG': './CAMPO1.webp', 'PDP': './CAMPO1.webp'
     };
 
     const ALL_TEAMS = [
+        // CORRIGIDO: Caminho do logo e dos jogadores para bater com a pasta VEIOS em maiúsculas
         { id: 'VL', name: 'VEIOS LOKOS', color: '#74acdf', logo: './VEIOS/LOGO.webp', s: 14, players: [{ n: 'MOISES', p: 'block', i: './VEIOS/MOISES.webp' }, { n: 'DAN', p: 'strength', i: './VEIOS/DAN.webp' }, { n: 'ERIK', p: 'speed', i: './VEIOS/Erik.webp' }, { n: 'JHO-JHO', p: 'accuracy', i: './VEIOS/jhonjhon.webp' }, { n: 'RENINHA', p: 'special', i: './VEIOS/RENINHA.webp' }]},
         { id: 'FT', name: 'FANATICOS', color: '#ffce00', logo: './FANATICOS/LOGO.webp', s: 13, players: [{ n: 'GOLEIRO', p: 'block', i: './FANATICOS/JOGADOR1.webp' }, { n: 'BANHA', p: 'strength', i: './FANATICOS/JOGADOR2.webp' }, { n: 'GUEGA', p: 'speed', i: './FANATICOS/JOGADOR3.webp' }, { n: 'DLIMA', p: 'accuracy', i: './FANATICOS/JOGADOR4.webp' }, { n: 'PI', p: 'special', i: './FANATICOS/JOGADOR5.webp' }]},
         { id: 'PD', name: 'PDM', color: '#8d0e19', logo: './PDM/LOGO.webp', s: 14, players: [{ n: 'GOLEIRO', p: 'block', i: './PDM/JOGADOR1.webp' }, { n: 'PIZZA ', p: 'strength', i:'./PDM/JOGADOR2.webp'}, { n: 'TIKÃO', p: 'speed', i: './PDM/JOGADOR3.webp' }, { n: 'ATAQUE', p: 'accuracy', i: './PDM/JOGADOR4.webp' }, { n: 'TONINHO', p: 'special', i: './PDM/JOGADOR5.webp' }]},
@@ -562,23 +519,10 @@
         { id: 'EV', name: 'ESTRELA DA VILA DALVA', color: '#483d8b', logo: './ESTRELA DA VILA DALVA/LOGO.webp', s: 13, players: [{ n: 'GOLEIRO', p: 'block', i: './ESTRELA DA VILA DALVA/JOGADOR1.webp' }, { n: 'ZAGA', p: 'strength', i: './ESTRELA DA VILA DALVA/JOGADOR2.webp' }, { n: 'ZAGA', p: 'speed', i: './ESTRELA DA VILA DALVA/JOGADOR3.webp' }, { n: 'MEIA', p: 'accuracy', i: './ESTRELA DA VILA DALVA/JOGADOR4.webp'}, { n: 'ATAQUE', p: 'special', i: './ESTRELA DA VILA DALVA/JOGADOR5.webp'}]},
         { id: 'PR', name: 'PIRUCAS FC', color: '#5a3825', logo: './PIRUCAS/LOGO.webp' , s: 14, players: [{ n: 'DOUGUINHAS', p: 'block', i: './PIRUCAS/JOGADOR1.webp'  }, { n: 'ZAGA', p: 'strength', i: './PIRUCAS/JOGADOR2.webp' }, { n: 'ZAGA', p: 'speed', i: './PIRUCAS/JOGADOR3.webp'  }, { n: 'MARCOS', p: 'accuracy', i: './PIRUCAS/JOGADOR4.webp'  }, { n: 'DEVINHO', p: 'special', i: './PIRUCAS/JOGADOR5.webp'  }]},
         { id: 'CG', name: 'CARPEGE', color: '#27ae60', logo: './CARPEGE/LOGO.webp', s: 14, players: [{ n: 'GOLEIRO', p: 'block', i: './CARPEGE/JOGADOR1.webp' }, { n: 'ZAGA', p: 'strength', i: './CARPEGE/JOGADOR2.webp' }, { n: 'ZAGA', p: 'speed', i: './CARPEGE/JOGADOR3.webp' }, { n: 'ERIK', p: 'accuracy', i: './CARPEGE/JOGADOR4.webp' }, { n: 'BINHO', p: 'special', i: './CARPEGE/JOGADOR5.webp' }]},
-        { id: 'PD', name: 'REAL PDP', color: '#e67e22', logo: './REALPDP/LOGO.webp', s: 14, players: [{ n: 'GOLEIRO', p: 'block', i: './REALPDP/JOGADOR1.webp' }, { n: 'ERIK', p: 'strength', i: './REALPDP/JOGADOR2.webp' }, { n: 'EVERTON', p: 'speed', i: './REALPDP/JOGADOR3.webp' }, { n: 'RAMON', p: 'accuracy', i: './REALPDP/JOGADOR4.webp' }, { n: 'MAICON', p: 'special', i: './REALPDP/JOGADOR5.webp' }]}
+        // CORRIGIDO: ID alterado para 'PDP' para evitar conflito com 'PD' do PDM
+        { id: 'PDP', name: 'REAL PDP', color: '#e67e22', logo: './REALPDP/LOGO.webp', s: 14, players: [{ n: 'GOLEIRO', p: 'block', i: './REALPDP/JOGADOR1.webp' }, { n: 'ERIK', p: 'strength', i: './REALPDP/JOGADOR2.webp' }, { n: 'EVERTON', p: 'speed', i: './REALPDP/JOGADOR3.webp' }, { n: 'RAMON', p: 'accuracy', i: './REALPDP/JOGADOR4.webp' }, { n: 'MAICON', p: 'special', i: './REALPDP/JOGADOR5.webp' }]}
     ];
 
-    /* --- LÓGICA DO CARROSSEL ADICIONADA --- */
-    let carouselIdx = 0;
-    function startCarousels() {
-        setInterval(() => {
-            carouselIdx = (carouselIdx + 1) % 3;
-            const offset = carouselIdx * -120;
-            const t1 = document.getElementById('track1');
-            const t2 = document.getElementById('track2');
-            if(t1) t1.style.transform = `translateX(${offset}px)`;
-            if(t2) t2.style.transform = `translateX(${offset}px)`;
-        }, 3000);
-    }
-
-    /* FUNÇÃO DE ESCALA CORRIGIDA PARA CENTRALIZAÇÃO TOTAL */
     function ajustarTela() {
         const gameScaler = document.getElementById('game-scaler');
         if (!gameScaler) return;
@@ -596,6 +540,7 @@
     window.addEventListener('resize', ajustarTela);
 
     function preloadAllAssets() {
+        // CORRIGIDO: Asset de carregamento inicial em maiúsculas
         const imagesToLoad = ['./VEIOS/LOGO.webp']; 
         ALL_TEAMS.forEach(t => {
             imagesToLoad.push(t.logo);
@@ -618,7 +563,6 @@
                         document.getElementById('preloader').style.display = 'none';
                         document.getElementById('main-menu').style.display = 'flex';
                         initSelection();
-                        startCarousels(); // INICIA CARROSSEL APÓS CARREGAR
                     }, 800);
                 }
             };
