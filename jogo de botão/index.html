@@ -19,7 +19,6 @@
             display: flex; 
             flex-direction: column; 
             align-items: center ; justify-content: center;
-            /* CORREÇÃO DO RESPONSIVO: svh ignora as barras de navegação do browser */
             height: 100vh;
             height: 100svh; 
             background-image: url('./CAMPOPRO.webp'); 
@@ -32,7 +31,7 @@
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; overflow: hidden; color: white;
         }
 
-        /* --- ESTILO DO PRELOADER ADICIONADO --- */
+        /* --- ESTILO DO PRELOADER --- */
         #preloader {
             position: fixed; inset: 0; background: #000; z-index: 99999;
             display: flex; flex-direction: column; align-items: center; justify-content: center;
@@ -108,8 +107,13 @@
         }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
+        /* AJUSTADO PARA 2 LINHAS DE 5 TIMES */
         .team-grid {
-            display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 20px;
+            display: grid; 
+            grid-template-columns: repeat(5, 1fr); 
+            gap: 15px; 
+            margin-top: 20px;
+            max-width: 800px;
         }
         .team-card {
             background: rgba(34, 34, 34, 0.6); border: 2px solid #444; padding: 10px; cursor: pointer;
@@ -131,14 +135,23 @@
         .mode-btn:disabled { border-color: #555; color: #555; cursor: not-allowed; }
         .mode-btn:disabled:hover { background: transparent; box-shadow: none; }
 
-        #game-wrapper { display: none; flex-direction: column; align-items: center; width: 100%; z-index: 10; }
+        /* AJUSTADO PARA CENTRALIZAÇÃO E ESCALA */
+        #game-wrapper { 
+            display: none; 
+            position: absolute;
+            inset: 0;
+            align-items: center; 
+            justify-content: center;
+            width: 100%; 
+            height: 100%;
+            z-index: 10; 
+        }
 
         #header-ui {
             width: 900px; height: 70px; background: rgba(0,0,0,0.85);
             display: flex; justify-content: space-between; align-items: center;
             padding: 0 40px; border-radius: 20px 20px 0 0; border: 1px solid #333; border-bottom: 2px solid var(--gold);
             backdrop-filter: blur(10px);
-            transform-origin: top center;
         }
 
         .ui-team-box { display: flex; align-items: center; gap: 15px; font-size: 0.9rem; letter-spacing: 1px; width: 250px; }
@@ -151,7 +164,6 @@
                 linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px),
                 repeating-linear-gradient(90deg, var(--field-green) 0px, var(--field-green) 50px, var(--field-light) 50px, var(--field-light) 100px);
             border: 8px solid #eee; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            transform-origin: top center;
         }
         #field::after {
             content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
@@ -275,7 +287,7 @@
 </div>
 
 <div id="game-wrapper">
-    <div id="game-scaler" style="display: flex; flex-direction: column; align-items: center; transform-origin: top center;">
+    <div id="game-scaler" style="display: flex; flex-direction: column; align-items: center; transform-origin: center center;">
         <div id="header-ui">
             <div id="ui-home" class="ui-team-box"></div>
             <div style="display: flex; flex-direction: column; align-items: center;">
@@ -291,18 +303,12 @@
         </div>
     </div>
 </div>
+
 <script>
     const TEAM_BACKGROUNDS = {
-        'VL': './CAMPO1.webp', 
-        'FT': './CAMPO1.webp',
-        'PD': './CAMPO1.webp', 
-        'JJ': './CAMPO1.webp',
-        'UN': './CAMPO1.webp', 
-        'UD': './CAMPO1.webp', 
-        'EV': './CAMPO1.webp', 
-        'PR': './CAMPO1.webp',
-        'CG': './CAMPO1.webp',
-        'DP': './CAMPO1.webp'
+        'VL': './CAMPO1.webp', 'FT': './CAMPO1.webp', 'PD': './CAMPO1.webp', 'JJ': './CAMPO1.webp',
+        'UN': './CAMPO1.webp', 'UD': './CAMPO1.webp', 'EV': './CAMPO1.webp', 'PR': './CAMPO1.webp',
+        'CG': './CAMPO1.webp', 'DP': './CAMPO1.webp'
     };
 
     const ALL_TEAMS = [
@@ -314,28 +320,16 @@
         { id: 'UD', name: 'UNIÃO DA VD', color: '#800000', logo: './UNIÃO DA VILA/LOGO.webp', s: 12, players: [{ n: 'DOUGUINHAS', p: 'block', i: './UNIÃO DA VILA/JOGADOR1.webp' }, { n: 'JOÃO', p: 'strength', i: './UNIÃO DA VILA/JOGADOR2.webp' }, { n: 'ROMARIO', p: 'speed', i: './UNIÃO DA VILA/JOGADOR3.webp' }, { n: 'MEIA', p: 'accuracy', i: './UNIÃO DA VILA/JOGADOR4.webp' }, { n: 'ATAQUE', p: 'special', i: './UNIÃO DA VILA/JOGADOR5.webp' }]},
         { id: 'EV', name: 'ESTRELA DA VILA DALVA', color: '#483d8b', logo: './ESTRELA DA VILA DALVA/LOGO.webp', s: 13, players: [{ n: 'GOLEIRO', p: 'block', i: './ESTRELA DA VILA DALVA/JOGADOR1.webp' }, { n: 'ZAGA', p: 'strength', i: './ESTRELA DA VILA DALVA/JOGADOR2.webp' }, { n: 'ZAGA', p: 'speed', i: './ESTRELA DA VILA DALVA/JOGADOR3.webp' }, { n: 'MEIA', p: 'accuracy', i: './ESTRELA DA VILA DALVA/JOGADOR4.webp'}, { n: 'ATAQUE', p: 'special', i: './ESTRELA DA VILA DALVA/JOGADOR5.webp'}]},
         { id: 'PR', name: 'PIRUCAS FC', color: '#5a3825', logo: './PIRUCAS/LOGO.webp' , s: 14, players: [{ n: 'DOUGUINHAS', p: 'block', i: './PIRUCAS/JOGADOR1.webp'  }, { n: 'ZAGA', p: 'strength', i: './PIRUCAS/JOGADOR2.webp' }, { n: 'ZAGA', p: 'speed', i: './PIRUCAS/JOGADOR3.webp'  }, { n: 'MARCOS', p: 'accuracy', i: './PIRUCAS/JOGADOR4.webp'  }, { n: 'DEVINHO', p: 'special', i: './PIRUCAS/JOGADOR5.webp'  }]},
-
-        { id: 'CG', name: 'CARPEGE', color: '#27ae60', logo: './CARPEGE/LOGO.webp', s: 14, players: 
-        [{ n: 'GOLEIRO', p: 'block', i: './CARPEGE/JOGADOR1.webp' },
-         { n: 'ZAGA', p: 'strength', i: './CARPEGE/JOGADOR2.webp' },
-         { n: 'ZAGA', p: 'speed', i: './CARPEGE/JOGADOR3.webp' },
-         { n: 'ERIK', p: 'accuracy', i: './CARPEGE/JOGADOR4.webp' },
-         { n: 'BINHO', p: 'special', i: './CARPEGE/JOGADOR5.webp' }]},
-            
-        { id: 'PD', name: 'REAL PDP', color: '#e67e22', logo: './REALPDP/LOGO.webp', s: 14, players: 
-        [{ n: 'GOLEIRO', p: 'block', i: './REALPDP/JOGADOR1.webp' },
-         { n: 'ERIK', p: 'strength', i: './REALPDP/JOGADOR2.webp' },
-        { n: 'EVERTON', p: 'speed', i: './REALPDP/JOGADOR3.webp' }, 
-        { n: 'RAMON', p: 'accuracy', i: './REALPDP/JOGADOR4.webp' }, 
-        { n: 'MAICON', p: 'special', i: './REALPDP/JOGADOR5.webp' }]}
+        { id: 'CG', name: 'CARPEGE', color: '#27ae60', logo: './CARPEGE/LOGO.webp', s: 14, players: [{ n: 'GOLEIRO', p: 'block', i: './CARPEGE/JOGADOR1.webp' }, { n: 'ZAGA', p: 'strength', i: './CARPEGE/JOGADOR2.webp' }, { n: 'ZAGA', p: 'speed', i: './CARPEGE/JOGADOR3.webp' }, { n: 'ERIK', p: 'accuracy', i: './CARPEGE/JOGADOR4.webp' }, { n: 'BINHO', p: 'special', i: './CARPEGE/JOGADOR5.webp' }]},
+        { id: 'PD', name: 'REAL PDP', color: '#e67e22', logo: './REALPDP/LOGO.webp', s: 14, players: [{ n: 'GOLEIRO', p: 'block', i: './REALPDP/JOGADOR1.webp' }, { n: 'ERIK', p: 'strength', i: './REALPDP/JOGADOR2.webp' }, { n: 'EVERTON', p: 'speed', i: './REALPDP/JOGADOR3.webp' }, { n: 'RAMON', p: 'accuracy', i: './REALPDP/JOGADOR4.webp' }, { n: 'MAICON', p: 'special', i: './REALPDP/JOGADOR5.webp' }]}
     ];
 
-    /* FUNÇÃO DE ESCALA PARA RESOLVER O RESPONSIVO */
+    /* FUNÇÃO DE ESCALA CORRIGIDA PARA CENTRALIZAÇÃO TOTAL */
     function ajustarTela() {
         const gameScaler = document.getElementById('game-scaler');
         if (!gameScaler) return;
         
-        const larguraDesejada = 940; // largura do header/field + margens
+        const larguraDesejada = 940; 
         const alturaDesejada = 560;
         
         const scaleX = window.innerWidth / larguraDesejada;
@@ -347,7 +341,6 @@
 
     window.addEventListener('resize', ajustarTela);
 
-    /* --- NOVA FUNÇÃO DE PRELOAD ADICIONADA --- */
     function preloadAllAssets() {
         const imagesToLoad = ['./VEIOS/LOGO.webp']; 
         ALL_TEAMS.forEach(t => {
@@ -406,6 +399,7 @@
         document.getElementById('mode-selection').style.display = 'flex';
         document.getElementById('selected-team-title').innerText = team.name;
     }
+
     function setMode(mode) {
         if(mode === 'LIGA' && !copaConcluida) {
             showPopup("./VEIOS/LOGO.webp", "ACESSO BLOQUEADO!", "Você precisa vencer a Final da Copa Dalveriana primeiro!", "VOLTAR", () => {
@@ -444,13 +438,10 @@
     }
 
     function confirmVs() {
-        // Se estiver jogando a LIGA, abre o site externo em nova aba
-        if (gameMode === 'LIGA') {
-            window.open("https://seusiteaqui.com", "_blank");
-        }
+        if (gameMode === 'LIGA') { window.open("https://seusiteaqui.com", "_blank"); }
         document.getElementById('vs-screen').style.display = 'none';
         document.getElementById('game-wrapper').style.display = 'flex';
-        ajustarTela(); // Garante a escala ao iniciar o campo
+        ajustarTela(); 
         initMatch();
     }
 
@@ -513,8 +504,7 @@
         document.getElementById('score-val').innerText = `${scoreH} - ${scoreA}`;
 
         field.querySelectorAll('.disc, .ball').forEach(d => d.remove());
-        objects = [];
-        goalLocked = false;
+        objects = []; goalLocked = false;
         const w = field.clientWidth, h = field.clientHeight;
 
         const isFlipped = (period === 2);
@@ -538,6 +528,7 @@
         physics();
         if(timeLeft === 45) startClock();
     }
+
     function createObj(x, y, team, img, logo, name, teamColor, power = null) {
         const div = document.createElement('div');
         div.className = team === 0 ? 'ball' : 'disc';
@@ -579,15 +570,11 @@
             if (a.y > h - a.radius) { a.y = h - a.radius; a.vy *= -0.6; }
             
             if (a.x < a.radius) {
-                if (a.team === 0 && a.y > h*0.34 && a.y < h*0.66 && !goalLocked) {
-                    return triggerGoal(period === 1 ? 2 : 1);
-                }
+                if (a.team === 0 && a.y > h*0.34 && a.y < h*0.66 && !goalLocked) { return triggerGoal(period === 1 ? 2 : 1); }
                 a.x = a.radius; a.vx *= -0.6;
             }
             if (a.x > w - a.radius) {
-                if (a.team === 0 && a.y > h*0.34 && a.y < h*0.66 && !goalLocked) {
-                    return triggerGoal(period === 1 ? 1 : 2);
-                }
+                if (a.team === 0 && a.y > h*0.34 && a.y < h*0.66 && !goalLocked) { return triggerGoal(period === 1 ? 1 : 2); }
                 a.x = w - a.radius; a.vx *= -0.6;
             }
 
@@ -622,7 +609,6 @@
         const ind = document.getElementById('indicator');
         ind.style.left = selectedPlayer.x + 'px'; ind.style.top = selectedPlayer.y + 'px'; 
         ind.style.width = dist + 'px'; ind.style.transform = `rotate(${Math.atan2(dy, dx)}rad)`;
-        ind.style.display = 'block';
     };
 
     window.onmouseup = window.ontouchend = (e) => {
@@ -636,13 +622,13 @@
         selectedPlayer.el.classList.remove('active'); selectedPlayer = null; 
         ind.style.display = 'none'; isMoving = true;
     };
+
     function triggerGoal(teamWhoScored) {
         if (goalLocked) return;
         goalLocked = true; 
         if(teamWhoScored === 1) scoreH++; else scoreA++;
         document.getElementById('score-val').innerText = `${scoreH} - ${scoreA}`;
         ballStarter = (teamWhoScored === 1 ? 2 : 1); 
-
         const msg = document.createElement('div');
         msg.className = 'goal-anim'; msg.innerText = 'GOOOOOL!';
         document.body.appendChild(msg);
@@ -708,9 +694,7 @@
                     document.getElementById('game-wrapper').style.display = 'none';
                     showTournament('COPA VILA DALVA');
                 }
-            } else {
-                openDefeatPopup();
-            }
+            } else { openDefeatPopup(); }
         }
     }
 
@@ -722,8 +706,7 @@
         document.getElementById('pop-msg').innerText = msg;
         document.getElementById('lives-status').innerText = "";
         const btn = document.getElementById('pop-btn');
-        btn.innerText = btnText;
-        btn.onclick = callback;
+        btn.innerText = btnText; btn.onclick = callback;
         pop.style.display = 'flex';
     }
 
@@ -732,10 +715,8 @@
         const title = playerLives > 0 ? "VOCÊ FOI ELIMINADO!" : "GAME OVER!";
         const msg = playerLives > 0 ? "Use uma chance para tentar de novo!" : "Suas chances acabaram. Voltando ao início...";
         const btnText = playerLives > 0 ? "REVANCHE AGORA" : "VOLTAR AO MENU";
-        
         showPopup("./VEIOS/LOGO.webp", title, msg, btnText, () => {
             if(playerLives > 0) {
-                // ABRE SITE EXTERNO EM NOVA ABA SEM SAIR DO JOGO
                 window.open("https://seusiteaqui.com", "_blank");
                 document.getElementById('game-popup').style.display = 'none';
                 document.getElementById('game-wrapper').style.display = 'flex';
