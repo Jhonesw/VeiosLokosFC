@@ -108,9 +108,8 @@
         }
         @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
-        /* ALTERADO PARA 5 COLUNAS PARA CRIAR DUAS BARRAS DE 5 TIMES */
         .team-grid {
-            display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; margin-top: 20px;
+            display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 20px;
         }
         .team-card {
             background: rgba(34, 34, 34, 0.6); border: 2px solid #444; padding: 10px; cursor: pointer;
@@ -445,6 +444,10 @@
     }
 
     function confirmVs() {
+        // Se estiver jogando a LIGA, abre o site externo em nova aba
+        if (gameMode === 'LIGA') {
+            window.open("https://seusiteaqui.com", "_blank");
+        }
         document.getElementById('vs-screen').style.display = 'none';
         document.getElementById('game-wrapper').style.display = 'flex';
         ajustarTela(); // Garante a escala ao iniciar o campo
@@ -732,6 +735,8 @@
         
         showPopup("./VEIOS/LOGO.webp", title, msg, btnText, () => {
             if(playerLives > 0) {
+                // ABRE SITE EXTERNO EM NOVA ABA SEM SAIR DO JOGO
+                window.open("https://seusiteaqui.com", "_blank");
                 document.getElementById('game-popup').style.display = 'none';
                 document.getElementById('game-wrapper').style.display = 'flex';
                 ajustarTela();
