@@ -152,12 +152,15 @@
             to { opacity: 1; transform: scale(1); } 
         }
 
+        /* SELEÇÃO RESPONSIVA */
         .team-grid {
             display: grid; 
-            grid-template-columns: repeat(5, 1fr); 
+            grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); 
             gap: 15px; 
             margin-top: 20px;
-            max-width: 800px;
+            width: 100%;
+            max-width: 900px;
+            padding: 10px;
         }
 
         .team-card {
@@ -167,7 +170,6 @@
             cursor: pointer;
             transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
             text-align: center; 
-            width: 130px; 
             border-radius: 12px;
             backdrop-filter: blur(5px);
         }
@@ -248,20 +250,44 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center;
-            padding: 0 40px; 
+            padding: 0 10px; 
             border-radius: 20px 20px 0 0; 
             border: 1px solid #333; 
             border-bottom: 2px solid var(--gold);
             backdrop-filter: blur(10px);
         }
 
+        /* --- ESTILO DOS CARROSSEIS --- */
+        .carousel-container {
+            width: 110px; 
+            height: 55px; 
+            overflow: hidden; 
+            border: 1px solid #444; 
+            border-radius: 8px; 
+            background: #000; 
+            position: relative;
+        }
+        .carousel-track {
+            display: flex; 
+            width: 400%; 
+            height: 100%; 
+            transition: transform 0.5s ease-in-out;
+        }
+        .carousel-track img {
+            width: 110px; 
+            height: 55px; 
+            object-fit: cover; 
+            pointer-events: none;
+            -webkit-user-drag: none;
+        }
+
         .ui-team-box { 
             display: flex; 
             align-items: center; 
-            gap: 15px; 
-            font-size: 0.9rem; 
+            gap: 10px; 
+            font-size: 0.8rem; 
             letter-spacing: 1px; 
-            width: 250px; 
+            width: 180px; 
         }
 
         #scoreboard { 
@@ -270,15 +296,16 @@
             text-shadow: 0 0 10px rgba(241, 196, 15, 0.5); 
             font-weight: 900; 
             text-align: center; 
+            min-width: 80px;
         }
 
         #match-timer { 
             background: #000; 
-            padding: 5px 15px; 
-            border-radius: 15px; 
+            padding: 2px 10px; 
+            border-radius: 10px; 
             border: 1px solid #444; 
             font-family: monospace; 
-            font-size: 1.4rem; 
+            font-size: 1.1rem; 
         }
 
         #field {
@@ -331,6 +358,11 @@
             transition: border-color 0.3s, transform 0.1s;
         }
 
+        .disc img {
+            pointer-events: none;
+            -webkit-user-drag: none;
+        }
+
         .disc.active { 
             border-color: var(--gold); 
             transform: scale(1.1) translate(-50%, -50%); 
@@ -373,17 +405,6 @@
             filter: drop-shadow(0 0 5px var(--gold));
         }
 
-        .collision-flash {
-            position: absolute; width: 40px; height: 40px; background: white; border-radius: 50%;
-            transform: translate(-50%, -50%); pointer-events: none; z-index: 20;
-            animation: flash 0.3s ease-out forwards;
-        }
-
-        @keyframes flash { 
-            from { transform: translate(-50%, -50%) scale(0.5); opacity: 0.8; } 
-            to { transform: translate(-50%, -50%) scale(2); opacity: 0; } 
-        }
-
         .goal-anim {
             position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
             font-size: 10rem; font-weight: 900; color: var(--gold); z-index: 5000;
@@ -416,10 +437,9 @@
         #game-popup p { font-size: 1.3rem; color: #fff; margin-bottom: 10px; max-width: 500px; }
         #lives-status { color: var(--gold); font-weight: bold; font-size: 1.5rem; margin-bottom: 25px; text-shadow: 0 0 10px var(--gold); }
 
-        #bracket-or-table { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-
+        /* TABELA RESPONSIVA */
         table { 
-            width: 90%; 
+            width: 100%; 
             max-width: 700px; 
             border-collapse: collapse; 
             margin-top: 20px; 
@@ -431,6 +451,14 @@
 
         th, td { padding: 12px; border-bottom: 1px solid #333; text-align: center; }
         th { color: var(--gold); text-transform: uppercase; font-size: 0.85rem; background: rgba(255,255,255,0.05); }
+
+        /* MEDIA QUERIES PARA CELULAR */
+        @media screen and (max-width: 600px) {
+            .team-grid { grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); gap: 8px; }
+            .team-card img { width: 50px; height: 40px; }
+            th, td { padding: 6px; font-size: 0.7rem; }
+            .mode-btn { width: 220px; padding: 15px; font-size: 0.9rem; }
+        }
     </style>
 </head>
 <body>
@@ -441,7 +469,7 @@
 </div>
 
 <div id="game-popup">
-    <img src="./VEIOS/LOGO.webp" id="pop-img">
+    <img src="./VEIOS/LOGO.webp" id="pop-img" draggable="false">
     <h2 id="pop-title">TITULO</h2>
     <p id="pop-msg">Mensagem descritiva aqui.</p>
     <div id="lives-status"></div>
@@ -451,12 +479,12 @@
 <div id="vs-screen" class="screen" style="display:none;">
     <div class="vs-container">
         <div class="vs-team">
-            <img id="vs-logo-h" src="">
+            <img id="vs-logo-h" src="" draggable="false">
             <h2 id="vs-name-h"></h2>
         </div>
         <div class="vs-divider">X</div>
         <div class="vs-team">
-            <img id="vs-logo-a" src="">
+            <img id="vs-logo-a" src="" draggable="false">
             <h2 id="vs-name-a"></h2>
         </div>
     </div>
@@ -465,6 +493,7 @@
 
 <div id="main-menu" class="screen" style="display:none;"> 
     <h1 style="color:var(--gold); margin-bottom: 20px; letter-spacing: 3px; text-align: center;">CAMPEONATO <BR> VILA DALVA 2026</h1>
+        <p>Ordem por Tradição</p>
     <div class="team-grid" id="selection-grid"></div>
 </div>
 
@@ -487,10 +516,30 @@
     <div id="game-scaler">
         <div id="header-ui">
             <div id="ui-home" class="ui-team-box"></div>
+            
+            <div class="carousel-container">
+                <div class="carousel-track" id="track-l">
+                    <img src="./VEIOS1/LOGO.webp" draggable="false">
+                    <img src="./PDM/LOGO.webp" draggable="false">
+                    <img src="./CARPEGE/LOGO.webp" draggable="false">
+                    <img src="./FANATICOS/LOGO.webp" draggable="false">
+                </div>
+            </div>
+
             <div style="display: flex; flex-direction: column; align-items: center;">
                 <div id="scoreboard"><span id="score-val">0 - 0</span></div>
                 <div id="match-timer">00:45</div>
             </div>
+
+            <div class="carousel-container">
+                <div class="carousel-track" id="track-r">
+                    <img src="./FLAMENGO/LOGO.webp" draggable="false">
+                    <img src="./UNIDOS DA VILA/LOGO.webp" draggable="false">
+                    <img src="./JUVEVE/LOGO.webp" draggable="false">
+                    <img src="./REALPDP/LOGO.webp" draggable="false">
+                </div>
+            </div>
+
             <div id="ui-away" class="ui-team-box" style="justify-content: flex-end;"></div>
         </div>
         <div id="field">
@@ -505,79 +554,54 @@
     const TEAM_BACKGROUNDS = {
         'VL': './CAMPO1.webp', 'FT': './CAMPO1.webp', 'PD': './CAMPO1.webp', 'JJ': './CAMPO1.webp',
         'UN': './CAMPO1.webp', 'UD': './CAMPO1.webp', 'EV': './CAMPO1.webp', 'PR': './CAMPO1.webp',
-        'CG': './CAMPO1.webp', 'PDP': './CAMPO1.webp'
+        'CG': './CAMPO1.webp', 'PDP': './CAMPO1.webp', 'FLA': './CAMPO1.webp'
     };
 
     const ALL_TEAMS = [
-        // CORRIGIDO: Caminho do logo e dos jogadores para bater com a pasta VEIOS em maiúsculas
-        { id: 'VL', name: 'VEIOS LOKOS', 
-        color: '#74acdf', 
-        logo: './VEIOS1/LOGO.webp', 
-        s: 14, players: 
-        [{ n: 'MOISES', p: 'block', i: './VEIOS1/JOGADOR1.webp' }, 
-        { n: 'DAN', p: 'strength', i: './VEIOS1/JOGADOR2.webp' }, 
-        { n: 'ERIK', p: 'speed', i: './VEIOS1/JOGADOR3.webp' }, 
-        { n: 'JHO-JHO', p: 'accuracy', i: './VEIOS1/JOGADOR4.webp' }, 
-        { n: 'RENINHA', p: 'special', i: './VEIOS1/JOGADOR5.webp' }]},
-
-
-
-
-
-        { id: 'FT', name: 'FANATICOS', color: '#ffce00', logo: './FANATICOS/LOGO.webp', s: 13, players: [{ n: 'GOLEIRO', p: 'block', i: './FANATICOS/JOGADOR1.webp' }, { n: 'BANHA', p: 'strength', i: './FANATICOS/JOGADOR2.webp' }, { n: 'GUEGA', p: 'speed', i: './FANATICOS/JOGADOR3.webp' }, { n: 'DLIMA', p: 'accuracy', i: './FANATICOS/JOGADOR4.webp' }, { n: 'PI', p: 'special', i: './FANATICOS/JOGADOR5.webp' }]},
-        { id: 'PD', name: 'PDM', color: '#8d0e19', logo: './PDM/LOGO.webp', s: 14, players: [{ n: 'GOLEIRO', p: 'block', i: './PDM/JOGADOR1.webp' }, { n: 'PIZZA ', p: 'strength', i:'./PDM/JOGADOR2.webp'}, { n: 'TIKÃO', p: 'speed', i: './PDM/JOGADOR3.webp' }, { n: 'ATAQUE', p: 'accuracy', i: './PDM/JOGADOR4.webp' }, { n: 'TONINHO', p: 'special', i: './PDM/JOGADOR5.webp' }]},
-        { id: 'JJ', name: 'JUVEVE', color: '#333', logo: './JUVEVE/LOGO.webp', s: 13, players: [{ n: 'GOLEIRO', p: 'block', i: './JUVEVE/JOGADOR1.webp' }, { n: 'ZAGA', p: 'strength', i: './JUVEVE/JOGADOR2.webp'}, { n: 'ZAGA', p: 'speed', i: './JUVEVE/JOGADOR3.webp' }, { n: 'MEIA', p: 'accuracy', i: './JUVEVE/JOGADOR4.webp'}, { n: 'ATAQUE', p: 'special', i: './JUVEVE/JOGADOR5.webp' }]},
-        { id: 'UN', name: 'UNIDOS DA VILA', color: '#773110', logo: './UNIDOS DA VILA/LOGO.webp', s: 15, players: [{ n: 'GOLEIRO', p: 'block', i: './UNIDOS DA VILA/JOGADOR1.webp' }, { n: 'ZAGA', p: 'strength', i: './UNIDOS DA VILA/JOGADOR2.webp' }, { n: 'ZAGA', p: 'speed', i: './UNIDOS DA VILA/JOGADOR3.webp'}, { n: 'MEIA', p: 'accuracy', i: './UNIDOS DA VILA/JOGADOR4.webp'}, { n: 'ATAQUE', p: 'special', i: './UNIDOS DA VILA/JOGADOR5.webp' }]},
-        { id: 'UD', name: 'UNIÃO DA VD', color: '#800000', logo: './UNIÃO DA VILA/LOGO.webp', s: 12, players: [{ n: 'DOUGUINHAS', p: 'block', i: './UNIÃO DA VILA/JOGADOR1.webp' }, { n: 'JOÃO', p: 'strength', i: './UNIÃO DA VILA/JOGADOR2.webp' }, { n: 'ROMARIO', p: 'speed', i: './UNIÃO DA VILA/JOGADOR3.webp' }, { n: 'MEIA', p: 'accuracy', i: './UNIÃO DA VILA/JOGADOR4.webp' }, { n: 'ATAQUE', p: 'special', i: './UNIÃO DA VILA/JOGADOR5.webp' }]},
-        { id: 'EV', name: 'ESTRELA DA VILA DALVA', color: '#483d8b', logo: './ESTRELA DA VILA DALVA/LOGO.webp', s: 13, players: [{ n: 'GOLEIRO', p: 'block', i: './ESTRELA DA VILA DALVA/JOGADOR1.webp' }, { n: 'ZAGA', p: 'strength', i: './ESTRELA DA VILA DALVA/JOGADOR2.webp' }, { n: 'ZAGA', p: 'speed', i: './ESTRELA DA VILA DALVA/JOGADOR3.webp' }, { n: 'MEIA', p: 'accuracy', i: './ESTRELA DA VILA DALVA/JOGADOR4.webp'}, { n: 'ATAQUE', p: 'special', i: './ESTRELA DA VILA DALVA/JOGADOR5.webp'}]},
-        { id: 'PR', name: 'PIRUCAS FC', color: '#5a3825', logo: './PIRUCAS/LOGO.webp' , s: 14, players: [{ n: 'DOUGUINHAS', p: 'block', i: './PIRUCAS/JOGADOR1.webp'  }, { n: 'ZAGA', p: 'strength', i: './PIRUCAS/JOGADOR2.webp' }, { n: 'ZAGA', p: 'speed', i: './PIRUCAS/JOGADOR3.webp'  }, { n: 'MARCOS', p: 'accuracy', i: './PIRUCAS/JOGADOR4.webp'  }, { n: 'DEVINHO', p: 'special', i: './PIRUCAS/JOGADOR5.webp'  }]},
+        { id: 'FLA', name: 'FLAMENGUINHO', color: '#74acdf', logo: './FLAMENGO/LOGO.webp', s: 14, players: [{ n: 'MOISES', p: 'block', i: './FLAMENGO/JOGADOR1.webp' }, { n: 'DAN', p: 'strength', i: './FLAMENGO/JOGADOR2.webp' }, { n: 'ERIK', p: 'speed', i: './FLAMENGO/JOGADOR3.webp' }, { n: 'JHO-JHO', p: 'accuracy', i: './FLAMENGO/JOGADOR4.webp' }, { n: 'RENINHA', p: 'special', i: './FLAMENGO/JOGADOR5.webp' }]},  
         { id: 'CG', name: 'CARPEGE', color: '#27ae60', logo: './CARPEGE/LOGO.webp', s: 14, players: [{ n: 'GOLEIRO', p: 'block', i: './CARPEGE/JOGADOR1.webp' }, { n: 'ZAGA', p: 'strength', i: './CARPEGE/JOGADOR2.webp' }, { n: 'ZAGA', p: 'speed', i: './CARPEGE/JOGADOR3.webp' }, { n: 'ERIK', p: 'accuracy', i: './CARPEGE/JOGADOR4.webp' }, { n: 'BINHO', p: 'special', i: './CARPEGE/JOGADOR5.webp' }]},
-        // CORRIGIDO: ID alterado para 'PDP' para evitar conflito com 'PD' do PDM
-        { id: 'PDP', name: 'REAL PDP', color: '#e67e22', logo: './REALPDP/LOGO.webp', s: 14, players: [{ n: 'GOLEIRO', p: 'block', i: './REALPDP/JOGADOR1.webp' }, { n: 'ERIK', p: 'strength', i: './REALPDP/JOGADOR2.webp' }, { n: 'EVERTON', p: 'speed', i: './REALPDP/JOGADOR3.webp' }, { n: 'RAMON', p: 'accuracy', i: './REALPDP/JOGADOR4.webp' }, { n: 'MAICON', p: 'special', i: './REALPDP/JOGADOR5.webp' }]}
+        { id: 'PD', name: 'PDM', color: '#8d0e19', logo: './PDM/LOGO.webp', s: 14, players: [{ n: 'GOLEIRO', p: 'block', i: './PDM/JOGADOR1.webp' }, { n: 'PIZZA ', p: 'strength', i:'./PDM/JOGADOR2.webp'}, { n: 'TIKÃO', p: 'speed', i: './PDM/JOGADOR3.webp' }, { n: 'ATAQUE', p: 'accuracy', i: './PDM/JOGADOR4.webp' }, { n: 'TONINHO', p: 'special', i: './PDM/JOGADOR5.webp' }]},
+        { id: 'PR', name: 'PIRUCAS FC', color: '#5a3825', logo: './PIRUCAS/LOGO.webp' , s: 14, players: [{ n: 'DOUGUINHAS', p: 'block', i: './PIRUCAS/JOGADOR1.webp'  }, { n: 'ZAGA', p: 'strength', i: './PIRUCAS/JOGADOR2.webp' }, { n: 'ZAGA', p: 'speed', i: './PIRUCAS/JOGADOR3.webp'  }, { n: 'MARCOS', p: 'accuracy', i: './PIRUCAS/JOGADOR4.webp'  }, { n: 'DEVINHO', p: 'special', i: './PIRUCAS/JOGADOR5.webp'  }]},
+        { id: 'EV', name: 'ESTRELA DA VILA DALVA', color: '#483d8b', logo: './ESTRELA DA VILA DALVA/LOGO.webp', s: 13, players: [{ n: 'GOLEIRO', p: 'block', i: './ESTRELA DA VILA DALVA/JOGADOR1.webp' }, { n: 'ZAGA', p: 'strength', i: './ESTRELA DA VILA DALVA/JOGADOR2.webp' }, { n: 'ZAGA', p: 'speed', i: './ESTRELA DA VILA DALVA/JOGADOR3.webp' }, { n: 'MEIA', p: 'accuracy', i: './ESTRELA DA VILA DALVA/JOGADOR4.webp'}, { n: 'ATAQUE', p: 'special', i: './ESTRELA DA VILA DALVA/JOGADOR5.webp'}]},
+        { id: 'UD', name: 'UNIÃO DA VD', color: '#800000', logo: './UNIÃO DA VILA/LOGO.webp', s: 12, players: [{ n: 'DOUGUINHAS', p: 'block', i: './UNIÃO DA VILA/JOGADOR1.webp' }, { n: 'JOÃO', p: 'strength', i: './UNIÃO DA VILA/JOGADOR2.webp' }, { n: 'ROMARIO', p: 'speed', i: './UNIÃO DA VILA/JOGADOR3.webp' }, { n: 'MEIA', p: 'accuracy', i: './UNIÃO DA VILA/JOGADOR4.webp' }, { n: 'ATAQUE', p: 'special', i: './UNIÃO DA VILA/JOGADOR5.webp' }]},
+        { id: 'UN', name: 'UNIDOS DA VILA', color: '#773110', logo: './UNIDOS DA VILA/LOGO.webp', s: 15, players: [{ n: 'GOLEIRO', p: 'block', i: './UNIDOS DA VILA/JOGADOR1.webp' }, { n: 'ZAGA', p: 'strength', i: './UNIDOS DA VILA/JOGADOR2.webp' }, { n: 'ZAGA', p: 'speed', i: './UNIDOS DA VILA/JOGADOR3.webp'}, { n: 'MEIA', p: 'accuracy', i: './UNIDOS DA VILA/JOGADOR4.webp'}, { n: 'ATAQUE', p: 'special', i: './UNIDOS DA VILA/JOGADOR5.webp' }]},
+        { id: 'FT', name: 'FANATICOS', color: '#ffce00', logo: './FANATICOS/LOGO.webp', s: 13, players: [{ n: 'GOLEIRO', p: 'block', i: './FANATICOS/JOGADOR1.webp' }, { n: 'BANHA', p: 'strength', i: './FANATICOS/JOGADOR2.webp' }, { n: 'GUEGA', p: 'speed', i: './FANATICOS/JOGADOR3.webp' }, { n: 'DLIMA', p: 'accuracy', i: './FANATICOS/JOGADOR4.webp' }, { n: 'PI', p: 'special', i: './FANATICOS/JOGADOR5.webp' }]},
+        { id: 'JJ', name: 'JUVEVE', color: '#333', logo: './JUVEVE/LOGO.webp', s: 13, players: [{ n: 'GOLEIRO', p: 'block', i: './JUVEVE/JOGADOR1.webp' }, { n: 'ZAGA', p: 'strength', i: './JUVEVE/JOGADOR2.webp'}, { n: 'ZAGA', p: 'speed', i: './JUVEVE/JOGADOR3.webp' }, { n: 'MEIA', p: 'accuracy', i: './JUVEVE/JOGADOR4.webp'}, { n: 'ATAQUE', p: 'special', i: './JUVEVE/JOGADOR5.webp' }]},
+        { id: 'PDP', name: 'REAL PDP', color: '#e67e22', logo: './REALPDP/LOGO.webp', s: 14, players: [{ n: 'GOLEIRO', p: 'block', i: './REALPDP/JOGADOR1.webp' }, { n: 'ERIK', p: 'strength', i: './REALPDP/JOGADOR2.webp' }, { n: 'EVERTON', p: 'speed', i: './REALPDP/JOGADOR3.webp' }, { n: 'RAMON', p: 'accuracy', i: './REALPDP/JOGADOR4.webp' }, { n: 'MAICON', p: 'special', i: './REALPDP/JOGADOR5.webp' }]},
+        { id: 'VL', name: 'VEIOS LOKOS', color: '#74acdf', logo: './VEIOS1/LOGO.webp', s: 14, players: [{ n: 'MOISES', p: 'block', i: './VEIOS1/JOGADOR1.webp' }, { n: 'DAN', p: 'strength', i: './VEIOS1/JOGADOR2.webp' }, { n: 'ERIK', p: 'speed', i: './VEIOS1/JOGADOR3.webp' }, { n: 'JHO-JHO', p: 'accuracy', i: './VEIOS1/JOGADOR4.webp' }, { n: 'RENINHA', p: 'special', i: './VEIOS1/JOGADOR5.webp' }]},
     ];
 
-    function ajustarTela() {
-        const gameScaler = document.getElementById('game-scaler');
-        if (!gameScaler) return;
-        
-        const larguraOriginal = 940; 
-        const alturaOriginal = 560;
-        
-        const scaleX = window.innerWidth / larguraOriginal;
-        const scaleY = window.innerHeight / alturaOriginal;
-        const scale = Math.min(scaleX, scaleY, 1);
-        
-        gameScaler.style.transform = `scale(${scale})`;
+    /* LÓGICA DO CARROSSEL */
+    let currentSlide = 0;
+    function rotateCarousels() {
+        currentSlide = (currentSlide + 1) % 4;
+        const offset = currentSlide * 110;
+        const tl = document.getElementById('track-l');
+        const tr = document.getElementById('track-r');
+        if(tl) tl.style.transform = `translateX(-${offset}px)`;
+        if(tr) tr.style.transform = `translateX(-${offset}px)`;
     }
+    setInterval(rotateCarousels, 3000);
 
+    function ajustarTela() {
+        const gs = document.getElementById('game-scaler');
+        if (!gs) return;
+        const sX = window.innerWidth / 940, sY = window.innerHeight / 560;
+        const s = Math.min(sX, sY, 1);
+        gs.style.transform = `scale(${s})`;
+    }
     window.addEventListener('resize', ajustarTela);
 
     function preloadAllAssets() {
-        // CORRIGIDO: Asset de carregamento inicial em maiúsculas
-        const imagesToLoad = ['./VEIOS/LOGO.webp']; 
-        ALL_TEAMS.forEach(t => {
-            imagesToLoad.push(t.logo);
-            t.players.forEach(p => imagesToLoad.push(p.i));
-        });
-
-        let loadedCount = 0;
-        const total = imagesToLoad.length;
-        const textLoad = document.getElementById('load-text');
-
-        imagesToLoad.forEach(src => {
-            const img = new Image();
-            img.src = src;
+        const imgs = ['./VEIOS/LOGO.webp']; 
+        ALL_TEAMS.forEach(t => { imgs.push(t.logo); t.players.forEach(p => imgs.push(p.i)); });
+        let l = 0; const tot = imgs.length; const txt = document.getElementById('load-text');
+        imgs.forEach(src => {
+            const img = new Image(); img.src = src;
             img.onload = img.onerror = () => {
-                loadedCount++;
-                const percent = Math.floor((loadedCount / total) * 100);
-                textLoad.innerText = `CARREGANDO ELENCOS... ${percent}%`;
-                if (loadedCount >= total) {
-                    setTimeout(() => {
-                        document.getElementById('preloader').style.display = 'none';
-                        document.getElementById('main-menu').style.display = 'flex';
-                        initSelection();
-                    }, 800);
-                }
+                l++; const p = Math.floor((l / tot) * 100);
+                txt.innerText = `CARREGANDO ELENCOS... ${p}%`;
+                if (l >= tot) { setTimeout(() => { document.getElementById('preloader').style.display = 'none'; document.getElementById('main-menu').style.display = 'flex'; initSelection(); }, 800); }
             };
         });
     }
@@ -585,10 +609,7 @@
     let playerTeam = null, gameMode = '', opponents = [], currentMatchIdx = 0;
     let objects = [], isMoving = false, turn = 1, selectedPlayer = null, dragStart = null;
     let leagueTable = [], scoreH = 0, scoreA = 0, timeLeft = 45, matchTimer = null, period = 1, ballStarter = 1;
-    let physicsId = null, goalLocked = false;
-    let playerLives = 3; 
-    let copaConcluida = false; 
-
+    let physicsId = null, goalLocked = false, playerLives = 3, copaConcluida = false; 
     const field = document.getElementById('field');
 
     function initSelection() {
@@ -597,15 +618,14 @@
         ALL_TEAMS.forEach(team => {
             const card = document.createElement('div');
             card.className = 'team-card';
-            card.innerHTML = `<img src="${team.logo}"><p>${team.name}</p>`;
+            card.innerHTML = `<img src="${team.logo}" draggable="false"><p>${team.name}</p>`;
             card.onclick = () => selectTeam(team);
             grid.appendChild(card);
         });
     }
 
     function selectTeam(team) {
-        playerTeam = team;
-        playerLives = 3; 
+        playerTeam = team; playerLives = 3; 
         if (TEAM_BACKGROUNDS[team.id]) document.body.style.backgroundImage = `url('${TEAM_BACKGROUNDS[team.id]}')`;
         document.getElementById('main-menu').style.display = 'none';
         document.getElementById('mode-selection').style.display = 'flex';
@@ -620,11 +640,8 @@
             });
             return;
         }
-
-        gameMode = mode;
-        document.getElementById('mode-selection').style.display = 'none';
+        gameMode = mode; document.getElementById('mode-selection').style.display = 'none';
         currentMatchIdx = 0; scoreH = 0; scoreA = 0; timeLeft = 45; period = 1; ballStarter = 1;
-        
         if(mode === 'FREE') {
             const pool = ALL_TEAMS.filter(t => t.id !== playerTeam.id);
             opponents = [pool[Math.floor(Math.random()*pool.length)]];
@@ -653,8 +670,7 @@
         if (gameMode === 'LIGA') { window.open("https://seusiteaqui.com", "_blank"); }
         document.getElementById('vs-screen').style.display = 'none';
         document.getElementById('game-wrapper').style.display = 'flex';
-        ajustarTela(); 
-        initMatch();
+        ajustarTela(); initMatch();
     }
 
     function showTournament(title) {
@@ -662,7 +678,6 @@
         document.getElementById('screen-title').innerText = title;
         const container = document.getElementById('bracket-or-table');
         container.innerHTML = "";
-        
         if(gameMode === 'LIGA') {
             let html = `<table><tr><th>POS</th><th style="text-align:left">TIME</th><th>PTS</th><th>V</th><th>E</th><th>D</th><th>GP</th></tr>`;
             leagueTable.sort((a,b) => b.pts - a.pts || b.v - a.v || b.gp - a.gp).forEach((t, i) => {
@@ -688,8 +703,7 @@
                         showPopup("./VEIOS/LOGO.webp", "INTERVALO!", "Times trocando de lado!", "CONTINUAR", () => {
                             document.getElementById('game-popup').style.display = 'none';
                             document.getElementById('game-wrapper').style.display = 'flex';
-                            ajustarTela();
-                            initMatch();
+                            ajustarTela(); initMatch();
                         });
                     } else { finalizeMatch(); }
                 }
@@ -706,36 +720,23 @@
 
     function initMatch() {
         if (physicsId) cancelAnimationFrame(physicsId);
-        physicsId = null;
-        const enemy = opponents[currentMatchIdx];
-        document.getElementById('ui-home').innerHTML = `<img src="${playerTeam.logo}" width="30"> <span>${playerTeam.name}</span>`;
-        document.getElementById('ui-away').innerHTML = `<span>${enemy.name}</span> <img src="${enemy.logo}" width="30">`;
+        physicsId = null; const enemy = opponents[currentMatchIdx];
+        document.getElementById('ui-home').innerHTML = `<img src="${playerTeam.logo}" width="22" draggable="false"> <span>${playerTeam.name}</span>`;
+        document.getElementById('ui-away').innerHTML = `<span>${enemy.name}</span> <img src="${enemy.logo}" width="22" draggable="false">`;
         document.getElementById('score-val').innerText = `${scoreH} - ${scoreA}`;
-
         field.querySelectorAll('.disc, .ball').forEach(d => d.remove());
         objects = []; goalLocked = false;
-        const w = field.clientWidth, h = field.clientHeight;
-
-        const isFlipped = (period === 2);
-        const pX = isFlipped ? 0.85 : 0.15;
-        const eX = isFlipped ? 0.15 : 0.85;
-        const dir = isFlipped ? -1 : 1;
-
+        const w = 900, h = 460, isFlipped = (period === 2);
+        const pX = isFlipped ? 0.85 : 0.15, eX = isFlipped ? 0.15 : 0.85, dir = isFlipped ? -1 : 1;
         [[pX, 0.5], [pX+dir*0.15, 0.3], [pX+dir*0.15, 0.7], [pX+dir*0.27, 0.4], [pX+dir*0.27, 0.6]].forEach((p, i) => {
-            const data = playerTeam.players[i];
-            createObj(w*p[0], h*p[1], 1, data.i, playerTeam.logo, data.n, playerTeam.color, data.p);
+            const d = playerTeam.players[i]; createObj(w*p[0], h*p[1], 1, d.i, playerTeam.logo, d.n, playerTeam.color, d.p);
         });
-
         [[eX, 0.5], [eX-dir*0.15, 0.3], [eX-dir*0.15, 0.7], [eX-dir*0.27, 0.4], [eX-dir*0.27, 0.6]].forEach((p, i) => {
-            const data = enemy.players[i];
-            createObj(w*p[0], h*p[1], 2, data.i, enemy.logo, data.n, enemy.color, data.p);
+            const d = enemy.players[i]; createObj(w*p[0], h*p[1], 2, d.i, enemy.logo, d.n, enemy.color, d.p);
         });
-        
-        createObj(w/2, h/2, 0); 
-        isMoving = false; turn = ballStarter;
+        createObj(w/2, h/2, 0); isMoving = false; turn = ballStarter;
         if(turn === 2) execIA();
-        physics();
-        if(timeLeft === 45) startClock();
+        physics(); if(timeLeft === 45) startClock();
     }
 
     function createObj(x, y, team, img, logo, name, teamColor, power = null) {
@@ -743,9 +744,9 @@
         div.className = team === 0 ? 'ball' : 'disc';
         if(team !== 0) {
             div.style.borderColor = teamColor;
-            div.innerHTML = `<div style="width:100%; height:100%; position:relative;">
-                <img src="${img}" style="width:100%; height:100%; object-fit:cover; border-radius:50%">
-                <img src="${logo}" style="position:absolute; top:2px; right:2px; width:22px;">
+            div.innerHTML = `<div style="width:100%; height:100%; position:relative; pointer-events:none;">
+                <img src="${img}" style="width:100%; height:100%; object-fit:cover; border-radius:50%" draggable="false">
+                <img src="${logo}" style="position:absolute; top:2px; right:2px; width:22px;" draggable="false">
                 <div style="position:absolute; bottom:0; width:100%; background:rgba(0,0,0,0.7); font-size:7px; text-align:center;">${name}</div>
             </div>`;
         }
@@ -754,7 +755,6 @@
         const mass = (power === 'block') ? 5 : (team === 0 ? 0.6 : 2.5);
         const obj = { el: div, x, y, vx: 0, vy: 0, radius, team, mass, power };
         objects.push(obj);
-
         if(team === 1) {
             div.onmousedown = div.ontouchstart = (e) => {
                 if (isMoving || turn !== 1) return;
@@ -767,17 +767,11 @@
     }
 
     function physics() {
-        let moving = false;
-        const w = field.clientWidth, h = field.clientHeight;
-        const friction = 0.985;
-
+        let moving = false; const w = 900, h = 460;
         objects.forEach((a, i) => {
-            a.x += a.vx; a.y += a.vy;
-            a.vx *= friction; a.vy *= friction;
-
+            a.x += a.vx; a.y += a.vy; a.vx *= 0.985; a.vy *= 0.985;
             if (a.y < a.radius) { a.y = a.radius; a.vy *= -0.6; }
             if (a.y > h - a.radius) { a.y = h - a.radius; a.vy *= -0.6; }
-            
             if (a.x < a.radius) {
                 if (a.team === 0 && a.y > h*0.34 && a.y < h*0.66 && !goalLocked) { return triggerGoal(period === 1 ? 2 : 1); }
                 a.x = a.radius; a.vx *= -0.6;
@@ -786,7 +780,6 @@
                 if (a.team === 0 && a.y > h*0.34 && a.y < h*0.66 && !goalLocked) { return triggerGoal(period === 1 ? 1 : 2); }
                 a.x = w - a.radius; a.vx *= -0.6;
             }
-
             for (let j = i + 1; j < objects.length; j++) {
                 const b = objects[j], dx = b.x - a.x, dy = b.y - a.y, dist = Math.hypot(dx, dy);
                 if (dist < a.radius + b.radius) {
@@ -802,11 +795,7 @@
             if (Math.abs(a.vx) > 0.1 || Math.abs(a.vy) > 0.1) moving = true;
             a.el.style.left = `${a.x}px`; a.el.style.top = `${a.y}px`; a.el.style.transform = `translate(-50%, -50%)`;
         });
-
-        if (isMoving && !moving) { 
-            isMoving = false; 
-            turn = (turn === 1 ? 2 : 1); if(turn === 2) execIA();
-        }
+        if (isMoving && !moving) { isMoving = false; turn = (turn === 1 ? 2 : 1); if(turn === 2) execIA(); }
         physicsId = requestAnimationFrame(physics);
     }
 
@@ -833,51 +822,30 @@
     };
 
     function triggerGoal(teamWhoScored) {
-        if (goalLocked) return;
-        goalLocked = true; 
+        if (goalLocked) return; goalLocked = true; 
         if(teamWhoScored === 1) scoreH++; else scoreA++;
         document.getElementById('score-val').innerText = `${scoreH} - ${scoreA}`;
         ballStarter = (teamWhoScored === 1 ? 2 : 1); 
-        const msg = document.createElement('div');
-        msg.className = 'goal-anim'; msg.innerText = 'GOOOOOL!';
+        const msg = document.createElement('div'); msg.className = 'goal-anim'; msg.innerText = 'GOOOOOL!';
         document.body.appendChild(msg);
-        setTimeout(() => {
-            msg.remove();
-            if(scoreH >= 3 || scoreA >= 3) { finalizeMatch(); } 
-            else { initMatch(); }
-        }, 1500);
+        setTimeout(() => { msg.remove(); if(scoreH >= 3 || scoreA >= 3) { finalizeMatch(); } else { initMatch(); } }, 1500);
     }
 
-    function finalizeMatch() {
-        clearInterval(matchTimer);
-        handleWin();
-    }
+    function finalizeMatch() { clearInterval(matchTimer); handleWin(); }
 
     function handleWin() {
         if(gameMode === 'FREE') { location.reload(); } 
         else if(gameMode === 'LIGA') {
             currentMatchIdx++;
-            if(currentMatchIdx >= opponents.length) {
-                showPopup("./VEIOS/LOGO.webp", "FIM DA LIGA!", "Temporada encerrada!", "MENU", () => location.reload());
-            } else {
-                scoreH = 0; scoreA = 0; timeLeft = 45; period = 1; ballStarter = 1;
-                document.getElementById('game-wrapper').style.display = 'none';
-                showTournament('LIGA DALVERIANA');
-            }
+            if(currentMatchIdx >= opponents.length) { showPopup("./VEIOS/LOGO.webp", "FIM DA LIGA!", "Temporada encerrada!", "MENU", () => location.reload()); } 
+            else { scoreH = 0; scoreA = 0; timeLeft = 45; period = 1; ballStarter = 1; document.getElementById('game-wrapper').style.display = 'none'; showTournament('LIGA DALVERIANA'); }
         } else {
             if(scoreH > scoreA) {
                 currentMatchIdx++;
                 if(currentMatchIdx >= opponents.length) { 
                     copaConcluida = true;
-                    showPopup("./VEIOS/LOGO.webp", "🏆 CAMPEÃO! 🏆", "LIGA ELITE DESBLOQUEADA!", "INICIAR LIGA", () => {
-                        document.getElementById('game-popup').style.display = 'none';
-                        setMode('LIGA');
-                    });
-                } else {
-                    scoreH = 0; scoreA = 0; timeLeft = 45; period = 1; ballStarter = 1;
-                    document.getElementById('game-wrapper').style.display = 'none';
-                    showTournament('COPA VILA DALVA');
-                }
+                    showPopup("./VEIOS/LOGO.webp", "🏆 CAMPEÃO! 🏆", "LIGA ELITE DESBLOQUEADA!", "INICIAR LIGA", () => { document.getElementById('game-popup').style.display = 'none'; setMode('LIGA'); });
+                } else { scoreH = 0; scoreA = 0; timeLeft = 45; period = 1; ballStarter = 1; document.getElementById('game-wrapper').style.display = 'none'; showTournament('COPA VILA DALVA'); }
             } else { openDefeatPopup(); }
         }
     }
@@ -889,21 +857,13 @@
         document.getElementById('pop-title').innerText = title;
         document.getElementById('pop-msg').innerText = msg;
         const btn = document.getElementById('pop-btn');
-        btn.innerText = btnText; btn.onclick = callback;
-        pop.style.display = 'flex';
+        btn.innerText = btnText; btn.onclick = callback; pop.style.display = 'flex';
     }
 
     function openDefeatPopup() {
         playerLives--;
         showPopup("./VEIOS/LOGO.webp", "ELIMINADO!", `Vidas: ${playerLives}`, playerLives > 0 ? "REVANCHE" : "MENU", () => {
-            if(playerLives > 0) {
-                window.open("https://mirodobutanta.com", "_blank");
-                document.getElementById('game-popup').style.display = 'none';
-                document.getElementById('game-wrapper').style.display = 'flex';
-                ajustarTela();
-                scoreH = 0; scoreA = 0; timeLeft = 45; period = 1; goalLocked = false;
-                initMatch();
-            } else { location.reload(); }
+            if(playerLives > 0) { window.open("https://mirodobutanta.com", "_blank"); document.getElementById('game-popup').style.display = 'none'; document.getElementById('game-wrapper').style.display = 'flex'; ajustarTela(); scoreH = 0; scoreA = 0; timeLeft = 45; period = 1; goalLocked = false; initMatch(); } else { location.reload(); }
         });
     }
 
@@ -912,18 +872,16 @@
             if(isMoving || goalLocked || objects.length === 0) return;
             const ball = objects.find(o => o.team === 0);
             const myP = objects.filter(o => o.team === 2);
-            const w = field.clientWidth, h = field.clientHeight;
+            const w = 900, h = 460;
             const shooter = myP.reduce((prev, curr) => Math.hypot(curr.x-ball.x, curr.y-ball.y) < Math.hypot(prev.x-ball.x, prev.y-ball.y) ? curr : prev);
             const targetX = (period === 1) ? 0 : w; const targetY = h / 2;
             const angleBallToGoal = Math.atan2(targetY - ball.y, targetX - ball.x);
             const impactX = ball.x - Math.cos(angleBallToGoal) * 25;
             const impactY = ball.y - Math.sin(angleBallToGoal) * 25;
             const attackAngle = Math.atan2(impactY - shooter.y, impactX - shooter.x);
-            shooter.vx = Math.cos(attackAngle) * 13; shooter.vy = Math.sin(attackAngle) * 13;
-            isMoving = true;
+            shooter.vx = Math.cos(attackAngle) * 13; shooter.vy = Math.sin(attackAngle) * 13; isMoving = true;
         }, 600);
     }
-
     window.onload = preloadAllAssets;
 </script>
 </body>
