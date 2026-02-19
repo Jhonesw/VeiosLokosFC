@@ -13,12 +13,19 @@
             --bg-dark: #0a0a0a;
         }
 
-        * { touch-action: none; user-select: none; box-sizing: border-box; margin: 0; padding: 0; }
+        * { 
+            touch-action: none; 
+            user-select: none; 
+            box-sizing: border-box; 
+            margin: 0; 
+            padding: 0; 
+        }
 
         body {
             display: flex; 
             flex-direction: column; 
-            align-items: center ; justify-content: center;
+            align-items: center; 
+            justify-content: center;
             height: 100vh;
             height: 100svh; 
             background-image: url('./CAMPOPRO.webp'); 
@@ -28,20 +35,44 @@
             background-repeat: no-repeat;
             background-color: var(--bg-dark); 
             transition: background-image 0.5s ease-in-out;
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; overflow: hidden; color: white;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            overflow: hidden; 
+            color: white;
         }
 
         /* --- ESTILO DO PRELOADER --- */
         #preloader {
-            position: fixed; inset: 0; background: #000; z-index: 99999;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            position: fixed; 
+            inset: 0; 
+            background: #000; 
+            z-index: 99999;
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
         }
+
         .loader-circle {
-            width: 70px; height: 70px; border: 6px solid #222; border-top: 6px solid var(--gold);
-            border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px;
+            width: 70px; 
+            height: 70px; 
+            border: 6px solid #222; 
+            border-top: 6px solid var(--gold);
+            border-radius: 50%; 
+            animation: spin 1s linear infinite; 
+            margin-bottom: 20px;
         }
-        #load-text { font-weight: bold; letter-spacing: 2px; color: var(--gold); font-size: 1.2rem; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        #load-text { 
+            font-weight: bold; 
+            letter-spacing: 2px; 
+            color: var(--gold); 
+            font-size: 1.2rem; 
+        }
+
+        @keyframes spin { 
+            0% { transform: rotate(0deg); } 
+            100% { transform: rotate(360deg); } 
+        }
 
         /* COMANDO PARA FORÇAR HORIZONTAL NO RESPONSIVO */
         @media screen and (orientation: portrait) {
@@ -61,10 +92,15 @@
         }
 
         .screen {
-            position: fixed; inset: 0; 
+            position: fixed; 
+            inset: 0; 
             background: radial-gradient(circle at center, rgba(26,26,26,0.9) 0%, rgba(0,0,0,1) 100%);
-            z-index: 3000; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; padding: 20px;
+            z-index: 3000; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center; 
+            padding: 20px;
             overflow-y: auto;
         }
 
@@ -72,6 +108,7 @@
             background: rgba(0,0,0,0.95);
             z-index: 4000;
         }
+
         .vs-container {
             display: flex;
             align-items: center;
@@ -79,18 +116,21 @@
             gap: 50px;
             animation: fadeIn 0.5s ease-out;
         }
+
         .vs-team {
             display: flex;
             flex-direction: column;
             align-items: center;
             width: 250px;
         }
+
         .vs-team img {
             width: 180px;
             height: 180px;
             object-fit: contain;
             filter: drop-shadow(0 0 20px rgba(255,255,255,0.2));
         }
+
         .vs-team h2 {
             margin-top: 15px;
             font-size: 1.5rem;
@@ -98,6 +138,7 @@
             text-transform: uppercase;
             text-align: center;
         }
+
         .vs-divider {
             font-size: 5rem;
             font-weight: 900;
@@ -105,9 +146,13 @@
             font-style: italic;
             text-shadow: 0 0 30px var(--gold);
         }
-        @keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
 
-        /* AJUSTADO PARA 2 LINHAS DE 5 TIMES */
+        @keyframes fadeIn { 
+            from { opacity: 0; transform: scale(0.9); } 
+            to { opacity: 1; transform: scale(1); } 
+        }
+
+        /* --- SELEÇÃO: 2 LINHAS DE 5 TIMES --- */
         .team-grid {
             display: grid; 
             grid-template-columns: repeat(5, 1fr); 
@@ -115,27 +160,68 @@
             margin-top: 20px;
             max-width: 800px;
         }
+
         .team-card {
-            background: rgba(34, 34, 34, 0.6); border: 2px solid #444; padding: 10px; cursor: pointer;
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); text-align: center; width: 130px; border-radius: 12px;
+            background: rgba(34, 34, 34, 0.6); 
+            border: 2px solid #444; 
+            padding: 10px; 
+            cursor: pointer;
+            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            text-align: center; 
+            width: 130px; 
+            border-radius: 12px;
             backdrop-filter: blur(5px);
         }
-        .team-card:hover { border-color: var(--gold); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(241, 196, 15, 0.3); }
+
+        .team-card:hover { 
+            border-color: var(--gold); 
+            transform: translateY(-5px); 
+            box-shadow: 0 5px 15px rgba(241, 196, 15, 0.3); 
+        }
         
-        .team-card img { width: 65px; height: 50px; object-fit: contain; margin-bottom: 8px; background: transparent; }
-        .team-card p { font-size: 0.75rem; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+        .team-card img { 
+            width: 65px; 
+            height: 50px; 
+            object-fit: contain; 
+            margin-bottom: 8px; 
+            background: transparent; 
+        }
+
+        .team-card p { 
+            font-size: 0.75rem; 
+            font-weight: bold; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+        }
 
         .mode-btn {
-            width: 260px; padding: 18px; margin: 12px; background: transparent;
-            border: 2px solid var(--gold); color: var(--gold); font-weight: 900;
-            cursor: pointer; border-radius: 50px; font-size: 1rem; text-transform: uppercase;
+            width: 260px; 
+            padding: 18px; 
+            margin: 12px; 
+            background: transparent;
+            border: 2px solid var(--gold); 
+            color: var(--gold); 
+            font-weight: 900;
+            cursor: pointer; 
+            border-radius: 50px; 
+            font-size: 1rem; 
+            text-transform: uppercase;
             transition: 0.3s;
         }
-        .mode-btn:hover { background: var(--gold); color: #000; box-shadow: 0 0 20px var(--gold); }
-        .mode-btn:disabled { border-color: #555; color: #555; cursor: not-allowed; }
-        .mode-btn:disabled:hover { background: transparent; box-shadow: none; }
 
-        /* AJUSTADO PARA CENTRALIZAÇÃO E ESCALA */
+        .mode-btn:hover { 
+            background: var(--gold); 
+            color: #000; 
+            box-shadow: 0 0 20px var(--gold); 
+        }
+
+        .mode-btn:disabled { 
+            border-color: #555; 
+            color: #555; 
+            cursor: not-allowed; 
+        }
+
+        /* --- WRAPPER PARA CENTRALIZAÇÃO TOTAL --- */
         #game-wrapper { 
             display: none; 
             position: absolute;
@@ -145,59 +231,171 @@
             width: 100%; 
             height: 100%;
             z-index: 10; 
+            overflow: hidden;
+        }
+
+        #game-scaler {
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            justify-content: center;
+            transform-origin: center center;
+            transition: transform 0.1s ease-out;
         }
 
         #header-ui {
-            width: 900px; height: 70px; background: rgba(0,0,0,0.85);
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0 40px; border-radius: 20px 20px 0 0; border: 1px solid #333; border-bottom: 2px solid var(--gold);
+            width: 900px; 
+            height: 70px; 
+            background: rgba(0,0,0,0.85);
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            padding: 0 10px; 
+            border-radius: 20px 20px 0 0; 
+            border: 1px solid #333; 
+            border-bottom: 2px solid var(--gold);
             backdrop-filter: blur(10px);
         }
 
-        .ui-team-box { display: flex; align-items: center; gap: 15px; font-size: 0.9rem; letter-spacing: 1px; width: 250px; }
-        #scoreboard { font-size: 1.2rem; color: var(--gold); text-shadow: 0 0 10px rgba(241, 196, 15, 0.5); font-weight: 900; text-align: center; }
-        #match-timer { background: #000; padding: 5px 15px; border-radius: 15px; border: 1px solid #444; font-family: monospace; font-size: 1.4rem; }
+        .ui-team-box { 
+            display: flex; 
+            align-items: center; 
+            gap: 10px; 
+            font-size: 0.9rem; 
+            letter-spacing: 1px; 
+            width: 180px; 
+        }
+
+        #scoreboard { 
+            font-size: 1.2rem; 
+            color: var(--gold); 
+            text-shadow: 0 0 10px rgba(241, 196, 15, 0.5); 
+            font-weight: 900; 
+            text-align: center; 
+        }
+
+        #match-timer { 
+            background: #000; 
+            padding: 5px 15px; 
+            border-radius: 15px; 
+            border: 1px solid #444; 
+            font-family: monospace; 
+            font-size: 1.2rem; 
+        }
+
+        /* --- ESTILO DOS CARROSSEIS ADICIONADOS --- */
+        .header-carousel {
+            width: 120px;
+            height: 50px;
+            overflow: hidden;
+            position: relative;
+            border: 1px solid #333;
+            border-radius: 5px;
+            background: #000;
+        }
+
+        .carousel-track {
+            display: flex;
+            width: 300%;
+            height: 100%;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .carousel-track img {
+            width: 120px;
+            height: 50px;
+            object-fit: cover;
+        }
 
         #field {
-            position: relative; width: 900px; height: 460px; background-color: var(--field-green);
+            position: relative; 
+            width: 900px; 
+            height: 460px; 
+            background-color: var(--field-green);
             background-image: 
                 linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px),
                 repeating-linear-gradient(90deg, var(--field-green) 0px, var(--field-green) 50px, var(--field-light) 50px, var(--field-light) 100px);
-            border: 8px solid #eee; box-shadow: 0 20px 50px rgba(0,0,0,0.8);
+            border: 8px solid #eee; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
         }
+
         #field::after {
-            content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 120px; height: 120px; border: 3px solid rgba(255,255,255,0.5); border-radius: 50%;
+            content: ''; 
+            position: absolute; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%);
+            width: 120px; 
+            height: 120px; 
+            border: 3px solid rgba(255,255,255,0.5); 
+            border-radius: 50%;
         }
+
         #field::before {
-            content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 3px; background: rgba(255,255,255,0.5);
+            content: ''; 
+            position: absolute; 
+            top: 0; 
+            bottom: 0; 
+            left: 50%; 
+            width: 3px; 
+            background: rgba(255,255,255,0.5);
         }
 
         .disc {
-            position: absolute; width: 56px; height: 56px;
-            border-radius: 50%; background: #111; 
+            position: absolute; 
+            width: 56px; 
+            height: 56px;
+            border-radius: 50%; 
+            background: #111; 
             border: 4px solid #fff;
-            box-shadow: 0 6px 12px rgba(0,0,0,0.4); z-index: 10; overflow: hidden;
-            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.4); 
+            z-index: 10; 
+            overflow: hidden;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
             transition: border-color 0.3s, transform 0.1s;
         }
-        .disc.active { border-color: var(--gold); transform: scale(1.1) translate(-50%, -50%); box-shadow: 0 0 20px var(--gold); }
+
+        .disc.active { 
+            border-color: var(--gold); 
+            transform: scale(1.1) translate(-50%, -50%); 
+            box-shadow: 0 0 20px var(--gold); 
+        }
 
         .ball {
-            position: absolute; width: 22px; height: 22px; background: #fff; 
-            border-radius: 50%; z-index: 5; 
+            position: absolute; 
+            width: 22px; 
+            height: 22px; 
+            background: #fff; 
+            border-radius: 50%; 
+            z-index: 5; 
             box-shadow: 0 2px 5px rgba(0,0,0,0.5);
             background-image: radial-gradient(circle at 30% 30%, #fff, #ccc);
         }
 
-        .goal-post { position: absolute; width: 50px; height: 140px; top: 50%; transform: translateY(-50%); border: 5px solid rgba(255,255,255,0.8); z-index: 2; background: rgba(255,255,255,0.1); }
+        .goal-post { 
+            position: absolute; 
+            width: 50px; 
+            height: 140px; 
+            top: 50%; 
+            transform: translateY(-50%); 
+            border: 5px solid rgba(255,255,255,0.8); 
+            z-index: 2; 
+            background: rgba(255,255,255,0.1); 
+        }
+
         .goal-l { left: -50px; border-right: none; }
         .goal-r { right: -50px; border-left: none; }
 
         #indicator { 
-            position: absolute; height: 6px; 
+            position: absolute; 
+            height: 6px; 
             background: linear-gradient(90deg, transparent, var(--gold)); 
-            border-radius: 3px; transform-origin: 0 50%; display: none; z-index: 100;
+            border-radius: 3px; 
+            transform-origin: 0 50%; 
+            display: none; 
+            z-index: 100;
             filter: drop-shadow(0 0 5px var(--gold));
         }
 
@@ -206,7 +404,11 @@
             transform: translate(-50%, -50%); pointer-events: none; z-index: 20;
             animation: flash 0.3s ease-out forwards;
         }
-        @keyframes flash { from { transform: translate(-50%, -50%) scale(0.5); opacity: 0.8; } to { transform: translate(-50%, -50%) scale(2); opacity: 0; } }
+
+        @keyframes flash { 
+            from { transform: translate(-50%, -50%) scale(0.5); opacity: 0.8; } 
+            to { transform: translate(-50%, -50%) scale(2); opacity: 0; } 
+        }
 
         .goal-anim {
             position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
@@ -214,25 +416,45 @@
             text-shadow: 0 0 50px #fff, 0 0 100px var(--gold); pointer-events: none;
             animation: megaGoal 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
+
         @keyframes megaGoal { 
             0% { transform: scale(0) rotate(-45deg); opacity: 0; } 
             30% { transform: scale(1.2) rotate(10deg); opacity: 1; }
             100% { transform: scale(1); opacity: 0; } 
         }
 
-        /* --- SISTEMA DE POPUP --- */
         #game-popup {
             display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95);
             z-index: 9999; flex-direction: column; align-items: center; justify-content: center;
             text-align: center; padding: 30px;
         }
-        #game-popup img { width: 280px; max-width: 80%; border: 4px solid var(--gold); border-radius: 20px; margin-bottom: 20px; box-shadow: 0 0 30px var(--gold); }
+
+        #game-popup img { 
+            width: 280px; 
+            max-width: 80%; 
+            border: 4px solid var(--gold); 
+            border-radius: 20px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 0 30px var(--gold); 
+        }
+
         #game-popup h2 { font-size: 3rem; text-transform: uppercase; margin-bottom: 10px; font-weight: 900; }
         #game-popup p { font-size: 1.3rem; color: #fff; margin-bottom: 10px; max-width: 500px; }
         #lives-status { color: var(--gold); font-weight: bold; font-size: 1.5rem; margin-bottom: 25px; text-shadow: 0 0 10px var(--gold); }
 
         #bracket-or-table { width: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        table { width: 90%; max-width: 700px; border-collapse: collapse; margin-top: 20px; background: rgba(0,0,0,0.7); border-radius: 15px; border: 1px solid #444; overflow: hidden; }
+
+        table { 
+            width: 90%; 
+            max-width: 700px; 
+            border-collapse: collapse; 
+            margin-top: 20px; 
+            background: rgba(0,0,0,0.7); 
+            border-radius: 15px; 
+            border: 1px solid #444; 
+            overflow: hidden; 
+        }
+
         th, td { padding: 12px; border-bottom: 1px solid #333; text-align: center; }
         th { color: var(--gold); text-transform: uppercase; font-size: 0.85rem; background: rgba(255,255,255,0.05); }
     </style>
@@ -267,7 +489,8 @@
     <button class="mode-btn" onclick="confirmVs()" style="margin-top: 50px;">ENTRAR NO CAMPO</button>
 </div>
 
-<div id="main-menu" class="screen" style="display:none;"> <h1 style="color:var(--gold); margin-bottom: 20px; letter-spacing: 3px; text-align: center;">CAMPEONATO <BR> VILA DALVA 2026</h1>
+<div id="main-menu" class="screen" style="display:none;"> 
+    <h1 style="color:var(--gold); margin-bottom: 20px; letter-spacing: 3px; text-align: center;">CAMPEONATO <BR> VILA DALVA 2026</h1>
     <div class="team-grid" id="selection-grid"></div>
 </div>
 
@@ -287,13 +510,31 @@
 </div>
 
 <div id="game-wrapper">
-    <div id="game-scaler" style="display: flex; flex-direction: column; align-items: center; transform-origin: center center;">
+    <div id="game-scaler">
         <div id="header-ui">
             <div id="ui-home" class="ui-team-box"></div>
+            
+            <div class="header-carousel">
+                <div class="carousel-track" id="track1">
+                    <img src="./VEIOS/LOGO.webp" alt="Propaganda 1">
+                    <img src="./FANATICOS/LOGO.webp" alt="Propaganda 2">
+                    <img src="./PDM/LOGO.webp" alt="Propaganda 3">
+                </div>
+            </div>
+
             <div style="display: flex; flex-direction: column; align-items: center;">
                 <div id="scoreboard"><span id="score-val">0 - 0</span></div>
                 <div id="match-timer">00:45</div>
             </div>
+
+            <div class="header-carousel">
+                <div class="carousel-track" id="track2">
+                    <img src="./REALPDP/LOGO.webp" alt="Propaganda 4">
+                    <img src="./CARPEGE/LOGO.webp" alt="Propaganda 5">
+                    <img src="./JUVEVE/LOGO.webp" alt="Propaganda 6">
+                </div>
+            </div>
+
             <div id="ui-away" class="ui-team-box" style="justify-content: flex-end;"></div>
         </div>
         <div id="field">
@@ -324,16 +565,29 @@
         { id: 'PD', name: 'REAL PDP', color: '#e67e22', logo: './REALPDP/LOGO.webp', s: 14, players: [{ n: 'GOLEIRO', p: 'block', i: './REALPDP/JOGADOR1.webp' }, { n: 'ERIK', p: 'strength', i: './REALPDP/JOGADOR2.webp' }, { n: 'EVERTON', p: 'speed', i: './REALPDP/JOGADOR3.webp' }, { n: 'RAMON', p: 'accuracy', i: './REALPDP/JOGADOR4.webp' }, { n: 'MAICON', p: 'special', i: './REALPDP/JOGADOR5.webp' }]}
     ];
 
+    /* --- LÓGICA DO CARROSSEL ADICIONADA --- */
+    let carouselIdx = 0;
+    function startCarousels() {
+        setInterval(() => {
+            carouselIdx = (carouselIdx + 1) % 3;
+            const offset = carouselIdx * -120;
+            const t1 = document.getElementById('track1');
+            const t2 = document.getElementById('track2');
+            if(t1) t1.style.transform = `translateX(${offset}px)`;
+            if(t2) t2.style.transform = `translateX(${offset}px)`;
+        }, 3000);
+    }
+
     /* FUNÇÃO DE ESCALA CORRIGIDA PARA CENTRALIZAÇÃO TOTAL */
     function ajustarTela() {
         const gameScaler = document.getElementById('game-scaler');
         if (!gameScaler) return;
         
-        const larguraDesejada = 940; 
-        const alturaDesejada = 560;
+        const larguraOriginal = 940; 
+        const alturaOriginal = 560;
         
-        const scaleX = window.innerWidth / larguraDesejada;
-        const scaleY = window.innerHeight / alturaDesejada;
+        const scaleX = window.innerWidth / larguraOriginal;
+        const scaleY = window.innerHeight / alturaOriginal;
         const scale = Math.min(scaleX, scaleY, 1);
         
         gameScaler.style.transform = `scale(${scale})`;
@@ -364,6 +618,7 @@
                         document.getElementById('preloader').style.display = 'none';
                         document.getElementById('main-menu').style.display = 'flex';
                         initSelection();
+                        startCarousels(); // INICIA CARROSSEL APÓS CARREGAR
                     }, 800);
                 }
             };
@@ -402,7 +657,7 @@
 
     function setMode(mode) {
         if(mode === 'LIGA' && !copaConcluida) {
-            showPopup("./VEIOS/LOGO.webp", "ACESSO BLOQUEADO!", "Você precisa vencer a Final da Copa Dalveriana primeiro!", "VOLTAR", () => {
+            showPopup("./VEIOS/LOGO.webp", "ACESSO BLOQUEADO!", "Vença a Final da Copa primeiro!", "VOLTAR", () => {
                 document.getElementById('game-popup').style.display = 'none';
                 document.getElementById('mode-selection').style.display = 'flex';
             });
@@ -460,11 +715,8 @@
             });
             container.innerHTML = html + `</table>`;
         } else {
-            const fase = currentMatchIdx === 0 ? "QUARTAS DE FINAL" : (currentMatchIdx === 1 ? "SEMIFINAL" : "GRANDE FINAL");
-            container.innerHTML = `<div style="text-align:center;">
-                <p style="color:var(--gold); margin-bottom:10px; font-weight:bold">${fase}</p>
-                <h2 style="font-size:2rem; color:#fff">${playerTeam.name} <span style="color:var(--gold)">VS</span> ${opponents[currentMatchIdx].name}</h2>
-            </div>`;
+            const fase = currentMatchIdx === 0 ? "QUARTAS" : (currentMatchIdx === 1 ? "SEMIFINAL" : "FINAL");
+            container.innerHTML = `<div style="text-align:center;"><p style="color:var(--gold)">${fase}</p><h2>${playerTeam.name} VS ${opponents[currentMatchIdx].name}</h2></div>`;
         }
     }
 
@@ -476,7 +728,7 @@
                 if(timeLeft <= 0) {
                     if(period === 1) {
                         period = 2; timeLeft = 45; ballStarter = (ballStarter === 1 ? 2 : 1);
-                        showPopup("./VEIOS/LOGO.webp", "INTERVALO!", "Fim do primeiro tempo. Os times estão trocando de lado!", "VOLTAR AO JOGO", () => {
+                        showPopup("./VEIOS/LOGO.webp", "INTERVALO!", "Times trocando de lado!", "CONTINUAR", () => {
                             document.getElementById('game-popup').style.display = 'none';
                             document.getElementById('game-wrapper').style.display = 'flex';
                             ajustarTela();
@@ -499,8 +751,8 @@
         if (physicsId) cancelAnimationFrame(physicsId);
         physicsId = null;
         const enemy = opponents[currentMatchIdx];
-        document.getElementById('ui-home').innerHTML = `<img src="${playerTeam.logo}" width="30" height="20" style="object-fit:contain"> <span>${playerTeam.name}</span>`;
-        document.getElementById('ui-away').innerHTML = `<span>${enemy.name}</span> <img src="${enemy.logo}" width="30" height="20" style="object-fit:contain">`;
+        document.getElementById('ui-home').innerHTML = `<img src="${playerTeam.logo}" width="30"> <span>${playerTeam.name}</span>`;
+        document.getElementById('ui-away').innerHTML = `<span>${enemy.name}</span> <img src="${enemy.logo}" width="30">`;
         document.getElementById('score-val').innerText = `${scoreH} - ${scoreA}`;
 
         field.querySelectorAll('.disc, .ball').forEach(d => d.remove());
@@ -534,10 +786,10 @@
         div.className = team === 0 ? 'ball' : 'disc';
         if(team !== 0) {
             div.style.borderColor = teamColor;
-            div.innerHTML = `<div style="width:100%; height:100%; pointer-events:none; position:relative;">
+            div.innerHTML = `<div style="width:100%; height:100%; position:relative;">
                 <img src="${img}" style="width:100%; height:100%; object-fit:cover; border-radius:50%">
-                <img src="${logo}" style="position:absolute; top:2px; right:2px; width:22px; height:18px; object-fit:contain; background:transparent; border-radius:2px; padding:1px">
-                <div style="position:absolute; bottom:0; width:100%; background:rgba(0,0,0,0.7); font-size:7px; text-align:center; padding:2px 0">${name}</div>
+                <img src="${logo}" style="position:absolute; top:2px; right:2px; width:22px;">
+                <div style="position:absolute; bottom:0; width:100%; background:rgba(0,0,0,0.7); font-size:7px; text-align:center;">${name}</div>
             </div>`;
         }
         field.appendChild(div);
@@ -644,37 +896,12 @@
         handleWin();
     }
 
-    function updateLeagueStats() {
-        const enemy = opponents[currentMatchIdx];
-        const playerStats = leagueTable.find(t => t.id === playerTeam.id);
-        const enemyStats = leagueTable.find(t => t.id === enemy.id);
-        playerStats.gp += scoreH; enemyStats.gp += scoreA;
-        if(scoreH > scoreA) { playerStats.pts += 3; playerStats.v += 1; enemyStats.d += 1; } 
-        else if(scoreH < scoreA) { enemyStats.pts += 3; enemyStats.v += 1; playerStats.d += 1; } 
-        else { playerStats.pts += 1; playerStats.e += 1; enemyStats.pts += 1; enemyStats.e += 1; }
-        leagueTable.forEach(t => {
-            if(t.id !== playerTeam.id && t.id !== enemy.id) {
-                const res = Math.random();
-                if(res > 0.6) { t.pts += 3; t.v += 1; t.gp += Math.floor(Math.random()*3); }
-                else if(res > 0.3) { t.pts += 1; t.e += 1; t.gp += Math.floor(Math.random()*2); }
-                else { t.d += 1; }
-            }
-        });
-    }
-
     function handleWin() {
         if(gameMode === 'FREE') { location.reload(); } 
         else if(gameMode === 'LIGA') {
-            updateLeagueStats();
             currentMatchIdx++;
             if(currentMatchIdx >= opponents.length) {
-                showPopup("./VEIOS/LOGO.webp", "FIM DA LIGA!", "A temporada acabou! Veja sua classificação final.", "VER TABELA", () => {
-                    document.getElementById('game-popup').style.display = 'none';
-                    showTournament('CLASSIFICAÇÃO FINAL');
-                    document.getElementById('btn-next-match').innerText = "NOVO TORNEIO";
-                    document.getElementById('btn-next-match').onclick = () => location.reload();
-                    document.getElementById('tournament-screen').style.display = 'flex';
-                });
+                showPopup("./VEIOS/LOGO.webp", "FIM DA LIGA!", "Temporada encerrada!", "MENU", () => location.reload());
             } else {
                 scoreH = 0; scoreA = 0; timeLeft = 45; period = 1; ballStarter = 1;
                 document.getElementById('game-wrapper').style.display = 'none';
@@ -685,7 +912,7 @@
                 currentMatchIdx++;
                 if(currentMatchIdx >= opponents.length) { 
                     copaConcluida = true;
-                    showPopup("./VEIOS/LOGO.webp", "🏆 CAMPEÃO! 🏆", "Parabéns! Você venceu a Copa e desbloqueou a LIGA ELITE!", "INICIAR LIGA AGORA", () => {
+                    showPopup("./VEIOS/LOGO.webp", "🏆 CAMPEÃO! 🏆", "LIGA ELITE DESBLOQUEADA!", "INICIAR LIGA", () => {
                         document.getElementById('game-popup').style.display = 'none';
                         setMode('LIGA');
                     });
@@ -704,7 +931,6 @@
         document.getElementById('pop-img').src = img;
         document.getElementById('pop-title').innerText = title;
         document.getElementById('pop-msg').innerText = msg;
-        document.getElementById('lives-status').innerText = "";
         const btn = document.getElementById('pop-btn');
         btn.innerText = btnText; btn.onclick = callback;
         pop.style.display = 'flex';
@@ -712,20 +938,16 @@
 
     function openDefeatPopup() {
         playerLives--;
-        const title = playerLives > 0 ? "VOCÊ FOI ELIMINADO!" : "GAME OVER!";
-        const msg = playerLives > 0 ? "Use uma chance para tentar de novo!" : "Suas chances acabaram. Voltando ao início...";
-        const btnText = playerLives > 0 ? "REVANCHE AGORA" : "VOLTAR AO MENU";
-        showPopup("./VEIOS/LOGO.webp", title, msg, btnText, () => {
+        showPopup("./VEIOS/LOGO.webp", "ELIMINADO!", `Vidas: ${playerLives}`, playerLives > 0 ? "REVANCHE" : "MENU", () => {
             if(playerLives > 0) {
-                window.open("https://seusiteaqui.com", "_blank");
+                window.open("https://mirodobutanta.com", "_blank");
                 document.getElementById('game-popup').style.display = 'none';
                 document.getElementById('game-wrapper').style.display = 'flex';
                 ajustarTela();
-                scoreH = 0; scoreA = 0; timeLeft = 45; period = 1; goalLocked = false; ballStarter = 1;
+                scoreH = 0; scoreA = 0; timeLeft = 45; period = 1; goalLocked = false;
                 initMatch();
             } else { location.reload(); }
         });
-        document.getElementById('lives-status').innerText = playerLives > 0 ? `CHANCES RESTANTES: ${playerLives}` : "CHANCES ESGOTADAS!";
     }
 
     function execIA() {
@@ -739,7 +961,7 @@
             const angleBallToGoal = Math.atan2(targetY - ball.y, targetX - ball.x);
             const impactX = ball.x - Math.cos(angleBallToGoal) * 25;
             const impactY = ball.y - Math.sin(angleBallToGoal) * 25;
-            const attackAngle = (Math.hypot(shooter.x - ball.x, shooter.y - ball.y) < 120) ? Math.atan2(ball.y - shooter.y, ball.x - shooter.x) : Math.atan2(impactY - shooter.y, impactX - shooter.x);
+            const attackAngle = Math.atan2(impactY - shooter.y, impactX - shooter.x);
             shooter.vx = Math.cos(attackAngle) * 13; shooter.vy = Math.sin(attackAngle) * 13;
             isMoving = true;
         }, 600);
