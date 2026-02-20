@@ -492,8 +492,8 @@
 </div>
 
 <div id="main-menu" class="screen" style="display:none;"> 
-    <h1 style="color:var(--gold); margin-bottom: 20px; letter-spacing: 3px; text-align: center;">CAMPEONATO <BR> VILA DALVA 2026</h1>
-        <p>Ordem por Tradição</p>
+    <h1 style="color:var(--gold); margin-bottom: -20px; letter-spacing: 3px; text-align: center;"> LIGA DALVA 2026</h1>
+        
     <div class="team-grid" id="selection-grid"></div>
 </div>
 
@@ -501,8 +501,8 @@
     <h1 id="selected-team-title" style="color:var(--gold); margin-bottom: 10px;"></h1>
     <div style="display:flex; flex-direction: column; margin-top:20px;">
         <button class="mode-btn" onclick="setMode('FREE')">MANO A MANO</button>
-        <button class="mode-btn" onclick="setMode('COPA')">COPA DALVERIANA</button>
-        <button class="mode-btn" id="btn-liga-mode" onclick="setMode('LIGA')">LIGA DALVERIANA</button>
+        <button class="mode-btn" onclick="setMode('COPA')">COPA DALVA</button>
+        <button class="mode-btn" id="btn-liga-mode"  onclick="setMode('LIGA')">LIGA DALVA 2026</button>
     </div>
 </div>
 
@@ -610,6 +610,7 @@
     let objects = [], isMoving = false, turn = 1, selectedPlayer = null, dragStart = null;
     let leagueTable = [], scoreH = 0, scoreA = 0, timeLeft = 45, matchTimer = null, period = 1, ballStarter = 1;
     let physicsId = null, goalLocked = false, playerLives = 3, copaConcluida = false; 
+    let ligaStartTime = null; // Variável para cronometrar a liga
     const field = document.getElementById('field');
 
     function initSelection() {
@@ -642,17 +643,19 @@
         }
         gameMode = mode; document.getElementById('mode-selection').style.display = 'none';
         currentMatchIdx = 0; scoreH = 0; scoreA = 0; timeLeft = 45; period = 1; ballStarter = 1;
-        if(mode === 'FREE') {
+        
+        if(mode === 'LIGA') {
+            ligaStartTime = new Date(); // Inicia o tempo da liga
+            opponents = ALL_TEAMS.filter(t => t.id !== playerTeam.id).sort(() => 0.5 - Math.random());
+            leagueTable = ALL_TEAMS.map(t => ({ id: t.id, name: t.name, pts: 0, v: 0, e:0, d: 0, gp: 0 }));
+            showTournament('LIGA DALVA 2026');
+        } else if(mode === 'FREE') {
             const pool = ALL_TEAMS.filter(t => t.id !== playerTeam.id);
             opponents = [pool[Math.floor(Math.random()*pool.length)]];
             prepareMatch();
         } else if(mode === 'COPA') {
             opponents = ALL_TEAMS.filter(t => t.id !== playerTeam.id).sort(() => 0.5 - Math.random()).slice(0,3);
             showTournament('COPA VILA DALVA');
-        } else if(mode === 'LIGA') {
-            opponents = ALL_TEAMS.filter(t => t.id !== playerTeam.id).sort(() => 0.5 - Math.random());
-            leagueTable = ALL_TEAMS.map(t => ({ id: t.id, name: t.name, pts: 0, v: 0, e:0, d: 0, gp: 0 }));
-            showTournament('LIGA DALVERIANA');
         }
     }
 
@@ -831,14 +834,55 @@
         setTimeout(() => { msg.remove(); if(scoreH >= 3 || scoreA >= 3) { finalizeMatch(); } else { initMatch(); } }, 1500);
     }
 
-    function finalizeMatch() { clearInterval(matchTimer); handleWin(); }
+    function finalizeMatch() { 
+        clearInterval(matchTimer); 
+        
+        // Atualiza tabela da liga se for o modo liga
+        if(gameMode === 'LIGA') {
+            const playerEntry = leagueTable.find(t => t.id === playerTeam.id);
+            const enemyEntry = leagueTable.find(t => t.id === opponents[currentMatchIdx].id);
+            playerEntry.gp += scoreH; enemyEntry.gp += scoreA;
+            if(scoreH > scoreA) { playerEntry.pts += 3; playerEntry.v++; enemyEntry.d++; }
+            else if(scoreH < scoreA) { enemyEntry.pts += 3; enemyEntry.v++; playerEntry.d++; }
+            else { playerEntry.pts += 1; enemyEntry.pts += 1; playerEntry.e++; enemyEntry.e++; }
+        }
+        
+        handleWin(); 
+    }
 
     function handleWin() {
         if(gameMode === 'FREE') { location.reload(); } 
         else if(gameMode === 'LIGA') {
             currentMatchIdx++;
-            if(currentMatchIdx >= opponents.length) { showPopup("./VEIOS/LOGO.webp", "FIM DA LIGA!", "Temporada encerrada!", "MENU", () => location.reload()); } 
-            else { scoreH = 0; scoreA = 0; timeLeft = 45; period = 1; ballStarter = 1; document.getElementById('game-wrapper').style.display = 'none'; showTournament('LIGA DALVERIANA'); }
+            if(currentMatchIdx >= opponents.length) { 
+                // LÓGICA DE CAMPEÃO DA LIGA DALVA 2026
+                const agora = new Date();
+                const diff = agora - ligaStartTime;
+                const h = Math.floor(diff / 3600000).toString().padStart(2, '0');
+                const m = Math.floor((diff % 3600000) / 60000).toString().padStart(2, '0');
+                const s = Math.floor((diff % 60000) / 1000).toString().padStart(2, '0');
+                const ms = (diff % 1000).toString().padStart(3, '0');
+                const tempoFormatado = `${h}:${m}:${s}:${ms}`;
+                
+                const dataDia = agora.toLocaleDateString('pt-BR');
+                const dataHora = agora.toLocaleTimeString('pt-BR');
+                
+                // Código de validação
+                const codigoRaw = tempoFormatado.replace(/:/g, '') + dataDia.replace(/\//g, '') + dataHora.replace(/:/g, '');
+                
+                const msgFinal = `VOCÊ É O CAMPEÃO DA LIGA DALVA 2026! Você concluiu em ${tempoFormatado}. \nHoje ${dataDia} às ${dataHora}. \nCÓDIGO: ${codigoRaw}`;
+                const waLink = `https://api.whatsapp.com/send?phone=5511981772139&text=${encodeURIComponent(msgFinal)}`;
+
+                showPopup("./VEIOS/LOGO.webp", "🏆 CAMPEÃO DA LIGA! 🏆", msgFinal, "ENVIAR RESULTADO", () => {
+                    window.open(waLink, "_blank");
+                    location.reload();
+                });
+            } 
+            else { 
+                scoreH = 0; scoreA = 0; timeLeft = 45; period = 1; ballStarter = 1; 
+                document.getElementById('game-wrapper').style.display = 'none'; 
+                showTournament('LIGA DALVA 2026'); 
+            }
         } else {
             if(scoreH > scoreA) {
                 currentMatchIdx++;
