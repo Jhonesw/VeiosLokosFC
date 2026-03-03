@@ -2,7 +2,7 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <title>Tile Match Pro - Evolution</title>
     <style>
         :root {
@@ -11,7 +11,7 @@
             --depth: 8px;
             --ui-bg: rgba(255, 255, 255, 0.15);
             --header-h: 140px;
-            --footer-h: 100px;
+            --footer-h: 120px; /* Aumentado levemente para melhor ergonomia */
             --accent: #f1c40f;
             --primary: #1e90ff;
             --bg-gradient: radial-gradient(circle, #2c3e50 0%, #000000 100%);
@@ -40,6 +40,9 @@
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             overflow: hidden; touch-action: none;
             color: white;
+            /* SOLUÇÃO PARA BARRA DO ANDROID: */
+            padding-bottom: env(safe-area-inset-bottom);
+            box-sizing: border-box;
         }
 
         #main-game { display: none; flex-direction: column; height: 100%; width: 100%; position: relative; }
@@ -136,6 +139,7 @@
             height: var(--footer-h);
             display: flex; justify-content: center; align-items: center; gap: 15px;
             background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
+            padding-bottom: 10px; /* Margem extra de segurança interna */
         }
 
         .btn-container { position: relative; }
@@ -426,7 +430,6 @@
         function selectTile(tile) {
             if (tile.classList.contains('locked') || collected.length >= 7) return;
             
-            // Se estiver pausado, retoma o tempo ao clicar
             if(isPaused) resumeTimer();
 
             playSound('click');
