@@ -11,7 +11,7 @@
             --depth: 8px;
             --ui-bg: rgba(255, 255, 255, 0.15);
             --header-h: 140px;
-            --footer-h: 120px; /* Aumentado levemente para melhor ergonomia */
+            --footer-h: 140px; /* Aumentado para dar mais espaço */
             --accent: #f1c40f;
             --primary: #1e90ff;
             --bg-gradient: radial-gradient(circle, #2c3e50 0%, #000000 100%);
@@ -40,8 +40,6 @@
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             overflow: hidden; touch-action: none;
             color: white;
-            /* SOLUÇÃO PARA BARRA DO ANDROID: */
-            padding-bottom: env(safe-area-inset-bottom);
             box-sizing: border-box;
         }
 
@@ -139,7 +137,9 @@
             height: var(--footer-h);
             display: flex; justify-content: center; align-items: center; gap: 15px;
             background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
-            padding-bottom: 10px; /* Margem extra de segurança interna */
+            /* Sobe os botões para longe da borda inferior */
+            padding-bottom: 35px; 
+            box-sizing: border-box;
         }
 
         .btn-container { position: relative; }
