@@ -11,7 +11,7 @@
             --depth: 8px;
             --ui-bg: rgba(255, 255, 255, 0.15);
             --header-h: 140px;
-            --footer-h: 140px; /* Aumentado para dar mais espaço */
+            --footer-h: 140px; 
             --accent: #f1c40f;
             --primary: #1e90ff;
             --bg-gradient: radial-gradient(circle, #2c3e50 0%, #000000 100%);
@@ -137,8 +137,7 @@
             height: var(--footer-h);
             display: flex; justify-content: center; align-items: center; gap: 15px;
             background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
-            /* Sobe os botões para longe da borda inferior */
-            padding-bottom: 35px; 
+            padding-bottom: 35px; /* Altura de segurança para o Android */
             box-sizing: border-box;
         }
 
@@ -217,19 +216,19 @@
         <div class="footer-ui">
             <div class="btn-container">
                 <span class="chance-count" id="undo-count">3</span>
-                <button class="btn-action" id="btn-undo" onclick="openMiro(); handleUndo()">↩️</button>
+                <button class="btn-action" id="btn-undo" onclick="openSite1(); handleUndo()">↩️</button>
             </div>
             <div class="btn-container">
                 <span class="chance-count" id="hint-count">3</span>
-                <button class="btn-action" id="btn-hint" onclick="openMiro(); handleHint()">🪄</button>
+                <button class="btn-action" id="btn-hint" onclick="openSite2(); handleHint()">✅</button>
             </div>
             <div class="btn-container">
                 <span class="chance-count" id="shuffle-count">3</span>
-                <button class="btn-action" id="btn-shuffle" onclick="openMiro(); handleShuffle()">🔀</button>
+                <button class="btn-action" id="btn-shuffle" onclick="openSite3(); handleShuffle()">🔀</button>
             </div>
             <div class="btn-container">
                 <span class="chance-count" id="pause-count">10</span>
-                <button class="btn-action" id="btn-pause" onclick="handlePause()" title="Parar Tempo">⏸️</button>
+                <button class="btn-action" id="btn-pause" onclick="openSite4(); handlePause()" title="Parar Tempo">⏸️</button>
             </div>
         </div>
 
@@ -252,7 +251,11 @@
     </div>
 
     <script>
-        function openMiro() { window.open('http://mirodobutanta.com', '_blank'); }
+        // CONFIGURAÇÃO DOS LINKS DOS BOTÕES
+        function openSite1() { window.open('http://veioslokos.com.br', '_blank'); }
+        function openSite2() { window.open('http://mirodobutanta.com', '_blank'); }
+        function openSite3() { window.open('http://pawerblack.web-radios.net', '_blank'); }
+        function openSite4() { window.open('http://pawerblack.web-radios.net', '_blank'); }
 
         let level = parseInt(localStorage.getItem('tileLevel')) || 1;
         let score = parseInt(localStorage.getItem('tileScore')) || 0;
@@ -327,7 +330,6 @@
             isPaused = true;
             clearInterval(timerInterval);
             document.getElementById('pause-indicator').style.display = 'block';
-            openMiro();
         }
 
         function resumeTimer() {
@@ -553,7 +555,7 @@
         }
 
         function nextLevel() { level++; initGame(); }
-        function resetGameAfterLoss() { openMiro(); level = 1; score = 0; localStorage.clear(); initGame(); }
+        function resetGameAfterLoss() { openSite1(); level = 1; score = 0; localStorage.clear(); initGame(); }
         function playSound(name) { try { sounds[name].currentTime = 0; sounds[name].play(); } catch(e) {} }
 
         window.onresize = () => { updateLocks(); };
