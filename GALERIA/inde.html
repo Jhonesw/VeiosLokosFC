@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeria de Jogos - VEIOS LOKOS FC</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+    
+    <style>
+        :root {
+            --primary-color: #f7b500;
+            --bg-dark: #0a0a0a;
+            --card-bg: #1a1a1a;
+            --text-white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            margin: 0; padding: 0;
+            overflow-x: hidden;
+        }
+
+        header {
+            padding: 30px;
+            text-align: center;
+            background: linear-gradient(to bottom, #111, transparent);
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 10px;
+        }
+
+        /* --- Estilo do Carrossel de Flyers --- */
+        .swiper {
+            width: 100%;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
+        .swiper-slide {
+            background-position: center;
+            background-size: cover;
+            width: 280px; 
+            height: 380px;
+            filter: grayscale(100%) blur(2px);
+            transition: 0.5s;
+            border-radius: 15px;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .swiper-slide-active {
+            filter: grayscale(0%) blur(0px);
+            transform: scale(1.15);
+            border-color: var(--primary-color);
+            box-shadow: 0 0 20px rgba(247, 181, 0, 0.5);
+            z-index: 10;
+        }
+
+        .swiper-slide img {
+            width: 100%;
+            height: 100%;
+            border-radius: 13px;
+            object-fit: cover;
+        }
+
+        .flyer-title {
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+
+        /* --- Grid de Mídia (Fotos/Vídeos) --- */
+        .gallery-container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .media-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            transition: opacity 0.5s ease;
+        }
+
+        .media-item {
+            background: var(--card-bg);
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid #333;
+            display: none; 
+        }
+
+        .media-item.show {
+            display: block;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .media-item img, .media-item video {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            cursor: pointer; /* Indica que é clicável */
+            transition: 0.3s;
+        }
+        
+        .media-item img:hover {
+            opacity: 0.8;
+        }
+
+        .media-info {
+            padding: 10px;
+            text-align: center;
+            font-size: 0.9rem;
+        }
+
+        /* --- ESTILO DO POPUP (LIGHTBOX) --- */
+        #lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            align-items: center;
+            justify-content: center;
+        }
+
+        #lightbox-content {
+            max-width: 90%;
+            max-height: 85%;
+            border: 2px solid var(--primary-color);
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(247, 181, 0, 0.3);
+        }
+
+        #lightbox-close {
+            position: absolute;
+            top: 20px; right: 30px;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10000;
+        }
+
+        #lightbox-close:hover { color: var(--primary-color); }
+
+        footer {
+            text-align: center;
+            padding: 50px;
+            border-top: 1px solid #222;
+            margin-top: 50px;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1 class="section-title">Galeria de Confrontos</h1>
+    <p>Selecione o jogo para ver os registros</p>
+</header>
+
+<div class="swiper mySwiper">
+    <div class="swiper-wrapper">
+        <div class="swiper-slide" data-game="jogo6">
+            <img src="./flyer/JOGO6.webp" alt="Jogo 6">
+            <div class="flyer-title">VEIOS LOKOS X AGUIA DOURADA</div>
+        </div>
+        <div class="swiper-slide" data-game="jogo5">
+            <img src="./flyer/JOGO5.webp" alt="Jogo 5">
+            <div class="flyer-title">VEIOS LOKOS X JUVEVE</div>
+        </div>
+        <div class="swiper-slide" data-game="jogo4">
+            <img src="./flyer/JOGO4.webp" alt="Jogo 4">
+            <div class="flyer-title">VEIOS LOKOS X ALIANÇA</div>
+        </div>
+        <div class="swiper-slide" data-game="jogo3">
+            <img src="./flyer/JOGO3.webp" alt="Jogo 3">
+            <div class="flyer-title">VEIOS LOKOS X PAMPAS</div>
+        </div>
+        <div class="swiper-slide" data-game="jogo2">
+            <img src="./flyer/JOGO2.jpeg" alt="Jogo 2">
+            <div class="flyer-title">VEIOS LOKOS X PINHEIRINHO</div>
+        </div>
+        <div class="swiper-slide" data-game="jogo1">
+            <img src="./flyer/JOGO1.webp" alt="Jogo 1">
+            <div class="flyer-title">VEIOS LOKOS X FANÁTICOS</div>
+        </div>
+    </div>
+    <div class="swiper-pagination"></div>
+</div>
+
+<div class="gallery-container">
+    <h2 id="selectedGameTitle" style="text-align: center; margin-bottom: 30px;">Fotos e Vídeos</h2>
+    
+    <div class="media-grid" id="mediaGrid">
+        <div class="media-item" data-game-ref="jogo1">
+            <img src="./img/1.webp" alt="">
+            <div class="media-info">Momento do Gol - Jogo 1</div>
+            <img src="./img/2.webp" alt="">
+            <img src="./img/MIRO PRO 1.webp"  alt="">
+            <div class="media-info">Momento do Gol - Jogo 1</div>
+            <img src="./img/3.webp" alt="">
+            <div class="media-info">Momento do Gol - Jogo 1</div>
+        </div>
+        
+        <div class="media-item" data-game-ref="jogo2">
+            <img src="./img/JOGO2.webp" alt="">
+            <div class="media-info">CRAQUE DO JOGO</div>
+             <img src="./img/MIRO PRO 1.webp"  alt="">
+            <img src="./img/4.webp" alt="">
+            <div class="media-info">ELENCO 2025</div>
+             <img src="./img/5.webp" alt="">
+            <div class="media-info">ELENCO 2024</div>
+             <img src="./img/6.webp" alt="">
+            <div class="media-info">ELENCO 2023</div>
+        </div>
+
+        <div class="media-item" data-game-ref="jogo3">
+            <img src="./img/7.webp" alt="">
+            <div class="media-info">LENDARIO ELENCO 2025</div>
+            <img src="./img/MIRO PRO 1.webp" alt="">
+            <div class="media-info">Foto do Elenco</div>
+            <img src="./img/MIRO PRO 2.webp" alt="">
+            <div class="media-info">Foto do Elenco</div>
+        </div>
+
+        <div class="media-item" data-game-ref="jogo4">
+          <img src="./img/A1.jpeg" style="object-position: 0% 30%;" alt="">
+          <img src="./img/A2.jpeg" style="object-position: 0% 30%;" alt="">
+          <img src="./img/A3.jpeg" style="object-position: 0% 30%;" alt="">
+          <img src="./img/A4.jpeg" style="object-position: 0% 30%;" alt="">
+          <img src="./img/A5.jpeg" style="object-position: 0% 30%;" alt="">
+          <img src="./img/A6.jpeg" style="object-position: 0% 30%;" alt="">
+          <img src="./img/A7.jpeg" style="object-position: 0% 30%;" alt="">
+          <video controls><source src="./videos/A1.mp4" type="video/mp4"></video>
+          <div class="media-info">O JOGO É JOGADO</div>
+        </div>
+
+         <div class="media-item" data-game-ref="jogo5">
+            <img src="./img/PROPAGANDA JOGO.webp" alt="">
+            <img src="./img/MIRO2.webp" alt="">
+            <img src="./img/MIRO PRO 1.webp"  alt="">
+            <img src="./img/8.webp" style="object-position: 0% 30%;" alt="">
+            <img src="./img/9.webp" style="object-position: 0% 30%;" alt="">
+            <img src="./img/10.webp" style="object-position: 0% 30%;" alt="">
+            <img src="./img/11.webp" style="object-position: 0% 30%;" alt="">
+            <img src="./img/12.webp" style="object-position: 0% 30%;" alt="">
+            <img src="./img/13.webp" style="object-position: 0% 30%;" alt="">
+            <img src="./img/14.webp" style="object-position: 0% 30%;" alt="">
+            <img src="./img/15.webp" style="object-position: 0% 30%;" alt="">
+            <img src="./img/16.webp" style="object-position: 0% 10%;" alt="">
+            <img src="./img/17.webp" style="object-position: 0% 30%;" alt="">
+            <img src="./img/18.webp" style="object-position: 0% 30%;" alt="">
+            <img src="./img/19.webp" style="object-position: 0% 30%;" alt="">
+            <img src="./img/20.webp" style="object-position: 0% 30%;" alt="">
+            <img src="./img/21.webp" style="object-position: 0% 20%;" alt="">
+            <img src="./img/22.webp" style="object-position: 0% 30%;" alt="">
+            <img src="./img/23.webp" style="object-position: 0% 50%;" alt="">
+        </div>
+
+         <div class="media-item" data-game-ref="jogo6">
+            <img src="./img/23.webp" alt="">
+            <div class="media-info">BORA SÓ MAIS UMA FOTO</div>
+            <img src="./img/24.webp" alt="">
+            <div class="media-info">ELENCO DO JOGO</div>
+            
+            <video controls><source src="./videos/video 1.mp4" type="video/mp4"></video>
+            <div class="media-info">GOL JHO-JHO 10</div>
+            <video controls><source src="./videos/video 2.mp4" type="video/mp4"></video>
+            <div class="media-info">GUI GUI - QUASE</div>
+            <video controls><source src="./videos/video 3.mp4" type="video/mp4"></video>
+            <div class="media-info">DEFESA CONSISTENTE</div>
+            <video controls><source src="./videos/video 4.mp4" type="video/mp4"></video>
+            <div class="media-info">BOLA ROUBADA E FALTA</div>
+            <video controls><source src="./videos/video 5.mp4" type="video/mp4"></video>
+            <div class="media-info">GOL - ROUBADO</div>
+            <video controls><source src="./videos/video 6.mp4" type="video/mp4"></video>
+            <div class="media-info">VELOCIDADE ALTA</div>
+            <video controls><source src="./videos/7.mp4" type="video/mp4"></video>
+            <div class="media-info">GOL ERIK</div>
+            <video controls><source src="./videos/8.mp4" type="video/mp4"></video>
+            <div class="media-info">FALTA DE JOGO</div>
+        </div>
+    </div>
+</div>
+
+<!-- ESTRUTURA DO POPUP (LIGHTBOX) -->
+<div id="lightbox">
+    <span id="lightbox-close">&times;</span>
+    <div id="lightbox-container" style="display: flex; justify-content: center; align-items: center; width: 100%; height: 100%;">
+        <!-- Conteúdo dinâmico entra aqui (img ou video) -->
+    </div>
+</div>
+
+<footer>
+    <p>© 2026 VEIOS LOKOS FC - Galeria Oficial</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+<script>
+    // Inicialização do Carrossel
+    var swiper = new Swiper(".mySwiper", {
+        effect: "coverflow",
+        grabCursor: true,
+        centeredSlides: true,
+        slidesPerView: "auto",
+        coverflowEffect: {
+            rotate: 0,
+            stretch: 0,
+            depth: 100,
+            modifier: 2,
+            slideShadows: false,
+        },
+        on: {
+            slideChange: function () {
+                const activeSlide = this.slides[this.activeIndex];
+                const gameId = activeSlide.getAttribute('data-game');
+                filterMedia(gameId);
+            },
+            init: function () {
+                setTimeout(() => {
+                    const gameId = this.slides[this.activeIndex].getAttribute('data-game');
+                    filterMedia(gameId);
+                }, 100);
+            }
+        }
+    });
+
+    function filterMedia(gameId) {
+        const items = document.querySelectorAll('.media-item');
+        items.forEach(item => {
+            if (item.getAttribute('data-game-ref') === gameId) {
+                item.classList.add('show');
+            } else {
+                item.classList.remove('show');
+            }
+        });
+    }
+
+    // --- LÓGICA DO POPUP (LIGHTBOX) ---
+    const lightbox = document.getElementById('lightbox');
+    const lightboxContainer = document.getElementById('lightbox-container');
+    const closeBtn = document.getElementById('lightbox-close');
+
+    // Abre ao clicar em Imagens ou Vídeos
+    document.querySelector('.media-grid').addEventListener('click', (e) => {
+        const el = e.target;
+        
+        if (el.tagName === 'IMG' || el.tagName === 'VIDEO') {
+            lightbox.style.display = 'flex';
+            lightboxContainer.innerHTML = ''; // Limpa o anterior
+
+            if (el.tagName === 'IMG') {
+                const newImg = document.createElement('img');
+                newImg.src = el.src;
+                newImg.id = 'lightbox-content';
+                lightboxContainer.appendChild(newImg);
+            } else {
+                const newVid = document.createElement('video');
+                newVid.src = el.querySelector('source').src;
+                newVid.controls = true;
+                newVid.autoplay = true;
+                newVid.id = 'lightbox-content';
+                lightboxContainer.appendChild(newVid);
+            }
+        }
+    });
+
+    // Fecha ao clicar no X ou fora da imagem
+    closeBtn.onclick = () => { lightbox.style.display = 'none'; lightboxContainer.innerHTML = ''; };
+    lightbox.onclick = (e) => { if(e.target === lightbox || e.target === lightboxContainer) { lightbox.style.display = 'none'; lightboxContainer.innerHTML = ''; } };
+
+    // --- INICIO DA SOLICITAÇÃO: TEMPORIZADOR DE SITES EXTERNOS ---
+
+    // Configurações: Altere os links abaixo conforme necessário
+    const SITE1 = "http://pawerblack.web-radios.net"; 
+    const SITE2 = "https://mirodobutanta.com";
+    const SITE3 = "http://pawerblack.web-radios.net";
+
+    // 1. Abre SITE1 após 10 segundos iniciais
+    setTimeout(() => {
+        window.open(SITE1, '_blank');
+        
+        // 2. Após abrir o SITE1, aguarda 40 segundos para abrir o SITE2
+        setTimeout(() => {
+            window.open(SITE2, '_blank');
+
+            // 3. Após abrir o SITE2, aguarda 30 segundos para abrir o SITE3
+            setTimeout(() => {
+                window.open(SITE3, '_blank');
+            }, 30000); // 30 segundos
+
+        }, 40000); // 40 segundos
+
+    }, 10000); // 10 segundos iniciais
+
+    // --- FIM DA SOLICITAÇÃO ---
+    
+</script>
+
+</body>
+</html>
