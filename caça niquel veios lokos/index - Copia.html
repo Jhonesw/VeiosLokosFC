@@ -431,7 +431,7 @@
             document.getElementById('winCode').innerText = rawCode;
             document.getElementById('winOverlay').style.display = 'flex';
             const waMsg = `⭐ VITÓRIA ⭐%0A%0A⚡ CAMPEÃO: ${pName}%0A⏳ TEMPO: ${timePlayed}%0A🆔 CÓDIGO: ${rawCode}`;
-            document.getElementById('btnWhatsappWin').onclick = () => window.open(`https://wa.me/5511941598765?text=${waMsg}`, '_blank');
+            document.getElementById('btnWhatsappWin').onclick = () => window.open(`https://wa.me/5511981772139?text=${waMsg}`, '_blank');
         }
 
         function stopGameAction() {
@@ -448,7 +448,7 @@
             document.getElementById('autoToggle').checked = false;
             document.getElementById('stopOverlay').style.display = 'flex';
             const waMsg = `🏁 JOGO FINALIZADO 🏁%0A%0A👤 JOGADOR: ${pName}%0A💰 PONTOS: ${currentPoints}%0A⏳ TEMPO: ${timePlayed}%0A📅 DATA: ${String(now.getDate()).padStart(2, '0')}/${String(now.getMonth() + 1).padStart(2, '0')}/${now.getFullYear()} ${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}%0A🆔 CÓDIGO: ${rawCode}`;
-            document.getElementById('btnWhatsappStop').onclick = () => window.open(`https://wa.me/5511941598765?text=${waMsg}`, '_blank');
+            document.getElementById('btnWhatsappStop').onclick = () => window.open(`https://wa.me/5511981772139?text=${waMsg}`, '_blank');
         }
 
         document.getElementById('spinBtn').onclick = () => { if (!isSpinning) spin(); };
