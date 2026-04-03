@@ -110,19 +110,18 @@
     <div id="overlay">
         <div class="popup">
             <h2 style="color: var(--gold);">VEIOS LOKOS 2026</h2>
-            <p>ENTREGA DA CAMISA 30/03/2026</p>
+           
             <div class="prize-box">
                 <div class="p-container" data-limit="20000" onclick="selP(this, 'img/premio4.webp', 20000)">
                     <img src="img/premio4.webp" class="prize-opt"><br>
                     <span style="color:var(--gold)">20000</span>
-                    <P>GANHADOR: STEFERSON</P>
-                    <P>JOGUE O RANK E FAÇA MAIS </P>
+                    
+                   
                 </div>
                 <div class="p-container" data-limit="0" onclick="selP(this, 'img/premio4.webp', 0)">
                     <img src="img/premio4.webp" class="prize-opt"><br>
                     <span style="color:#00d4ff">RANK</span>
-                    <P>RANK DA SEMANA</P>
-                    <P>5.500</P>
+                    
                 </div>
             </div>
             <input type="text" id="playerName" style="padding: 12px; width: 100%; margin-bottom: 15px; border-radius: 5px; text-align: center;" placeholder="Seu nome completo">
@@ -233,23 +232,40 @@
         };
 
         const cardTypes = [
-            { id: 1, img: 'img/CARTA19.webp', weight: 6, points: 200 },
-            { id: 23, img: 'img/CARTA16.webp', weight: 8, points: 100 },
-            { id: 12, img: 'img/CARTA12.webp', weight: 8, points: 50},
-            { id: 8, img: 'img/CARTA8.webp', weight: 5, points: 100 },
-            { id: 25, img: 'img/CARTA20.webp', weight: 5, points: 50 },
-            { id: 5, img: 'img/CARTA5.webp', weight: 5, points: 100 },
-            { id: 3, img: 'img/CARTA3.webp', weight: 5, points: 50 },
-            { id: 4, img: 'img/CARTA4.webp', weight: 5, points: 50 },
-            { id: 10, img: 'img/CARTA10.webp', weight: 10, points: 50 },
-            { id: 2, img: 'img/CARTA2.webp', weight: 10, points: 20 },
-            { id: 7, img: 'img/CARTA7.webp', weight: 10, points: 50 },
-            { id: 6, img: 'img/CARTA6.webp', weight: 10, points: 30 },
-            { id: 9, img: 'img/CARTA9.webp', weight: 6, points: 100 },
-            { id: 11, img: 'img/CARTA11.webp', weight: 10, points: 20 },
-            { id: 21, img: 'img/CARTA14.webp', weight: 5, points: 50 },
-            { id: 22, img: 'img/CARTA15.webp', weight: 10, points: 20 },
-            { id: 24, img: 'img/CARTA17.webp', weight: 10, points: 20 },
+            { id: 1, img: 'img/CARTA1.webp', weight: 6, points: 10 },
+            { id: 23, img: 'img/CARTA2.webp', weight: 8, points: 10 },
+            { id: 12, img: 'img/CARTA3.webp', weight: 8, points: 10},
+            { id: 8, img: 'img/CARTA4.webp', weight: 5, points: 10 },
+            { id: 25, img: 'img/CARTA5.webp', weight: 5, points: 10 },
+            { id: 5, img: 'img/CARTA6.webp', weight: 5, points: 10 },
+            { id: 3, img: 'img/CARTA7.webp', weight: 5, points: 10 },
+            { id: 4, img: 'img/CARTA8.webp', weight: 5, points: 10 },
+            { id: 10, img: 'img/CARTA9.webp', weight: 10, points: 10 },
+            { id: 2, img: 'img/CARTA10.webp', weight: 10, points: 10 },
+            { id: 7, img: 'img/CARTA11.webp', weight: 10, points: 10 },
+            { id: 6, img: 'img/CARTA12.webp', weight: 10, points: 10 },
+            { id: 31, img: 'img/CARTA13.webp', weight: 6, points: 10 },
+            { id: 11, img: 'img/CARTA14.webp', weight: 10, points: 10 },
+            { id: 21, img: 'img/CARTA15.webp', weight: 5, points: 10 },
+            { id: 22, img: 'img/CARTA16.webp', weight: 10, points: 10 },
+            { id: 24, img: 'img/CARTA17.webp', weight: 10, points: 10 },
+            { id: 7, img: 'img/CARTA18.webp', weight: 10, points: 10 },
+            { id: 32, img: 'img/CARTA19.webp', weight: 10, points: 10 },
+            { id: 9, img: 'img/CARTA20.webp', weight: 6, points: 10 },
+            { id: 29, img: 'img/CARTA21.webp', weight: 10, points: 50 },
+            { id: 13, img: 'img/CARTA22.webp', weight: 5, points: 50 },
+            { id: 30, img: 'img/CARTA23.webp', weight: 10, points: 50 },
+            { id: 15, img: 'img/CARTA24.webp', weight: 10, points: 50 },
+            { id: 16, img: 'img/CARTA25.webp', weight: 10, points: 30 },
+            { id: 17, img: 'img/CARTA26.webp', weight: 10, points: 30 },
+            { id: 18, img: 'img/CARTA27.webp', weight: 6, points: 30 },
+            { id: 19, img: 'img/CARTA28.webp', weight: 10, points: 30 },
+            { id: 20, img: 'img/CARTA29.webp', weight: 5, points: 50 },
+            { id: 25, img: 'img/CARTA30.webp', weight: 10, points: 50 },
+            { id: 26, img: 'img/CARTA31.webp', weight: 10, points: 50 },
+             { id: 27, img: 'img/CARTA32.webp', weight: 5, points: 50 },
+            { id: 28, img: 'img/CARTA33.webp', weight: 10, points: 100 },
+        
             { id: 14, img: 'img/azar.webp', isBad: true, weight: 6, points: 0},
             { id: 43, img: 'img/bonus1.webp', isBonus: true, weight: 6, points: 500 },
             { id: 44, img: 'img/bonus2.webp', isBonus: true, weight: 5, points: 250 },
@@ -260,6 +276,27 @@
         let startTime = 0, maxUnlockedLimit = 0, isAllIn = false, lastStableCredits = 100;
         const spinCount = 35;
         let spinTimeout, spinInterval, lastResults = [];
+
+        // FUNÇÃO DE ANIMAÇÃO DE CONTADOR (OPÇÃO 2)
+        function animateValue(objId, start, end, duration) {
+            const obj = document.getElementById(objId);
+            const range = end - start;
+            const minTimer = 50;
+            let stepTime = Math.abs(Math.floor(duration / Math.max(Math.abs(range), 1)));
+            stepTime = Math.max(stepTime, minTimer);
+            const startTimeAnimate = new Date().getTime();
+            const endTimeAnimate = startTimeAnimate + duration;
+            let timer;
+
+            function run() {
+                const now = new Date().getTime();
+                const remaining = Math.max((endTimeAnimate - now) / duration, 0);
+                const value = Math.floor(end - (remaining * range));
+                obj.innerText = value;
+                if (value == end) { clearInterval(timer); }
+            }
+            timer = setInterval(run, stepTime);
+        }
 
         function createParticles() {
             const machine = document.getElementById('machine');
@@ -280,7 +317,9 @@
 
         function recarregar() {
             window.open("https://mirodobutanta.com/", "_blank");
+            const oldCredits = credits;
             credits = Math.max(200, Math.floor(lastStableCredits / 2)); 
+            animateValue("credits", oldCredits, credits, 800);
             updateDisplays();
             document.getElementById('loseOverlay').style.display = 'none';
         }
@@ -292,7 +331,6 @@
         }
 
         function updateDisplays() {
-            document.getElementById('credits').innerText = Math.floor(credits);
             if(winLimit > 0) {
                 document.getElementById('metaDisplay').style.display = 'block';
                 document.getElementById('goalPoints').innerText = winLimit;
@@ -340,6 +378,12 @@
             document.getElementById('spinBtn').disabled = true;
             const lastBetUsed = betAmount; 
             lastStableCredits = credits;
+
+            // Animação de desconto da aposta
+            const startCredits = credits;
+            credits -= betAmount;
+            animateValue("credits", startCredits, credits, 400);
+
             document.getElementById('machine').classList.add('machine-spinning');
             document.querySelectorAll('.card').forEach(c => c.classList.remove('card-winner', 'card-loser'));
             spinInterval = setInterval(() => sound.spin(), 150);
@@ -368,17 +412,18 @@
             let win = 0;
             let comboWin = false;
             let multiplier = (usedBet == 100) ? 2 : (usedBet == 200 ? 3 : 1);
-            credits -= usedBet;
+            const startCreditsAfterBet = credits;
 
-            if (badCount >= 2) {
-                sound.lose(); showPointsAnim(lastStableCredits, false); credits = 0;
-                results.forEach((c, idx) => { if(c.isBad) document.getElementById(`strip${idx+1}`).lastElementChild.classList.add('card-loser'); });
-                document.getElementById('autoToggle').checked = false;
-            } else if (badCount === 1) {
+            if (badCount > 0) {
                 sound.lose();
-                let penalty = (usedBet * 2) * multiplier;
-                showPointsAnim(penalty, false); 
-                credits -= (usedBet * multiplier); 
+                let percentualPerda = badCount * 0.20;
+                let valorPerdido = Math.floor(lastStableCredits * percentualPerda);
+                if (valorPerdido < usedBet) valorPerdido = usedBet;
+                showPointsAnim(valorPerdido, false);
+                credits = Math.max(0, lastStableCredits - valorPerdido);
+                animateValue("credits", startCreditsAfterBet, credits, 800);
+                results.forEach((c, idx) => { if(c.isBad) document.getElementById(`strip${idx+1}`).lastElementChild.classList.add('card-loser'); });
+                if (credits <= 0) { document.getElementById('autoToggle').checked = false; }
             } else {
                 if (uniqueIds.length === 1) { 
                     comboWin = true;
@@ -390,7 +435,9 @@
                 if (!comboWin) win = isAllIn ? 0 : results.reduce((sum, card) => sum + card.points, 0) * multiplier;
 
                 if (win > 0) {
-                    sound.win(); showPointsAnim(win, true); credits += win;
+                    sound.win(); showPointsAnim(win, true); 
+                    credits += win;
+                    animateValue("credits", startCreditsAfterBet, credits, 800);
                     createParticles();
                     results.forEach((c, idx) => document.getElementById(`strip${idx+1}`).lastElementChild.classList.add('card-winner'));
                 } else {
