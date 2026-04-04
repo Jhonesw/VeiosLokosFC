@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OLHO NO LANCE! | Veios Lokos FC</title>
+    <style>
+        :root {
+            --lance-blue: #003366;
+            --lance-red: #e60000;
+            --dark-grey: #1a1a1a;
+            --light-grey: #f4f4f4;
+            --white: #ffffff;
+            --text-color: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: var(--light-grey);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        header {
+            background-color: var(--white);
+            border-bottom: 5px solid var(--lance-red);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--lance-blue);
+            text-decoration: none;
+            font-style: italic;
+        }
+
+        .logo span { color: var(--lance-red); }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--lance-blue);
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        .main-container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* Hero Section Corrigida */
+        .hero-section {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .featured-big {
+            position: relative;
+            min-height: 450px; /* Altura ideal para Desktop */
+            background: #000;
+            border-radius: 8px;
+            overflow: hidden;
+            color: white;
+            display: flex;
+            align-items: flex-end;
+        }
+
+        .featured-big img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0.7;
+            z-index: 1;
+        }
+
+        .hero-text {
+            position: relative;
+            padding: 40px 25px 25px;
+            background: linear-gradient(transparent, rgba(0,0,0,0.9) 80%);
+            width: 100%;
+            z-index: 2;
+        }
+
+        .category-tag {
+            background-color: var(--lance-red);
+            padding: 4px 10px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            display: inline-block;
+            color: white;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+
+        /* Cards */
+        .news-grid, .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            display: flex;
+            flex-direction: column;
+            transition: 0.3s;
+        }
+
+        .card:hover { transform: translateY(-5px); }
+
+        .media-box {
+            width: 100%;
+            height: 220px;
+            background: #000;
+        }
+
+        .media-box img, .media-box video {
+            width: 100%; height: 100%;
+            object-fit: cover;
+        }
+
+        .card-content { padding: 20px; flex-grow: 1; }
+        .card-content h3 { font-size: 1.2rem; margin-bottom: 10px; color: var(--lance-blue); }
+        .card-content p { font-size: 0.95rem; color: #555; text-align: justify; }
+
+        .section-title {
+            margin: 40px 0 20px;
+            border-left: 6px solid var(--lance-red);
+            padding-left: 15px;
+            text-transform: uppercase;
+            color: var(--lance-blue);
+        }
+
+        footer {
+            background: var(--dark-grey);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        /* Responsividade Mobile - Ajuste do Destaque */
+        @media (max-width: 992px) { 
+            .hero-section { grid-template-columns: 1fr; } 
+        }
+
+        @media (max-width: 768px) {
+            .header-container { flex-direction: column; }
+            nav ul { margin-top: 15px; }
+            
+            .featured-big {
+                min-height: 350px; /* Reduz um pouco no mobile para não ocupar a tela toda, mas mantém a proporção */
+            }
+
+            .hero-text h1 {
+                font-size: 1.5rem; /* Título um pouco menor para caber em telas pequenas */
+                line-height: 1.2;
+            }
+
+            .hero-text p {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">LOKONEW'S<span>!</span></a>
+            <a style="font-size: 10PX;" href="#" class="logo">1ºEDIÇÃO 04/04/2026<span>!</span></a>
+            <nav>
+                <ul>
+                    <li><a href="#">Início</a></li>
+                    <li><a href="#">Galeria</a></li>
+                    <li><a href="#">L Points</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-container">
+        <section class="hero-section">
+            <div class="featured-big">
+                <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1200&q=80" alt="Destaque">
+                <div class="hero-text">
+                    <span class="category-tag">HEGEMONIA</span>
+                    <h1>VEIOS LOKOS DERRUBA O GIGANTE FUNÇÃO FC, ATUAL CAMPEÃO DA COPA SANTA MARIA.</h1>
+                    <p>Em uma exibição de gala, o Veios Lokos FC superou o atual campeão. Reninha (09) e Arcanjo (11) foram os carrascos da vez, garantindo a 5ª vitória seguida de um time que desconhece a palavra derrota!</p>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="media-box">
+                    <video controls src="../GALERIA/videos/F1.mp4" poster="https://images.unsplash.com/photo-1547449693-0104e7681335?w=400"></video>
+                </div>
+                <div class="card-content">
+                    <span class="category-tag" style="background: var(--lance-blue);">TALENTO NATO</span>
+                    <h3>DAVI: RAÇA, SANGUE E CORAÇÃO</h3>
+                    <p>O jovem prodígio Davi não precisou de tempo para adaptação. Com apenas 6 jogos, ele já joga como um veterano. Mesmo com a expulsão no último duelo, sua entrega total deixou claro: ele não foge da dividida e é peça vital na engrenagem campeã.</p>
+                </div>
+            </div>
+        </section>
+
+        <h2 class="section-title">Plantão de Notícias</h2>
+        <div class="news-grid">
+            
+            <article class="card">
+                <div class="media-box">
+                    <img src="../GALERIA/img/f1.jpeg" alt="Elenco">
+                </div>
+                <div class="card-content">
+                    <span class="category-tag">INVENCIBILIDADE</span>
+                    <h3>A Máquina Engrenou: 5 Jogos de Puro Domínio</h3>
+                    <p>A sinfonia começou nos pés de Reninha após passe magistral de Guigui. Depois, Arcanjo selou o destino com um chute de pura categoria. Com a segurança de Erik e Dan no miolo, as alas voando com Yago e Gabriel, e o Capitão Romário regendo a orquestra, o Veios Lokos é o time a ser batido.</p>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="media-box">
+                    <img src="../JORNAL/goleadores.webp" alt="Ranking">
+                </div>
+                <div class="card-content">
+                    <span class="category-tag">ARTILHARIA PESADA</span>
+                    <h3>Caça ao Topo: Reninha Pede Passagem</h3>
+                    <p>O homem está imparável! RENINHA (9) escalou o ranking e agora ocupa a vice-liderança com 4 gols, deixando Jho Jho para trás após duas atuações dignas de aplausos. Na cola deles, ARCANJO mantém o faro apurado e consolida o 3º lugar na briga pela chuteira de ouro.</p>
+                </div>
+            </article>
+  
+            <article class="card">
+                <div class="media-box">
+                    <img src="../JORNAL/ASSISTENCIA.webp" alt="Defesa">
+                </div>
+                <div class="card-content">
+                    <span class="category-tag">GARÇONS DE ELITE</span>
+                    <h3>O Retorno do Rei das Assistências</h3>
+                    <p>Mesmo ausente há 5 jogos, LUIZ ainda dita o ritmo no topo do ranking. Mas o sinal de alerta ligou: Daniel, Torto e Jho Jho estão famintos, ambos com 2 passes decisivos. A pergunta que não quer calar: o retorno do "Mestre Luiz" na próxima semana garantirá o trono ou teremos nova liderança?</p>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="media-box">
+                    <img src="../JORNAL/defesa.webp" alt="Defesa">
+                </div>
+                <div class="card-content">
+                    <span class="category-tag">PAREDÕES</span>
+                    <h3>Quem Passa Pela Muralha?</h3>
+                    <p>Nando dita as regras com 15 defesas milagrosas, mas a sombra de Steferson (14) e Moisés (13) é gigante. Moisés, inclusive, foi coroado o Craque do Jogo com 5 votos. Com Erik e Pataxó fechando o cadeado, o gol do Veios Lokos tornou-se território proibido para os adversários.</p>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="media-box">
+                    <img src="../INICIO/main/CRAQUE6.webp" alt="Defesa">
+                </div>
+                <div class="card-content">
+                    <span class="category-tag">NOITE DE GALA</span>
+                    <h3>OURO PARA MOISÉS, PRATA PARA GUIGUI</h3>
+                    <p>Moisés é o nome da fera! O dono do Card de Prata agora carimbou seu primeiro "Craque do Ano" em uma atuação impecável. Ao seu lado, Guigui 7 deu uma aula de futebol: marcou, criou e comandou o meio-campo. Por um detalhe, Guigui não garantiu o lendário Card por prêmios consecutivos. Que fase!</p>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="media-box">
+                    <img src="../prop6.webp" alt="Defesa">
+                </div>
+                <div class="card-content">
+                    <span class="category-tag">HONRA E GRATIDÃO</span>
+                    <h3>MIRO DO BUTANTÃ: O 12º JOGADOR</h3>
+                    <p>No futebol raiz, as grandes conquistas começam fora das quatro linhas. O Veios Lokos FC presta sua maior homenagem ao Miro do Butantã. Um parceiro de palavra e coração que entende que o esporte é feito de união. Obrigado por acreditar no nosso sonho!</p>
+                </div>
+            </article>
+        </div>
+
+        <h2 class="section-title">MOMENTOS MÁGICOS (VÍDEOS)</h2>
+        <section class="video-grid">
+            <div class="card">
+                <div class="media-box"><video controls src="../GALERIA/videos/F2.mp4"></video></div>
+            </div>
+            <div class="card">
+                <div class="media-box"><video controls src="../GALERIA/videos/F3.mp4"></video></div>
+            </div>
+            <div class="card">
+                <div class="media-box"><video controls src="../GALERIA/videos/F4.mp4"></video></div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 LL NEW'S / Veios Lokos FC - Onde a paixão pelo futebol amador vive.</p>
+    </footer>
+
+</body>
+</html>
