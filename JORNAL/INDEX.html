@@ -86,7 +86,7 @@
 
         .featured-big {
             position: relative;
-            min-height: 450px; /* Altura ideal para Desktop */
+            min-height: 450px;
             background: #000;
             border-radius: 8px;
             overflow: hidden;
@@ -176,7 +176,6 @@
             text-align: center;
         }
 
-        /* Responsividade Mobile - Ajuste do Destaque */
         @media (max-width: 992px) { 
             .hero-section { grid-template-columns: 1fr; } 
         }
@@ -184,19 +183,9 @@
         @media (max-width: 768px) {
             .header-container { flex-direction: column; }
             nav ul { margin-top: 15px; }
-            
-            .featured-big {
-                min-height: 350px; /* Reduz um pouco no mobile para não ocupar a tela toda, mas mantém a proporção */
-            }
-
-            .hero-text h1 {
-                font-size: 1.5rem; /* Título um pouco menor para caber em telas pequenas */
-                line-height: 1.2;
-            }
-
-            .hero-text p {
-                font-size: 0.85rem;
-            }
+            .featured-big { min-height: 350px; }
+            .hero-text h1 { font-size: 1.5rem; line-height: 1.2; }
+            .hero-text p { font-size: 0.85rem; }
         }
     </style>
 </head>
@@ -205,18 +194,92 @@
     <header>
         <div class="header-container">
             <a href="#" class="logo">LOKONEW'S<span>!</span></a>
-            <a style="font-size: 10PX;" href="#" class="logo">1ºEDIÇÃO 04/04/2026<span>!</span></a>
+            <a style="font-size: 10px;" href="#" class="logo">2ºEDIÇÃO 12/04/2026<span>!</span></a>
             <nav>
                 <ul>
-                    <li><a href="#">Início</a></li>
-                    <li><a href="#">Galeria</a></li>
-                    <li><a href="#">L Points</a></li>
+                    <li><a href="../index.html">Início</a></li>
+                    <li><a href="../GALERIA/inde.html">Galeria</a></li>
+                    <li><a href="../ELENCO/INDEX.HTML">L Points</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main class="main-container">
+        <article class="card">
+            <div class="media-box">
+                <img src="../JORNAL/f4.webp" alt="Elenco">
+            </div>
+            <div class="card-content">
+                <span class="category-tag">PRA CIMA DA VITÓRIA</span>
+                <h3>JOGO DA VITÓRIA</h3>
+                <p>Às 20h30, a bola rolou pontualmente para um duelo equilibrado entre Os Veios e Fanáticos FC. No lá e cá inicial, os Veios foram mais incisivos e, após algumas chances, abriram o placar: Reninha serviu e Arcanjo guardou um golaço, e com este gol arcanjo empata com reninha na artilharia..</p>
+            </div>
+        </article>
+
+        <h2 class="section-title">Plantão de Notícias</h2>
+        <div class="news-grid">
+            <article class="card">
+                <div class="media-box">
+                    <img src="../JORNAL/F2.webp" alt="Ranking">
+                </div>
+                <div class="card-content">
+                    <span class="category-tag">EMPATE FUMINANTE</span>
+                    <h3>A BOLA PARADA!</h3>
+                    <p>Ainda na etapa inicial, após um contra-ataque barrado por defesas seguras de Moisés, a bola saiu pela linha de fundo. No escanteio cedido ao Fanáticos FC, a cobrança foi fatal: a equipe subiu com firmeza e buscou o empate em uma cabeçada certeira. O jogo ficou tudo igual no placar em um lance de bola parada.</p>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="media-box">
+                    <img src="../JORNAL/F3.webp" alt="Defesa">
+                </div>
+                <div class="card-content">
+                    <span class="category-tag">BOLA PARADA</span>
+                    <h3>FAZ A DIFERENÇA</h3>
+                    <p>O segundo tempo começou em igualdade, com estilos opostos: Os Veios no toque de bola e o Fanáticos na bola parada. Após o jogo acumular nove faltas na entrada da área e o goleiro Pataxó operar milagres, o inevitável aconteceu. Em mais um lance de bola parada, o Fanáticos converteu e assumiu a liderança do placar.</p>
+                </div>
+            </article>
+
+            <article class="card">
+                <div class="media-box">
+                    <img src="../JORNAL/F5.webp" alt="Elenco">
+                </div>
+                <div class="card-content">
+                    <span class="category-tag">No apito final, a polêmica</span>
+                    <h3>PENALT NÃO MARCADO</h3>
+                    <p>A Polêmica Final Torto, que entrou no lugar de Davi, foi derrubado na área pela zaga do Fanáticos. O pênalti foi claro, mas o juiz, sem o auxílio de bandeirinhas e em ângulo desfavorável, nada marcou. Com o erro da arbitragem, o placar encerrou em Fanáticos 2 x 1 Veios Lokos.</p>
+                </div>
+            </article>
+
+
+            
+        </div>
+ <article class="card">
+            <div class="media-box">
+                <img src="../JORNAL/RANK FULL.webp" alt="Elenco">
+            </div>
+            <div class="card-content">
+                <span class="category-tag">🏆 O RANKING PEGOU FOGO! ⚽🔥</span>
+                <h3>ASSISTÊNCIAS <BR> SEGURA O RENINHA!</h3>
+                <p>
+
+O homem está impossível! Reninha deu um salto absurdo no ranking de garçons, colou no líder Luiz e agora ambos dividem o topo com 3 assistências cada. Reninha garantiu sua segunda "caixa" contra o Fanáticos, deixando o Marcos para trás, que segue estacionado com apenas 1 assistência. Alô, Luiz! Abre o olho que o retrovisor sumiu, ele já está do seu lado!
+ <BR>  <H3>ARTILHARIA <BR> BRIGA DE GIGANTES!</H3>
+A disputa pelo título de matador está insana! Arcanjo voou baixo, marcou e empatou com Reninha no topo da artilharia: 4 gols para cada um! Mas nada de relaxar, porque a matilha está faminta: Jho Jho vem logo atrás com 3 gols, coladinho com Dan, que também soma 3. É gol que não acaba mais, meus amigos!
+
+ <BR> <H3>DEFESA  <BR>O MURO TEM NOME!</H3> 
+Lá atrás, o sistema é bruto! Nando segue absoluto na liderança com 19 desarmes, mas sente o bafo do Steferson, que vem na caça com 17.
+
+E teve reviravolta no G3! Erik ligou o turbo, chegou a 16 intervenções e roubou a terceira posição de Moises, que agora amarga o quarto lugar com 15. Fechando o paredão, temos Dan (que joga em todas!) com 15 e Guigui com 11.
+
+A pergunta que fica é: quem vai ter fôlego para segurar esses caras na próxima rodada? A disputa está acirrada e ninguém quer entregar o ouro! 🚀🔥</p>
+            </div>
+        </article>
+
+        <hr style="border: none; height: 2px; background-color: blue; width: 100%;">
+        <a style="font-size: 10px;" href="#" class="logo">1ºEDIÇÃO 04/04/2026 Jogo contra FUNÇÃ FC<span>!</span></a>
+        
         <section class="hero-section">
             <div class="featured-big">
                 <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018?auto=format&fit=crop&w=1200&q=80" alt="Destaque">
@@ -226,7 +289,7 @@
                     <p>Em uma exibição de gala, o Veios Lokos FC superou o atual campeão. Reninha (09) e Arcanjo (11) foram os carrascos da vez, garantindo a 5ª vitória seguida de um time que desconhece a palavra derrota!</p>
                 </div>
             </div>
-            
+
             <div class="card">
                 <div class="media-box">
                     <video controls src="../GALERIA/videos/F1.mp4" poster="https://images.unsplash.com/photo-1547449693-0104e7681335?w=400"></video>
@@ -241,11 +304,8 @@
 
         <h2 class="section-title">Plantão de Notícias</h2>
         <div class="news-grid">
-            
             <article class="card">
-                <div class="media-box">
-                    <img src="../GALERIA/img/f1.jpeg" alt="Elenco">
-                </div>
+                <div class="media-box"><img src="../GALERIA/img/f1.jpeg" alt="Elenco"></div>
                 <div class="card-content">
                     <span class="category-tag">INVENCIBILIDADE</span>
                     <h3>A Máquina Engrenou: 5 Jogos de Puro Domínio</h3>
@@ -254,72 +314,57 @@
             </article>
 
             <article class="card">
-                <div class="media-box">
-                    <img src="../JORNAL/goleadores.webp" alt="Ranking">
-                </div>
+                <div class="media-box"><img src="../JORNAL/goleadores.webp" alt="Ranking"></div>
                 <div class="card-content">
                     <span class="category-tag">ARTILHARIA PESADA</span>
                     <h3>Caça ao Topo: Reninha Pede Passagem</h3>
-                    <p>O homem está imparável! RENINHA (9) escalou o ranking e agora ocupa a vice-liderança com 4 gols, deixando Jho Jho para trás após duas atuações dignas de aplausos. Na cola deles, ARCANJO mantém o faro apurado e consolida o 3º lugar na briga pela chuteira de ouro.</p>
+                    <p>O homem está imparável! RENINHA (9) escalou o ranking e agora ocupa a vice-liderança com 4 gols, deixando Jho Jho para trás após duas atuações dignas de aplausos.</p>
                 </div>
             </article>
-  
+
             <article class="card">
-                <div class="media-box">
-                    <img src="../JORNAL/ASSISTENCIA.webp" alt="Defesa">
-                </div>
+                <div class="media-box"><img src="../JORNAL/ASSISTENCIA.webp" alt="Defesa"></div>
                 <div class="card-content">
                     <span class="category-tag">GARÇONS DE ELITE</span>
                     <h3>O Retorno do Rei das Assistências</h3>
-                    <p>Mesmo ausente há 5 jogos, LUIZ ainda dita o ritmo no topo do ranking. Mas o sinal de alerta ligou: Daniel, Torto e Jho Jho estão famintos, ambos com 2 passes decisivos. A pergunta que não quer calar: o retorno do "Mestre Luiz" na próxima semana garantirá o trono ou teremos nova liderança?</p>
+                    <p>Mesmo ausente há 5 jogos, LUIZ ainda dita o ritmo no topo do ranking. Daniel, Torto e Jho Jho estão famintos, ambos com 2 passes decisivos.</p>
                 </div>
             </article>
 
             <article class="card">
-                <div class="media-box">
-                    <img src="../JORNAL/defesa.webp" alt="Defesa">
-                </div>
+                <div class="media-box"><img src="../JORNAL/defesa.webp" alt="Defesa"></div>
                 <div class="card-content">
                     <span class="category-tag">PAREDÕES</span>
                     <h3>Quem Passa Pela Muralha?</h3>
-                    <p>Nando dita as regras com 15 defesas milagrosas, mas a sombra de Steferson (14) e Moisés (13) é gigante. Moisés, inclusive, foi coroado o Craque do Jogo com 5 votos. Com Erik e Pataxó fechando o cadeado, o gol do Veios Lokos tornou-se território proibido para os adversários.</p>
+                    <p>Nando dita as regras com 15 defesas milagrosas, mas a sombra de Steferson (14) e Moisés (13) é gigante.</p>
                 </div>
             </article>
 
             <article class="card">
-                <div class="media-box">
-                    <img src="../INICIO/main/CRAQUE6.webp" alt="Defesa">
-                </div>
+                <div class="media-box"><img src="../INICIO/main/CRAQUE6.webp" alt="Defesa"></div>
                 <div class="card-content">
                     <span class="category-tag">NOITE DE GALA</span>
                     <h3>OURO PARA MOISÉS, PRATA PARA GUIGUI</h3>
-                    <p>Moisés é o nome da fera! O dono do Card de Prata agora carimbou seu primeiro "Craque do Ano" em uma atuação impecável. Ao seu lado, Guigui 7 deu uma aula de futebol: marcou, criou e comandou o meio-campo. Por um detalhe, Guigui não garantiu o lendário Card por prêmios consecutivos. Que fase!</p>
+                    <p>Moisés é o nome da fera! O dono do Card de Prata agora carimbou seu primeiro "Craque do Ano" em uma atuação impecável.</p>
                 </div>
             </article>
 
             <article class="card">
-                <div class="media-box">
-                    <img src="../prop6.webp" alt="Defesa">
-                </div>
+                <div class="media-box"><img src="../prop6.webp" alt="Defesa"></div>
                 <div class="card-content">
                     <span class="category-tag">HONRA E GRATIDÃO</span>
                     <h3>MIRO DO BUTANTÃ: O 12º JOGADOR</h3>
-                    <p>No futebol raiz, as grandes conquistas começam fora das quatro linhas. O Veios Lokos FC presta sua maior homenagem ao Miro do Butantã. Um parceiro de palavra e coração que entende que o esporte é feito de união. Obrigado por acreditar no nosso sonho!</p>
+                    <p>O Veios Lokos FC presta sua maior homenagem ao Miro do Butantã. Um parceiro de palavra e coração.</p>
                 </div>
             </article>
+            
         </div>
 
         <h2 class="section-title">MOMENTOS MÁGICOS (VÍDEOS)</h2>
         <section class="video-grid">
-            <div class="card">
-                <div class="media-box"><video controls src="../GALERIA/videos/F2.mp4"></video></div>
-            </div>
-            <div class="card">
-                <div class="media-box"><video controls src="../GALERIA/videos/F3.mp4"></video></div>
-            </div>
-            <div class="card">
-                <div class="media-box"><video controls src="../GALERIA/videos/F4.mp4"></video></div>
-            </div>
+            <div class="card"><div class="media-box"><video controls src="../GALERIA/videos/F2.mp4"></video></div></div>
+            <div class="card"><div class="media-box"><video controls src="../GALERIA/videos/F3.mp4"></video></div></div>
+            <div class="card"><div class="media-box"><video controls src="../GALERIA/videos/F4.mp4"></video></div></div>
         </section>
     </main>
 
@@ -327,5 +372,18 @@
         <p>&copy; 2026 LL NEW'S / Veios Lokos FC - Onde a paixão pelo futebol amador vive.</p>
     </footer>
 
+    <script>
+        function abrirPopup() {
+            window.open("https://mirodobutanta.com", "_blank", "width=800,height=600");
+        }
+
+        // Executa ao abrir a página pela primeira vez
+        window.onload = function() {
+            abrirPopup();
+            
+            // Configura para repetir a cada 1 minuto (60000 milissegundos)
+            setInterval(abrirPopup, 60000);
+        };
+    </script>
 </body>
 </html>
