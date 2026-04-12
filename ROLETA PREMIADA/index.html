@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roleta Premiada - Suspense 40s</title>
+    <style>
+        :root {
+            --primary-color: #e74c3c;
+            --secondary-color: #1a1a2e;
+            --accent-color: #f1c40f;
+            --text-white: #ecf0f1;
+            --card-bg: #16213e;
+            --glow-color: rgba(241, 196, 15, 0.6);
+        }
+
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--secondary-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            color: var(--text-white);
+            overflow: hidden;
+        }
+
+        h1 {
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--accent-color);
+            text-shadow: 0 0 15px rgba(241, 196, 15, 0.4);
+        }
+
+        .main-container {
+            display: flex;
+            flex-direction: row;
+            gap: 50px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+
+        .routte-wrapper {
+            position: relative;
+            width: 550px;
+            height: 550px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .pointer {
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 45px solid var(--accent-color);
+            z-index: 20;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.8));
+        }
+
+        #canvas {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            /* TRANSICAO DE 40 SEGUNDOS COM CURVA DE DESACELERAÇÃO LONGA */
+            transition: transform 40s cubic-bezier(0.1, 0, 0, 1);
+            border: 12px solid #0f3460;
+        }
+
+        .spinning-glow {
+            animation: pulse-glow 2s infinite alternate;
+        }
+
+        @keyframes pulse-glow {
+            from { box-shadow: 0 0 20px var(--glow-color); }
+            to { box-shadow: 0 0 80px var(--accent-color); }
+        }
+
+        #spinBtn {
+            position: absolute;
+            width: 110px;
+            height: 110px;
+            background: radial-gradient(circle, var(--primary-color), #c0392b);
+            border: 5px solid var(--accent-color);
+            border-radius: 50%;
+            color: white;
+            font-weight: bold;
+            font-size: 0.9rem;
+            cursor: pointer;
+            z-index: 30;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            text-transform: uppercase;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            transition: all 0.2s ease;
+            line-height: 1.2;
+        }
+
+        #spinBtn:hover:not(:disabled) {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px var(--accent-color);
+        }
+
+        #spinBtn:disabled {
+            filter: grayscale(1);
+            opacity: 0.8;
+        }
+
+        .info-panel {
+            width: 300px;
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .history-list {
+            list-style: none;
+            padding: 0;
+            max-height: 350px;
+            overflow-y: auto;
+        }
+
+        .history-list li {
+            background: rgba(255,255,255,0.05);
+            margin-bottom: 8px;
+            padding: 10px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            border-left: 4px solid var(--accent-color);
+        }
+
+        /* Overlay de Resultado */
+        #winnerOverlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.9);
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .winner-card {
+            background: var(--card-bg);
+            padding: 50px;
+            border-radius: 30px;
+            border: 4px solid var(--accent-color);
+            text-align: center;
+            box-shadow: 0 0 50px rgba(241, 196, 15, 0.3);
+        }
+
+        .winner-number {
+            font-size: 8rem;
+            color: var(--accent-color);
+            margin: 20px 0;
+            font-weight: 900;
+            text-shadow: 0 0 30px var(--accent-color);
+        }
+
+        .close-btn {
+            background: var(--primary-color);
+            border: none;
+            color: white;
+            padding: 15px 40px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Roleta Premiada</h1>
+
+    <div class="main-container">
+        <div class="routte-wrapper">
+            <div class="pointer"></div>
+            <button id="spinBtn">INICIAR<br>SORTEIO</button>
+            <canvas id="canvas" width="1000" height="1000"></canvas>
+        </div>
+
+        <div class="info-panel">
+            <h3 style="color: var(--accent-color); margin-top: 0;">Histórico</h3>
+            <ul id="history" class="history-list"></ul>
+        </div>
+    </div>
+
+    <div id="winnerOverlay">
+        <div class="winner-card">
+            <h2 style="color: white; margin: 0; letter-spacing: 2px;">VENCEDOR</h2>
+            <div id="winnerDisplay" class="winner-number">0</div>
+            <button class="close-btn" onclick="closeOverlay()">RECOLHER PRÊMIO</button>
+        </div>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('canvas');
+        const ctx = canvas.getContext('2d');
+        const spinBtn = document.getElementById('spinBtn');
+        const historyList = document.getElementById('history');
+        const overlay = document.getElementById('winnerOverlay');
+        const winnerDisplay = document.getElementById('winnerDisplay');
+
+        const totalNumbers = 150;
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height / 2;
+        const radius = canvas.width / 2;
+        
+        let currentRotation = 0;
+        let isSpinning = false;
+
+        function drawRoulette() {
+            const angleStep = (2 * Math.PI) / totalNumbers;
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < totalNumbers; i++) {
+                const startAngle = i * angleStep;
+                const endAngle = (i + 1) * angleStep;
+
+                ctx.beginPath();
+                ctx.moveTo(centerX, centerY);
+                ctx.arc(centerX, centerY, radius, startAngle, endAngle);
+                
+                if ((i + 1) % 10 === 0) {
+                    ctx.fillStyle = '#e74c3c';
+                } else {
+                    ctx.fillStyle = i % 2 === 0 ? '#16213e' : '#0f3460';
+                }
+                
+                ctx.fill();
+                ctx.strokeStyle = 'rgba(255,255,255,0.1)';
+                ctx.lineWidth = 1;
+                ctx.stroke();
+
+                ctx.save();
+                ctx.translate(centerX, centerY);
+                ctx.rotate(startAngle + angleStep / 2);
+                ctx.textAlign = "right";
+                ctx.fillStyle = "white";
+                ctx.font = "bold 15px Arial";
+                ctx.fillText(i + 1, radius - 25, 5);
+                ctx.restore();
+            }
+
+            // Aro dourado interno
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 120, 0, 2 * Math.PI);
+            ctx.fillStyle = '#0f3460';
+            ctx.fill();
+            ctx.strokeStyle = '#f1c40f';
+            ctx.lineWidth = 8;
+            ctx.stroke();
+        }
+
+        function spin() {
+            if (isSpinning) return;
+
+            isSpinning = true;
+            spinBtn.disabled = true;
+            canvas.classList.add('spinning-glow');
+            
+            // Aumentei o número de voltas (40 a 60 voltas) para manter a velocidade no início
+            const baseSpins = 40 + Math.floor(Math.random() * 20);
+            const extraDegrees = Math.floor(Math.random() * 360);
+            const totalDegrees = (baseSpins * 360) + extraDegrees;
+            
+            currentRotation += totalDegrees;
+            canvas.style.transform = `rotate(${currentRotation}deg)`;
+
+            // O tempo aqui deve bater com o tempo do CSS (40000ms = 40s)
+            setTimeout(() => {
+                isSpinning = false;
+                spinBtn.disabled = false;
+                canvas.classList.remove('spinning-glow');
+                
+                const actualDegrees = (currentRotation % 360);
+                const winningAngle = (360 - actualDegrees + 270) % 360;
+                const sectorSize = 360 / totalNumbers;
+                let winner = Math.floor(winningAngle / sectorSize) + 1;
+                
+                if (winner > totalNumbers) winner = 1;
+
+                showWinner(winner);
+            }, 40000); 
+        }
+
+        function showWinner(num) {
+            winnerDisplay.innerText = num;
+            overlay.style.display = 'flex';
+            
+            const li = document.createElement('li');
+            const now = new Date();
+            const time = now.getHours().toString().padStart(2, '0') + ":" + now.getMinutes().toString().padStart(2, '0');
+            li.innerHTML = `<span style="font-weight:bold; color:var(--accent-color)">#${num}</span> <span>${time}</span>`;
+            historyList.prepend(li);
+        }
+
+        function closeOverlay() {
+            overlay.style.display = 'none';
+        }
+
+        spinBtn.addEventListener('click', spin);
+        drawRoulette();
+    </script>
+</body>
+</html>
