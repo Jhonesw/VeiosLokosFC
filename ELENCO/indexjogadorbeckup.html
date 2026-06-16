@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-HRQLM9BERL"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-HRQLM9BERL');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOKOS POINT'S</title>
+    
+    <style>
+        /* ==========================================
+           ESTILOS GERAIS
+           ========================================== */
+        body {
+            background-color: #1a1a1a;
+            color: white;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+        }
+
+        /* Container principal */
+        main {
+            display: flex;
+            flex-direction: column; 
+            padding: 20px;
+        }
+
+        .titulo-posicao {
+            width: 100%;
+            border-bottom: 2px solid gold;
+            margin-top: 40px;
+            padding-left: 10px;
+            box-sizing: border-box;
+        }
+
+        /* Container do Elenco - Responsivo com Scroll Lateral (Carrossel) no Mobile */
+        .container-elenco {
+            display: flex;
+            flex-wrap: nowrap; /* Garante que fiquem lado a lado no mobile */
+            gap: 20px;
+            justify-content: flex-start;
+            overflow-x: auto; /* Ativa o scroll lateral se faltar espaço */
+            padding: 20px 10px;
+            scroll-snap-type: x mandatory; /* Efeito de trava de carrossel fluído */
+            -webkit-overflow-scrolling: touch;
+        }
+
+        /* Oculta a barra de scroll padrão em navegadores modernos para um visual mais limpo */
+        .container-elenco::-webkit-scrollbar {
+            height: 6px;
+        }
+        .container-elenco::-webkit-scrollbar-thumb {
+            background: gold;
+            border-radius: 10px;
+        }
+        .container-elenco::-webkit-scrollbar-track {
+            background: #2a2a2a;
+        }
+
+        /* Container do Card Principal */
+        .card-jogador {
+            width: 300px;  
+            height: 400px; 
+            position: relative; 
+            overflow: hidden; 
+            flex-shrink: 0;   
+            scroll-snap-align: center; /* Centraliza o card ao arrastar no mobile */
+            transform-origin: center center;
+            transition: transform 0.2s ease;
+        }
+
+        /* Elementos posicionados dentro do card */
+        #votos {
+            position: relative;
+            font-size: 20px;
+            top: -20px;
+            left: 96px;
+        }
+        
+        #votos1 {
+            position: relative;
+            top: -20px;
+            left: 25px;
+            font-size: 20px;
+        }
+
+        .img-card {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; 
+        }
+
+        .score-total {
+            position: absolute;
+            top: -25px;      
+            left: 45px;     
+            font-size: 55px;
+            font-weight: bold;
+            z-index: 2;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            pointer-events: none;
+        }
+
+        .stats-grid {
+            width: 175px;     
+            position: absolute; 
+            display: flex;
+            top: 249px;       
+            left: 30px;       
+            justify-content: space-between;
+            font-size: 24px;
+            pointer-events: none;
+        }
+
+        .p {
+            margin: 0;
+            line-height: 48px; 
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.9);
+            margin-top: -20px;
+        }
+
+        .coluna-pontos {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 50px; 
+        }
+
+        /* ==========================================
+           MEDIA QUERIES (RESPONSIVIDADE)
+           ========================================== */
+        
+        /* Desktop e Telas Grandes: Desativa o carrossel e quebra em várias linhas organizado */
+        @media (min-width: 768px) {
+            .container-elenco {
+                flex-wrap: wrap;
+                justify-content: center;
+                overflow-x: visible;
+                scroll-snap-type: none;
+            }
+        }
+
+        /* Ajuste de escala para telas mobile menores (Evita que o texto quebre ou saia do card) */
+        @media (max-width: 480px) {
+            .card-jogador {
+                transform: scale(0.85); /* Reduz proporcionalmente mantendo os textos fixos nos locais certos */
+                margin: 0 -15px; /* Compensa as bordas vazias geradas pelo scale */
+            }
+        }
+
+        @media (max-width: 360px) {
+            .card-jogador {
+                transform: scale(0.75);
+                margin: 0 -28px;
+            }
+        }
+    </style>
+</head> 
+<body>
+    <main>
+        <header style="display: flex; flex-direction: column; align-items: center; flex-wrap: wrap; justify-content: center;">
+            <div style="display: flex; justify-content: center; align-items: center;">
+                <img src="../header/veios.webp" style="width: 100px;" alt="" srcset="">
+                <img src="../header/lokos.webp" style="width: 100px;" alt="" srcset="">
+            </div>
+            <a href="../INDEX.html"> <button type="button">VOLTA INICIO</button></a>
+        </header>
+
+        <h2 class="titulo-posicao">GOLEIROS</h2>
+        <div class="container-elenco">
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/j_DOUGUINHAS.webp" alt="GOLEIRO">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">00</h3> <h3 class="p">00</h3> <h3 class="p">13</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">01</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">08</h3> <h3 class="p">06</h3> <h3 class="p">00</h3> 
+                    </div>
+                </section>
+            </div>
+
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/BENEDETTI.webp" alt="GOLEIRO">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">00</h3> <h3 class="p">01</h3> <h3 class="p">5</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">05</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">01</h3> <h3 class="p">01</h3> <h3 class="p">00</h3> </div>
+                </section>
+            </div>
+        </div>
+
+        <h2 class="titulo-posicao">ZAGUEIROS</h2>
+        <div class="container-elenco">
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/j_nANDO.webp" alt="Zagueiro">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">00</h3> <h3 class="p">01</h3> <h3 class="p">24</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">05</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">16</h3> <h3 class="p">07</h3> <h3 class="p">00</h3> </div>
+                </section>
+            </div>
+
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/J_STEFERSON.webp" alt="Zagueiro">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">00</h3> <h3 class="p">00</h3> <h3 class="p">21</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">05</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">15</h3> <h3 class="p">06</h3> <h3 class="p">00</h3> </div>
+                </section>
+            </div>
+
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/J_ERICK.webp" alt="Zagueiro">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">01</h3> <h3 class="p">01</h3> <h3 class="p">21</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">05</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">11</h3> <h3 class="p">05</h3> <h3 class="p">00</h3> </div>
+                </section>
+            </div>
+
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/DAVIZG.webp" alt="Zagueiro">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">00</h3> <h3 class="p">00</h3> <h3 class="p">03</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">00</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">04</h3> <h3 class="p">02</h3> <h3 class="p">00</h3> </div>
+                </section>
+            </div>
+        </div>
+
+        <h2 class="titulo-posicao">LATERAIS</h2>
+        <div class="container-elenco">
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/j_GABRIEL.webp" alt="LATERAL">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">02</h3> <h3 class="p">00</h3> <h3 class="p">15</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">11</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">12</h3> <h3 class="p">06</h3> <h3 class="p">00</h3> </div>
+                </section>
+            </div>
+
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/YAGO.webp" alt="LATERAIS">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">00</h3> <h3 class="p">01</h3> <h3 class="p">20</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">09</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">10</h3> <h3 class="p">07</h3> <h3 class="p">00</h3> </div>
+                </section>
+            </div>
+
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/J_LIMA.webp" alt="LATERAIS">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">00</h3> <h3 class="p">00</h3> <h3 class="p">11</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">00</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">07</h3> <h3 class="p">02</h3> <h3 class="p">01</h3> </div>
+                </section>
+            </div>
+
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/GAGOGOL.webp" alt="LATERAIS">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">00</h3> <h3 class="p">00</h3> <h3 class="p">11</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">00</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">08</h3> <h3 class="p">04</h3> <h3 class="p">00</h3> </div>
+                </section>
+            </div>
+
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/J_KAIQUE.webp" alt="LATERAIS">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">00</h3> <h3 class="p">00</h3> <h3 class="p">06</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">00</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">03</h3> <h3 class="p">00</h3> <h3 class="p">00</h3> </div>
+                </section>
+            </div>
+        </div>
+
+        <h2 class="titulo-posicao">VOLANTES</h2>
+        <div class="container-elenco">
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/j_GUIGUI.webp" alt="VOLANTES">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">01</h3> <h3 class="p">03</h3> <h3 class="p">20</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">12</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">14</h3> <h3 class="p">05</h3> <h3 class="p">00</h3> </div>
+                </section>
+            </div>
+
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/j_ROMARIO.webp" alt="VOLANTES">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">00</h3> <h3 class="p">00</h3> <h3 class="p">12</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">04</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">09</h3> <h3 class="p">05</h3> <h3 class="p">00</h3> </div>
+                </section>
+            </div>
+
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/NEGOWALLAS.webp" alt="VOLANTES">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">00</h3> <h3 class="p">00</h3> <h3 class="p">08</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">02</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">05</h3> <h3 class="p">02</h3> <h3 class="p">01</h3> </div>
+                </section>
+            </div>
+
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/J_NANZINHO.webp" alt="VOLANTES">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">00</h3> <h3 class="p">00</h3> <h3 class="p">01</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">00</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">03</h3> <h3 class="p">00</h3> <h3 class="p">01</h3> </div>
+                </section>
+            </div>
+        </div>
+
+        <h2 class="titulo-posicao">MEIAS</h2>
+        <div class="container-elenco">
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/JHO-JHO N2.webp" alt="MEIAS">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">06</h3> <h3 class="p">05</h3> <h3 class="p">04</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">23</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">16</h3> <h3 class="p">07</h3> <h3 class="p">00</h3> </div>
+                </section>
+            </div>
+             
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/J_DANIEL.webp" alt="MEIAS">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">03</h3> <h3 class="p">02</h3> <h3 class="p">22</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">05</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">16</h3> <h3 class="p">07</h3> <h3 class="p">00</h3> </div>
+                </section>
+            </div>
+
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/BARTO.webp" alt="MEIAS">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">00</h3> <h3 class="p">01</h3> <h3 class="p">17</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">07</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">06</h3> <h3 class="p">03</h3> <h3 class="p">00</h3> </div>
+                </section>
+            </div> 
+
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/LUIZ PRETO 2 CARD PRATA.png" alt="MEIAS">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">01</h3> <h3 class="p">03</h3> <h3 class="p">01</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">07</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">05</h3> <h3 class="p">03</h3> <h3 class="p">-1</h3> </div>
+                </section>
+            </div>
+                      
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/j_ELIANO.webp" alt="MEIAS">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">00</h3> <h3 class="p">00</h3> <h3 class="p">04</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">04</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">07</h3> <h3 class="p">04</h3> <h3 class="p">01</h3> </div>
+                </section>
+            </div> 
+
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/MARIO.webp" alt="MEIAS">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">00</h3> <h3 class="p">01</h3> <h3 class="p">03</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">03</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">06</h3> <h3 class="p">04</h3> <h3 class="p">01</h3> </div>
+                </section>
+            </div> 
+        </div>
+
+        <h2 class="titulo-posicao">ATACANTES</h2>
+        <div class="container-elenco">
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/J_RENINHA.webp" alt="Zagueiro">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">07</h3> <h3 class="p">02</h3> <h3 class="p">05</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">10</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">16</h3> <h3 class="p">07</h3> <h3 class="p">00</h3> </div>
+                </section>
+            </div>
+
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/J_ARCANJO.webp" alt="Zagueiro">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">04</h3> <h3 class="p">00</h3> <h3 class="p">05</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">01</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">14</h3> <h3 class="p">06</h3> <h3 class="p">00</h3> </div>
+                </section>
+            </div>
+
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/BINHO.webp" alt="MEIAS">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">00</h3> <h3 class="p">01</h3> <h3 class="p">02</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">00</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">14</h3> <h3 class="p">07</h3> <h3 class="p">00</h3> </div>
+                </section>
+            </div>
+            
+            <div class="card-jogador">
+                <img class="img-card" src="./LOKO POINT'S/DAVI.webp" alt="Zagueiro">
+                <div class="score-total"><h3>00</h3></div>
+                <section class="stats-grid">
+                    <div class="coluna-pontos">
+                        <h3 class="p">00</h3> <h3 class="p">00</h3> <h3 class="p">02</h3> 
+                        <div id="votos">
+                            <p>VOTOS</p>
+                            <h3 class="p" id="votos1">00</h3>
+                        </div>
+                    </div>
+                    <div class="coluna-pontos">
+                        <h3 class="p">13</h3> <h3 class="p">06</h3> <h3 class="p">00</h3> </div>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // ==========================================
+        // JAVASCRIPT LOGIC
+        // ==========================================
+        document.addEventListener("DOMContentLoaded", () => {
+            const cards = document.querySelectorAll('.card-jogador');
+
+            cards.forEach(card => {
+                const numeros = card.querySelectorAll('.stats-grid .p');
+                let soma = 0;
+
+                numeros.forEach(num => {
+                    // Previne somar o ID de votos da contagem de atributos principais caso necessário
+                    if(num.id !== "votos1") {
+                        soma += parseInt(num.textContent) || 0; 
+                    }
+                });
+
+                const displayTotal = card.querySelector('.score-total h3');
+                if (displayTotal) {
+                    displayTotal.textContent = soma;
+                }
+            });
+        });
+    </script>
+</body>
+</html>
