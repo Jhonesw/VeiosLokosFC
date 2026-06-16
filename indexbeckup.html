@@ -572,21 +572,16 @@
     </div>
 
     <header>
-    
-            <img style="width: 30%; max-width: 40%;" src="./INICIO/header/veios.webp" alt="Points">
-            
-     
-       
+      
+        <a href="./GALERIA/inde.html">
             <img src="./header/LOGO1.webp" id="logo-header">
-        
-        
-            <img style="width: 30%; max-width: 40%;" src="./INICIO/header/lokos.webp" alt="Points">
+        </a>
        
     </header>
 
-<h2 id="welcome-message" style="font-size: 14px; text-align: center; color: gold; text-transform: uppercase; margin-top: 15px;">
-     Seja Bem Vindo ao site Veioslokos 2026
-</h2>
+   <a href="./GALERIA/inde.html"> <h2 style="font-size: 14px; text-align: center; color: gold; text-transform: uppercase; margin-top: 15px;">
+     GALERIA 
+    </h2></a>
 
     <section class="main-banner">
         <div class="slider-full" id="sliderFull">
@@ -1633,20 +1628,6 @@
 
     <script>
         /* --- SCRIPTS DO CARROSSEL --- */
-
-        document.getElementById('startBtn').addEventListener('click', function() {
-    const nome = document.getElementById('playerName').value;
-    const welcomeElement = document.getElementById('welcome-message');
-    
-    if (nome.trim() !== "") {
-        welcomeElement.innerText = "Bem vindo ao site Veios lokos, " + nome;
-    } else {
-        welcomeElement.innerText = "Seja Bem Vindo ao site Veioslokos 2026";
-    }
-    
-    // ... restante da sua lógica de iniciar o jogo (ex: fechar o overlay, etc)
-    document.getElementById('overlay-slot').style.display = 'none';
-});
         let indexFull = 0;
         const sliderFull = document.getElementById('sliderFull');
         const totalFull = document.querySelectorAll('.slide-item-full').length;
